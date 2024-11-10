@@ -2,9 +2,62 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Index</title>
+
+    <!-- Bootstrap CSS einbinden -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>Bla Bla</h1>
+
+<!-- Beim Stylen mit CSS wurden AI Tools zu hilfe genommen -->
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Exambyte</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/login}">Login</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hauptinhalt -->
+<div class="container mt-5">
+    <div class="text-center">
+        <h1 class="display-4">Willkommen zum ProPra2 Projekt</h1>
+        <p class="lead">„Exambyte“ WS2024/2025</p>
+    </div>
+
+    <!-- Projektmitglieder -->
+    <div class="mt-4">
+        <h2>Teammitglieder</h2>
+        <p>Hier geht es zu den GitHub Accounts der Teilnehmer:</p>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                <a href="https://github.com/alexishat" target="_blank" class="text-decoration-none">Alexis</a>
+            </li>
+            <li class="list-group-item">
+                <a href="https://github.com/phillus1999" target="_blank" class="text-decoration-none">Phillip</a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Aufgabe-Beschreibung -->
+    <div class="mt-4">
+        <h2>Aufgabenbeschreibung</h2>
+        <p>
+            Ziel dieser Aufgabe ist die Entwicklung einer Anwendung, in welcher Test erstellt, als auch bearbeitet werden können. Siehe <a href="http://propra.bendisposto.de/ws24/a1a9dd09b82cbed/" target="_blank">Aufgabenstellung</a> .
+        </p>
+    </div>
+
+</div>
 </body>
 </html>
