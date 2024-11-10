@@ -22,5 +22,10 @@ class MainControllerTest {
         mvc.perform(get("/"))
                 .andExpect(status().isOk());
     }
-
+    @Test
+    @DisplayName("Die Anwendung akzeptiert GET-req auf die Login Page")
+    public void test_02() throws Exception {
+        mvc.perform(get("/login"))
+                .andExpect(status().isOk());
+    }
 }
