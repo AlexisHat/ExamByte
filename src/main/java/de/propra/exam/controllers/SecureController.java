@@ -3,7 +3,6 @@ package de.propra.exam.controllers;
 import de.propra.exam.config.annotations.AtLeastKorrektor;
 import de.propra.exam.config.annotations.AtLeastStudent;
 import de.propra.exam.config.annotations.OrganisatorOnly;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
