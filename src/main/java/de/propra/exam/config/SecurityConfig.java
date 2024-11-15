@@ -12,6 +12,10 @@ public class SecurityConfig {
 
     private RolesConfig rolesConfig;
 
+    public SecurityConfig(RolesConfig rolesConfig) {
+        this.rolesConfig = rolesConfig;
+    }
+
     @Bean
     public SecurityFilterChain configure(HttpSecurity chainBuilder) throws Exception {
         chainBuilder.authorizeHttpRequests(
