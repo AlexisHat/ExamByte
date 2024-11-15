@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})
-@Secured("ROLE_STUDENT")
-public @interface StudentOnly {
+@Secured({"ROLE_KORREKTOR", "ROLE_ORGANISATOR"})
+public @interface AtLeastKorrektor {
 }
