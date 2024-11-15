@@ -19,8 +19,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain configure(HttpSecurity chainBuilder) throws Exception {
         chainBuilder.authorizeHttpRequests(
-                        configurer -> configurer.requestMatchers("/", "/css/*").permitAll()
-                                .anyRequest().authenticated()
+                        configurer -> configurer.requestMatchers("/", "/css/*")
+                                .permitAll()
+                                .anyRequest()
+                                .authenticated()
                 )
                 .oauth2Login(config -> config.userInfoEndpoint(
                         info -> info.userService(new AppUserService(rolesConfig))

@@ -40,7 +40,7 @@ public class AppUserService implements OAuth2UserService<OAuth2UserRequest, OAut
         if (rolesConfig.getOrganisator().contains(id)) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ORGANISATOR"));
         }
-//        System.out.println(authorities);
+        System.out.println(authorities);
         return new DefaultOAuth2User(authorities, originalUser.getAttributes(), "id");
     }
 }
