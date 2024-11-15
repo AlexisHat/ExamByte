@@ -1,0 +1,9 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: ${GitHubClientID}
+            client-secret: ${GitHubClientSecret}
+            scope: read:public_repo

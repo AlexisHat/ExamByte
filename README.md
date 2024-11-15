@@ -1,1 +1,3 @@
 ExamByte Aufgabe
+GitHubClientID=Ov23liIrxxifhFovVaVt
+GitHubClientSecret=e79b17dfdb6a10ef41ee524a5fa8a9d60eb871da
