@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Neuen Test erstellen</h1>
+
+<form th:object="${quiz}" th:action="@{/create-quiz}" method="post">
+    <label for="quizTestName">Testname:</label>
+    <input type="text" id="quizTestName" th:field="*{quizName}">
+    <button type="submit">Test erstellen</button>
+</form>
+
+</body>
+</html>

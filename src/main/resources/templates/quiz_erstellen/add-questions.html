@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Fragen hinzufügen zu: <span th:text="${quiz.quizName}">Testname</span></h1>
+
+<form th:action="@{/add-questions}" method="post">
+    <div>
+        <label for="questionTitel">Titel:</label>
+        <input type="text" id="questionTitel" name="questionTitel" required>
+    </div>
+    <div>
+        <label for="questionText">Frage:</label>
+        <input type="text" id="questionText" name="questionText" required>
+    </div>
+    <h2>Falls es eine Multiple-Choice-Frage sein soll beliebige Anzahl an Antwortmöglichkeiten eingeben:</h2>
+    <div>
+        <label>Antwortmöglichkeiten:</label>
+        <div>
+            <label for="option1">Option 1:</label>
+            <input type="text" id="option1" name="options" placeholder="Option 1">
+        </div>
+        <div>
+            <label for="option2">Option 2:</label>
+            <input type="text" id="option2" name="options" placeholder="Option 2">
+        </div>
+        <div>
+            <label for="option3">Option 3:</label>
+            <input type="text" id="option3" name="options" placeholder="Option 3">
+        </div>
+        <div>
+            <label for="option4">Option 4:</label>
+            <input type="text" id="option4" name="options" placeholder="Option 4">
+        </div>
+        <div>
+            <label for="option5">Option 5:</label>
+            <input type="text" id="option5" name="options" placeholder="Option 5">
+        </div>
+        <div>
+            <label for="option6">Option 6:</label>
+            <input type="text" id="option6" name="options" placeholder="Option 6">
+        </div>
+    </div>
+    <div>
+        <button type="submit">Frage hinzufügen</button>
+    </div>
+</form>
+
+<h2>Bereits hinzugefügte Fragen</h2>
+<ul>
+    <li th:each="frage : ${quiz.fragen}" th:text="${frage.titel}">Frage 1</li>
+</ul>
+
+<div>
+    <form th:action="@{/finalize-quiz}" method="post">
+        <button type="submit">Test abschließen</button>
+    </form>
+</div>
+</body>
+</html>
