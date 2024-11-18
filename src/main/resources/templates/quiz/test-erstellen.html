@@ -7,7 +7,7 @@
 <body>
 <h1>Neuen Test erstellen</h1>
 
-<form th:object="${quiz}" th:action="@{/create-quiz}" method="post">
+<form th:object="${quiz}" th:action="@{/create-test}" method="post">
     <label for="quizTestName">Testname:</label>
     <input type="text" id="quizTestName" th:field="*{quizName}">
     <button type="submit">Test erstellen</button>

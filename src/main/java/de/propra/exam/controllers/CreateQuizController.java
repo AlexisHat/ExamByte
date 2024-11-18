@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
 @Controller
 @SessionAttributes("quiz")
 public class CreateQuizController {
@@ -20,17 +21,18 @@ public class CreateQuizController {
 
     @GetMapping("/create-test")
     public String showCreateTestPage() {
-        return "quiz_erstellen/test-erstellen";
+        return "quiz/test-erstellen";
     }
+
     @PostMapping("/create-test")
     public String createTest(@ModelAttribute("quiz") Quiz quiz) {
-        return "redirect:quiz_erstellen/add-questions";
+        return "redirect:/add-questions";
     }
 
     @GetMapping("/add-questions")
     public String showAddQuestionsPage(@ModelAttribute("quiz") Quiz quiz, Model model) {
         model.addAttribute("quiz", quiz);
-        return "quiz_erstellen/add-questions";
+        return "quiz/add-questions";
     }
 
     @PostMapping("/add-questions")
@@ -39,13 +41,16 @@ public class CreateQuizController {
                               @RequestParam String questionTitel,
                               @RequestParam(required = false) List<String> options) {
 
-        List<String> validOptions = options.stream()
+
+        List<String> validOptions = (options != null)
+                ? options.stream()
                 .filter(option -> option != null && !option.trim().isEmpty())
-                .toList();
+                .toList()
+                : List.of();
+
 
         Question newQuestion = validOptions.isEmpty()
                 ? new TextQuestion()
-
                 : new MultipleChoiceQuestion(validOptions);
 
         newQuestion.setText(questionText);
@@ -53,18 +58,12 @@ public class CreateQuizController {
 
         quiz.addFrage(newQuestion);
 
-        return "redirect:quiz_erstellen/add-questions";
+        return "redirect:/add-questions";
     }
 
-
-
-
     @PostMapping("/finalize-test")
-    public String finalizeTest(@ModelAttribute("test") Quiz quiz) {
-        //TODO quiz speichern wenn wir Datenbanken hatten
-
+    public String finalizeTest(@ModelAttribute("quiz") Quiz quiz) {
+        // TODO: Quiz speichern, wenn eine Datenbank verfügbar ist
         return "redirect:/success";
     }
 }
-
-

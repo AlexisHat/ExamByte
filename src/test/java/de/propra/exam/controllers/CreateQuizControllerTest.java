@@ -86,7 +86,7 @@ public class CreateQuizControllerTest {
     public void test_06() throws Exception {
         mockMvc.perform(get("/create-test"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("quiz_erstellen/test-erstellen"))
+                .andExpect(view().name("quiz/test-erstellen"))
                 .andExpect(model().attributeExists("quiz"));
     }
 
@@ -98,7 +98,7 @@ public class CreateQuizControllerTest {
                         .param("quizName", "foo")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("quiz_erstellen/add-questions"));
+                .andExpect(redirectedUrl("/add-questions"));
     }
 
     @Test
@@ -110,7 +110,7 @@ public class CreateQuizControllerTest {
         mockMvc.perform(get("/add-questions")
                         .sessionAttr("quiz", quiz))
                 .andExpect(status().isOk())
-                .andExpect(view().name("quiz_erstellen/add-questions"))
+                .andExpect(view().name("quiz/add-questions"))
                 .andExpect(model().attributeExists("quiz"))
                 .andExpect(model().attribute("quiz", quiz));
     }
@@ -127,7 +127,7 @@ public class CreateQuizControllerTest {
                         .param("options","")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("quiz_erstellen/add-questions"));
+                .andExpect(redirectedUrl("/add-questions"));
 
         assertThat(quiz.getFragen().size()).isOne();
         assertThat(quiz.getFragen().getFirst()).isInstanceOf(TextQuestion.class);
@@ -145,7 +145,7 @@ public class CreateQuizControllerTest {
                         .param("options","1","2","3")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("quiz_erstellen/add-questions"));
+                .andExpect(redirectedUrl("/add-questions"));
 
         assertThat(quiz.getFragen().size()).isOne();
         assertThat(quiz.getFragen().getFirst()).isInstanceOf(MultipleChoiceQuestion.class);
@@ -163,7 +163,7 @@ public class CreateQuizControllerTest {
                         .param("options","")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("quiz_erstellen/add-questions"));
+                .andExpect(redirectedUrl("/add-questions"));
 
         mockMvc.perform(post("/add-questions")
                         .sessionAttr("quiz", quiz)
@@ -172,7 +172,7 @@ public class CreateQuizControllerTest {
                         .param("options","1","2","3")
                         .with(csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("quiz_erstellen/add-questions"));
+                .andExpect(redirectedUrl("/add-questions"));
 
         assertThat(quiz.getFragen().size()).isEqualTo(2);
         assertThat(quiz.getFragen().get(0)).isInstanceOf(TextQuestion.class);
