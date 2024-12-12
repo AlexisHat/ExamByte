@@ -1,9 +1,9 @@
 package de.propra.exam.controllers;
 
-import de.propra.exam.quizcore.MultipleChoiceQuestion;
-import de.propra.exam.quizcore.Question;
-import de.propra.exam.quizcore.Quiz;
-import de.propra.exam.quizcore.TextQuestion;
+import de.propra.exam.domain.model.quizcore.MultipleChoiceQuestion;
+import de.propra.exam.domain.model.quizcore.Question;
+import de.propra.exam.domain.model.quizcore.Quiz;
+import de.propra.exam.domain.model.quizcore.TextQuestion;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;

@@ -1,7 +1,6 @@
-package de.propra.exam.quizcore;
+package de.propra.exam.domain.model.quizcore;
 
 public class Question {
-
     String titel;
 
     String text;

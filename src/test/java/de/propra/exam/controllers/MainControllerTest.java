@@ -1,8 +1,8 @@
 package de.propra.exam.controllers;
 
-import de.propra.exam.config.MethodSecurityConfig;
+import de.propra.exam.config.security.MethodSecurityConfig;
 import de.propra.exam.config.RolesConfig;
-import de.propra.exam.config.SecurityConfig;
+import de.propra.exam.config.security.SecurityConfig;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

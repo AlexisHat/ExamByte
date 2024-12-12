@@ -1,13 +1,13 @@
 package de.propra.exam.controllers;
 
-import de.propra.exam.config.MethodSecurityConfig;
+import de.propra.exam.config.security.MethodSecurityConfig;
 import de.propra.exam.config.RolesConfig;
-import de.propra.exam.config.SecurityConfig;
+import de.propra.exam.config.security.SecurityConfig;
 import de.propra.exam.facAndBuild.WithMockOAuth2User;
-import de.propra.exam.quizcore.MultipleChoiceQuestion;
-import de.propra.exam.quizcore.Question;
-import de.propra.exam.quizcore.Quiz;
-import de.propra.exam.quizcore.TextQuestion;
+import de.propra.exam.domain.model.quizcore.MultipleChoiceQuestion;
+import de.propra.exam.domain.model.quizcore.Question;
+import de.propra.exam.domain.model.quizcore.Quiz;
+import de.propra.exam.domain.model.quizcore.TextQuestion;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package de.propra.exam.service;
+package de.propra.exam.config.security;
 
 import de.propra.exam.config.RolesConfig;
 import org.springframework.security.core.GrantedAuthority;

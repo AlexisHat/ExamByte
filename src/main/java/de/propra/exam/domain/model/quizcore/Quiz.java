@@ -1,4 +1,4 @@
-package de.propra.exam.quizcore;
+package de.propra.exam.domain.model.quizcore;
 
 import java.util.ArrayList;
 import java.util.List;

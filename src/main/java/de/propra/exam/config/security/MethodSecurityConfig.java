@@ -1,4 +1,4 @@
-package de.propra.exam.config;
+package de.propra.exam.config.security;
 
 
 import org.springframework.context.annotation.Configuration;

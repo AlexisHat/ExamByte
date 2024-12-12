@@ -1,9 +1,9 @@
-package de.propra.exam.config;
+package de.propra.exam.config.security;
 
-import de.propra.exam.service.AppUserService;
+import de.propra.exam.config.RolesConfig;
+import de.propra.exam.config.security.AppUserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 

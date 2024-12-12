@@ -1,4 +1,4 @@
-package de.propra.exam.config.annotations;
+package de.propra.exam.application.service.annotations;
 
 import org.springframework.security.access.annotation.Secured;
 
@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.TYPE})
-@Secured({"ROLE_KORREKTOR", "ROLE_ORGANISATOR"})
-public @interface AtLeastKorrektor {
+@Secured({"ROLE_STUDENT", "ROLE_KORREKTOR", "ROLE_ORGANISATOR"})
+public @interface AtLeastStudent {
 }
