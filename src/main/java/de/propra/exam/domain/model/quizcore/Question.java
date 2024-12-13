@@ -1,6 +1,6 @@
 package de.propra.exam.domain.model.quizcore;
 
-public class Question {
+public abstract class Question {
     String titel;
 
     String text;

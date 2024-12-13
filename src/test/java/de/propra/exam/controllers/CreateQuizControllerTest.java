@@ -69,7 +69,7 @@ public class CreateQuizControllerTest {
         Quiz quiz = new Quiz();
         quiz.addFrage(new MultipleChoiceQuestion(List.of()));
         quiz.addFrage(new TextQuestion());
-        quiz.addFrage(new Question());
+        quiz.addFrage(new TextQuestion());
         assertThat(quiz.getFragen().size()).isEqualTo(3);
     }
     @Test
