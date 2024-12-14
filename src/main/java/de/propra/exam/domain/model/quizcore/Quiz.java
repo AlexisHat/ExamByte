@@ -5,7 +5,7 @@ import java.util.List;
 
 
 public class Quiz {
-
+    private Long id;
     String quizName;
     List<Question> fragen = new ArrayList<>();
 
@@ -25,5 +25,9 @@ public class Quiz {
     }
     public void setFragen(List<Question> fragen) {
         this.fragen = fragen;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

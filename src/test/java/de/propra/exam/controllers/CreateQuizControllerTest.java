@@ -1,5 +1,6 @@
 package de.propra.exam.controllers;
 
+import de.propra.exam.application.service.QuizService;
 import de.propra.exam.config.security.MethodSecurityConfig;
 import de.propra.exam.config.RolesConfig;
 import de.propra.exam.config.security.SecurityConfig;
@@ -8,6 +9,7 @@ import de.propra.exam.domain.model.quizcore.MultipleChoiceQuestion;
 import de.propra.exam.domain.model.quizcore.Question;
 import de.propra.exam.domain.model.quizcore.Quiz;
 import de.propra.exam.domain.model.quizcore.TextQuestion;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -33,6 +38,17 @@ public class CreateQuizControllerTest {
 
     @MockBean
     RolesConfig rolesConfig;
+
+   @MockBean
+   QuizService quizService;
+
+   private Quiz quiz;
+    @BeforeEach
+    void setup() {
+        quiz = new Quiz();
+        when(quizService.createQuiz()).thenReturn(quiz);
+    }
+
 
     @Test
     @DisplayName("Eine freitext Frage kann mit Titel und beschreibung erstellt werden")
@@ -129,14 +145,12 @@ public class CreateQuizControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/add-questions"));
 
-        assertThat(quiz.getFragen().size()).isOne();
-        assertThat(quiz.getFragen().getFirst()).isInstanceOf(TextQuestion.class);
+        verify(quizService).createNewQuestionInQuiz(eq(quiz),any(),any(),any());
     }
     @Test
     @DisplayName("Eine Multiple-Choice Frage wird korrekt hinzugefügt")
     @WithMockOAuth2User(roles = "STUDENT")
     public void test_10() throws Exception {
-        Quiz quiz = new Quiz();
 
         mockMvc.perform(post("/add-questions")
                         .sessionAttr("quiz", quiz)
@@ -147,8 +161,7 @@ public class CreateQuizControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/add-questions"));
 
-        assertThat(quiz.getFragen().size()).isOne();
-        assertThat(quiz.getFragen().getFirst()).isInstanceOf(MultipleChoiceQuestion.class);
+        verify(quizService).createNewQuestionInQuiz(eq(quiz),any(),any(),any());
     }
     @Test
     @DisplayName("In einen test können gleichzeitig Mutiple und Freitext Aufgaben hinzugefügt werden")
@@ -174,9 +187,7 @@ public class CreateQuizControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/add-questions"));
 
-        assertThat(quiz.getFragen().size()).isEqualTo(2);
-        assertThat(quiz.getFragen().get(0)).isInstanceOf(TextQuestion.class);
-        assertThat(quiz.getFragen().get(1)).isInstanceOf(MultipleChoiceQuestion.class);
+        verify(quizService,times(2)).createNewQuestionInQuiz(eq(quiz),any(),any(),any());
     }
 }
 

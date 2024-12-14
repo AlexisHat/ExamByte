@@ -1,5 +1,6 @@
 package de.propra.exam.controllers;
 
+import de.propra.exam.application.service.QuizService;
 import de.propra.exam.domain.model.quizcore.MultipleChoiceQuestion;
 import de.propra.exam.domain.model.quizcore.Question;
 import de.propra.exam.domain.model.quizcore.Quiz;
@@ -13,10 +14,15 @@ import java.util.List;
 @Controller
 @SessionAttributes("quiz")
 public class CreateQuizController {
+    private final QuizService quizService;
+
+    public CreateQuizController(QuizService quizService) {
+        this.quizService = quizService;
+    }
 
     @ModelAttribute("quiz")
     public Quiz getQuiz() {
-        return new Quiz();
+        return quizService.createQuiz();
     }
 
     @GetMapping("/create-test")
@@ -41,23 +47,7 @@ public class CreateQuizController {
                               @RequestParam String questionTitel,
                               @RequestParam(required = false) List<String> options) {
 
-
-        List<String> validOptions = (options != null)
-                ? options.stream()
-                .filter(option -> option != null && !option.trim().isEmpty())
-                .toList()
-                : List.of();
-
-
-        Question newQuestion = validOptions.isEmpty()
-                ? new TextQuestion()
-                : new MultipleChoiceQuestion(validOptions);
-
-        newQuestion.setText(questionText);
-        newQuestion.setTitel(questionTitel);
-
-        quiz.addFrage(newQuestion);
-
+        quizService.createNewQuestionInQuiz(quiz, options, questionTitel, questionText);
         return "redirect:/add-questions";
     }
 
