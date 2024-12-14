@@ -41,18 +41,19 @@ public class CreateQuizController {
         return "quiz/add-questions";
     }
 
-    @PostMapping("/add-questions")
-    public String addQuestion(@ModelAttribute("quiz") Quiz quiz,
-                              @RequestParam String questionText,
-                              @RequestParam String questionTitel,
-                              @RequestParam(required = false) List<String> options) {
-
-        quizService.createNewQuestionInQuiz(quiz, options, questionTitel, questionText);
-        return "redirect:/add-questions";
-    }
+//    @PostMapping("/add-questions")
+//    public String addQuestion(@ModelAttribute("quiz") Quiz quiz,
+//                              @RequestParam String questionText,
+//                              @RequestParam String questionTitel,
+//                              @RequestParam(required = false) List<String> options) {
+//
+//        quizService.createNewQuestionInQuiz(quiz, options, questionTitel, questionText);
+//        return "redirect:/add-questions";
+//    }
 
     @PostMapping("/finalize-test")
     public String finalizeTest(@ModelAttribute("quiz") Quiz quiz) {
+        quizService.addQuiz(quiz);
         // TODO: Quiz speichern, wenn eine Datenbank verfügbar ist
         return "redirect:/success";
     }

@@ -1,20 +1,21 @@
 package de.propra.exam.domain.model.quizcore;
 
-import java.util.List;
+import java.util.Map;
 
 
 public class MultipleChoiceQuestion extends Question {
-    private List<String> options;
 
-    public MultipleChoiceQuestion(List<String> options) {
+    private Map<String, Boolean> options;
+
+    public MultipleChoiceQuestion(Map<String, Boolean> options) {
         this.options = options;
     }
 
-    public List<String> getOptions() {
+    public Map<String, Boolean> getOptions() {
         return options;
     }
 
-    public void setOptions(List<String> options) {
+    public void setOptions(Map<String, Boolean> options) {
         this.options = options;
     }
 }
