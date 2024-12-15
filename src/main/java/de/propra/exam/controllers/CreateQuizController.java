@@ -21,23 +21,26 @@ public class CreateQuizController {
         return quizService.createQuiz();
     }
 
+    @OrganisatorOnly
     @GetMapping("/create-test")
     public String showCreateTestPage() {
         return "quiz/create-test";
     }
 
+    @OrganisatorOnly
     @PostMapping("/create-test")
     public String createTest(@ModelAttribute("quiz") Quiz quiz) {
-        System.out.println(quiz);
         return "redirect:/add-questions";
     }
 
+    @OrganisatorOnly
     @GetMapping("/add-questions")
     public String showAddQuestionsPage(@ModelAttribute("quiz") Quiz quiz, Model model) {
         model.addAttribute("quiz", quiz);
         return "quiz/add-questions";
     }
 
+    @OrganisatorOnly
     @PostMapping("/add-questions")
     public String addQuestion(@ModelAttribute("quiz") Quiz quiz,
                               @RequestParam String questionTitel,
@@ -45,11 +48,11 @@ public class CreateQuizController {
                               @RequestParam Integer questionPoints,
                               @RequestParam String questionSolution
     ) {
-
         quizService.createNewQuestionInQuiz(quiz, questionTitel, questionText, questionPoints, questionSolution);
         return "redirect:/add-questions";
     }
 
+    @OrganisatorOnly
     @PostMapping("/finalize-test")
     public String finalizeTest(@ModelAttribute("quiz") Quiz quiz) {
         quizService.addQuiz(quiz);

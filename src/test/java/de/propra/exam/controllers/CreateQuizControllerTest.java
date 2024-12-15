@@ -76,6 +76,71 @@ public class CreateQuizControllerTest {
                 .andExpect(status().is2xxSuccessful())
                 .andReturn();
     }
+
+    @Test
+    @WithMockOAuth2User(roles = "STUDENT")
+    @DisplayName("Wir können an die URL create-test als Student keine Post Request abgeben")
+    void test_4() throws Exception {
+        mvc.perform(post("/create-test"))
+                .andExpect(status().is4xxClientError())
+                .andReturn();
+    }
+
+    @Test
+    @WithMockOAuth2User(roles = "KORREKTOR")
+    @DisplayName("Wir können an die URL create-test als Korrektor keine Post Request abgeben")
+    void test_5() throws Exception {
+        mvc.perform(post("/create-test"))
+                .andExpect(status().is4xxClientError())
+                .andReturn();
+    }
+
+    @Test
+    @WithMockOAuth2User(roles = "STUDENT")
+    @DisplayName("Wir können die URL add-questions als Student nicht aufrufen")
+    void test_6() throws Exception {
+        mvc.perform(get("/add-questions"))
+                .andExpect(status().is4xxClientError())
+                .andReturn();
+    }
+
+    @Test
+    @WithMockOAuth2User(roles = "KORREKTOR")
+    @DisplayName("Wir können die URL add-questions als Korrektor nicht aufrufen")
+    void test_7() throws Exception {
+        mvc.perform(get("/add-questions"))
+                .andExpect(status().is4xxClientError())
+                .andReturn();
+    }
+
+    @Test
+    @WithMockOAuth2User(roles = "ORGANISATOR")
+    @DisplayName("Wir können die URL add-questions als Organisator aufrufen")
+    void test_8() throws Exception {
+        mvc.perform(get("/add-questions"))
+                .andExpect(status().is2xxSuccessful())
+                .andReturn();
+    }
+
+    @Test
+    @WithMockOAuth2User(roles = "STUDENT")
+    @DisplayName("Wir können an die URL add-questions als Student keine Post Request abgeben")
+    void test_9() throws Exception {
+        mvc.perform(post("/add-questions"))
+                .andExpect(status().is4xxClientError())
+                .andReturn();
+    }
+
+    @Test
+    @WithMockOAuth2User(roles = "KORREKTOR")
+    @DisplayName("Wir können an die URL add-questions als Korrektor keine Post Request abgeben")
+    void test_10() throws Exception {
+        mvc.perform(post("/add-questions"))
+                .andExpect(status().is4xxClientError())
+                .andReturn();
+    }
+
+
 //
 //    @Test
 //    @DisplayName("Ein Quiz kann sowohl mit Mutiple Choice, als auch mit Freitext erstellt werden")
