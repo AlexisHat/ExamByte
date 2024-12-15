@@ -9,6 +9,7 @@ import de.propra.exam.domain.model.quizcore.MultipleChoiceQuestion;
 import de.propra.exam.domain.model.quizcore.Question;
 import de.propra.exam.domain.model.quizcore.Quiz;
 import de.propra.exam.domain.model.quizcore.TextQuestion;
+import jakarta.servlet.http.HttpSession;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,6 +22,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.InstanceOfAssertFactories.LOCAL_DATE_TIME;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -30,6 +32,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+
 @WebMvcTest(CreateQuizController.class)
 @Import({SecurityConfig.class, MethodSecurityConfig.class})
 public class CreateQuizControllerTest {
@@ -40,10 +43,11 @@ public class CreateQuizControllerTest {
     @MockBean
     RolesConfig rolesConfig;
 
-   @MockBean
-   QuizService quizService;
+    @MockBean
+    QuizService quizService;
 
-   private Quiz quiz;
+    private Quiz quiz;
+
     @BeforeEach
     void setup() {
         quiz = new Quiz();
@@ -74,6 +78,7 @@ public class CreateQuizControllerTest {
     void test_3() throws Exception {
         mvc.perform(get("/create-test"))
                 .andExpect(status().is2xxSuccessful())
+                .andExpect(view().name("quiz/create-test"))
                 .andReturn();
     }
 
@@ -119,6 +124,7 @@ public class CreateQuizControllerTest {
     void test_8() throws Exception {
         mvc.perform(get("/add-questions"))
                 .andExpect(status().is2xxSuccessful())
+                .andExpect(view().name("quiz/add-questions"))
                 .andReturn();
     }
 
@@ -140,45 +146,27 @@ public class CreateQuizControllerTest {
                 .andReturn();
     }
 
+    @Test
+    @DisplayName("Bei dem ausführen der Post methode von create-test wird man auf die add-question Seite weitergeleitet")
+    @WithMockOAuth2User(roles = "ORGANISATOR")
+    public void test_11() throws Exception {
+        mvc.perform(post("/create-test")
+                        .param("quizName", "foo")
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/add-questions"));
+    }
 
-//
-//    @Test
-//    @DisplayName("Ein Quiz kann sowohl mit Mutiple Choice, als auch mit Freitext erstellt werden")
-//    public void test_04(){
-//        Quiz quiz = new Quiz();
-//        quiz.addFrage(new MultipleChoiceQuestion(List.of()));
-//        quiz.addFrage(new TextQuestion());
-//        quiz.addFrage(new TextQuestion());
-//        assertThat(quiz.getFragen().size()).isEqualTo(3);
-//    }
-//    @Test
-//    @DisplayName("Ein Quiz kann mit Name erstellt werden")
-//    public void test_05(){
-//        Quiz quiz = new Quiz();
-//        quiz.setQuizName("foo");
-//        assertThat(quiz.getQuizName()).isEqualTo("foo");
-//    }
-//
-//    @Test
-//    @DisplayName("die create Quiz Page wird Korrekt angezeigt")
-//    @WithMockOAuth2User(roles = "STUDENT")
-//    public void test_06() throws Exception {
-//        mockMvc.perform(get("/create-test"))
-//                .andExpect(status().isOk())
-//                .andExpect(view().name("quiz/test-erstellen"))
-//                .andExpect(model().attributeExists("quiz"));
-//    }
-//
-//    @Test
-//    @DisplayName("Bei dem ausführen der Post methode von create-test wird man auf die add-question Seite weitergeleitet")
-//    @WithMockOAuth2User(roles = "STUDENT")
-//    public void test_07() throws Exception {
-//        mockMvc.perform(post("/create-test")
-//                        .param("quizName", "foo")
-//                        .with(csrf()))
-//                .andExpect(status().is3xxRedirection())
-//                .andExpect(redirectedUrl("/add-questions"));
-//    }
+    @Test
+    @WithMockOAuth2User(roles = "ORGANISATOR")
+    @DisplayName("Nach dem Ersten Aufrufen von create Test wird ein Quiz erstellt")
+    void test_12() throws Exception {
+        mvc.perform(get("/create-test"))
+                .andExpect(status().is2xxSuccessful());
+        verify(quizService, times(1)).createQuiz();
+    }
+
+
 //
 //    @Test
 //    @DisplayName("Die add-question page wird korrekt angezeigt mit dem session attr Quiz")
@@ -193,6 +181,7 @@ public class CreateQuizControllerTest {
 //                .andExpect(model().attributeExists("quiz"))
 //                .andExpect(model().attribute("quiz", quiz));
 //    }
+
 //    @Test
 //    @DisplayName("Eine Freitext Frage wird korrekt hinzugefügt")
 //    @WithMockOAuth2User(roles = "STUDENT")
