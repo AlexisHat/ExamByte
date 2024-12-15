@@ -2,16 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Quiz erstellen</title>
+    <link rel="stylesheet" th:href="@{bootstrap.min.css}" href="../../static/bootstrap.min.css">
 </head>
-<body>
-<h1>Neuen Test erstellen</h1>
+<body class="bg-light">
+<div class="container">
+    <h1 class="py-3">Jetzt einen neuen Test erstellen</h1>
+    <div class="container">
+        <form th:object="${quiz}" th:action="@{/create-test}" method="post">
+            <div class="mb-3">
+                <label class="form-label" for="quizTestName">Testname:</label>
+                <input class="form-control w-25" type="text" id="quizTestName" th:field="*{quizName}">
+            </div>
+            <div>
+                <button class="btn btn-primary" type="submit">Test erstellen</button>
+            </div>
+        </form>
+    </div>
 
-<form th:object="${quiz}" th:action="@{/create-test}" method="post">
-    <label for="quizTestName">Testname:</label>
-    <input type="text" id="quizTestName" th:field="*{quizName}">
-    <button type="submit">Test erstellen</button>
-</form>
-
+</div>
 </body>
 </html>
