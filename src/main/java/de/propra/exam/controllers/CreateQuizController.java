@@ -32,6 +32,7 @@ public class CreateQuizController {
 
     @PostMapping("/create-test")
     public String createTest(@ModelAttribute("quiz") Quiz quiz) {
+        System.out.println(quiz);
         return "redirect:/add-questions";
     }
 
@@ -41,15 +42,17 @@ public class CreateQuizController {
         return "quiz/add-questions";
     }
 
-//    @PostMapping("/add-questions")
-//    public String addQuestion(@ModelAttribute("quiz") Quiz quiz,
-//                              @RequestParam String questionText,
-//                              @RequestParam String questionTitel,
-//                              @RequestParam(required = false) List<String> options) {
-//
-//        quizService.createNewQuestionInQuiz(quiz, options, questionTitel, questionText);
-//        return "redirect:/add-questions";
-//    }
+    @PostMapping("/add-questions")
+    public String addQuestion(@ModelAttribute("quiz") Quiz quiz,
+                              @RequestParam String questionTitel,
+                              @RequestParam String questionText,
+                              @RequestParam Integer questionPoints,
+                              @RequestParam String questionSolution
+    ) {
+
+        quizService.createNewQuestionInQuiz(quiz, questionTitel, questionText, questionPoints, questionSolution);
+        return "redirect:/add-questions";
+    }
 
     @PostMapping("/finalize-test")
     public String finalizeTest(@ModelAttribute("quiz") Quiz quiz) {

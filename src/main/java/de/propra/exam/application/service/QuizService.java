@@ -1,16 +1,12 @@
 package de.propra.exam.application.service;
 
-import de.propra.exam.domain.model.quizcore.MultipleChoiceQuestion;
-import de.propra.exam.domain.model.quizcore.Question;
-import de.propra.exam.domain.model.quizcore.Quiz;
-import de.propra.exam.domain.model.quizcore.TextQuestion;
+import de.propra.exam.domain.model.quizcore.*;
 import de.propra.exam.domain.service.QuizRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class QuizService {
+
     private final QuizRepository quizRepository;
 
     public QuizService(QuizRepository quizRepository) {
@@ -21,8 +17,12 @@ public class QuizService {
         return new Quiz();
     }
 
-//    public void createNewQuestionInQuiz(Quiz quiz, List<String> options, String questionTitel, String questionText) {
-//
+    public void createNewQuestionInQuiz(Quiz quiz,
+                                        String questionTitel,
+                                        String questionText,
+                                        Integer questionPoints,
+                                        String questionSolution) {
+
 //        List<String> validOptions = (options != null)
 //                ? options.stream()
 //                .filter(option -> option != null && !option.trim().isEmpty())
@@ -35,10 +35,15 @@ public class QuizService {
 //
 //        newQuestion.setAufgabenstellung(questionText);
 //        newQuestion.setTitel(questionTitel);
-//
-//        quiz.addFrage(newQuestion);
-//
-//    }
+
+        TextQuestion newQuestion = new TextQuestion();
+        newQuestion.setTitle(questionTitel);
+        newQuestion.setTask(questionText);
+        newQuestion.setPoints(questionPoints);
+        newQuestion.setSolution(questionSolution);
+        quiz.addQuestion(newQuestion);
+
+    }
 
     public void addQuiz(Quiz quiz) {
         quizRepository.save(quiz);

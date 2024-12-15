@@ -1,23 +1,40 @@
 package de.propra.exam.domain.model.quizcore;
 
 public abstract class Question {
-    String titel;
-    String aufgabenstellung;
-    Integer punktzahl;
+    String title;
+    String task;
+    Integer points;
+    String solution;
 
-    public String getTitel(){
-        return titel;
+    public String getTitle(){
+        return title;
     }
 
-    public void setTitel(String titel) {
-        this.titel = titel;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public String getAufgabenstellung() {
-        return aufgabenstellung;
+    public String getTask() {
+        return task;
     }
 
-    public void setAufgabenstellung(String aufgabenstellung) {
-        this.aufgabenstellung = aufgabenstellung;
+    public void setTask(String task) {
+        this.task = task;
+    }
+
+    public Integer getPoints() {
+        return points;
+    }
+
+    public void setPoints(Integer points) {
+        this.points = points;
+    }
+
+    public String getSolution() {
+        return solution;
+    }
+
+    public void setSolution(String solution) {
+        this.solution = solution;
     }
 }

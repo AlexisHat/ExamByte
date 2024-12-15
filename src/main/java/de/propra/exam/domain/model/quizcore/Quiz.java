@@ -6,11 +6,10 @@ import java.util.List;
 
 
 public class Quiz {
-    private Long id;
     String quizName;
-    LocalDateTime startZeit;
-    LocalDateTime endZeit;
-    List<Question> fragen = new ArrayList<>();
+    LocalDateTime startTime;
+    LocalDateTime endTime;
+    List<Question> questions = new ArrayList<>();
 
     public String getQuizName() {
         return quizName;
@@ -20,33 +19,27 @@ public class Quiz {
         this.quizName = quizName;
     }
 
-    public LocalDateTime getStartZeit() {
-        return startZeit;
+    public LocalDateTime getStartTime() {
+        return startTime;
     }
 
-    public void setStartZeit(LocalDateTime startZeit) {
-        this.startZeit = startZeit;
+    public void setStartTime(LocalDateTime startTime) {
+        this.startTime = startTime;
     }
 
-    public LocalDateTime getEndZeit() {
-        return endZeit;
+    public LocalDateTime getEndTime() {
+        return endTime;
     }
 
-    public void setEndZeit(LocalDateTime endZeit) {
-        this.endZeit = endZeit;
+    public void setEndTime(LocalDateTime endTime) {
+        this.endTime = endTime;
     }
 
-    public List<Question> getFragen() {
-        return fragen;
-    }
-    public void addFrage(Question question){
-        fragen.add(question);
-    }
-    public void setFragen(List<Question> fragen) {
-        this.fragen = fragen;
+    public List<Question> getQuestions() {
+        return questions;
     }
 
-    public Long getId() {
-        return id;
+    public void addQuestion(Question question){
+        questions.add(question);
     }
 }

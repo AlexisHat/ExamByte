@@ -17,22 +17,22 @@
                 <p class="fs-2 text-center">Was für eine Frage möchtest du hinzufügen ?</p>
             </div>
             <div class="card-body">
-                <form method="get">
+                <form th:action="@{/add-questions}" method="post">
                     <div class="mb-3">
                         <label class="form-label" for="questionTitel">Titel der Frage:</label>
                         <input class="form-control" type="text" id="questionTitel" name="questionTitel" required>
                     </div>
                     <div class="mb-3">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="fragenTyp" id="multipleChoice"
-                                   value="multipleChoice">
-                            <label class="form-check-label" for="multipleChoice">Multiple-Choice Frage</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="fragenTyp" id="freitext"
-                                   value="freitext">
-                            <label class="form-check-label" for="freitext">Freitext Frage</label>
-                        </div>
+                        <label class="form-label" for="questionText">Aufgabenstellung:</label>
+                        <input class="form-control" type="text" id="questionText" name="questionText" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="questionPoints">Erreichbare Punkte</label>
+                        <input class="form-control" type="number" id="questionPoints" name="questionPoints" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="questionSolution">Musterlösung</label>
+                        <input class="form-control" type="text" id="questionSolution" name="questionSolution" required>
                     </div>
                     <div>
                         <button class="btn bg-body-secondary" type="submit">Frage erstellen</button>
@@ -41,76 +41,83 @@
             </div>
         </div>
 
+
+        <!--Übersicht-->
         <h2 class="text-center mb-3">Bereits hinzugefügte Fragen</h2>
-        <div th:each="frage : ${quiz.fragen}" class="card mb-3">
+        <div th:each="question : ${quiz.questions}" class="card mb-3">
             <div class="card-header pb-0">
-                <p class="text-center">Titel der Frage: <span th:text="${frage.titel}">Frage 1</span></p>
+                <p class="text-center">Titel der Frage: <span th:text="${question.title}">Frage 1</span></p>
             </div>
             <div class="card-body">
-                <p class="mb-0">Aufgabenstellung: <span th:text="${frage.aufgabenstellung}">Aufgabenstellung 1</span></p>
+                <p class="mb-3">Aufgabenstellung: <span th:text="${question.task}">Aufgabenstellung 1</span>
+                </p>
+                <p class="mb-3">Erreichbare Punkte: <span th:text="${question.points}">4200</span> Punkte
+                </p>
+                <p class="mb-0">Musterlösung: <span th:text="${question.solution}">42 !!!</span>
+                </p>
             </div>
         </div>
 
         <!--Finale Card-->
         <h2 class="text-center mb-3">Den Test veröffentlichen</h2>
-        <div class="card">
+        <div class="card mb-5">
             <div class="card-header pb-0">
-                <p class="text-center">Den Test: <span th:text="${quiz.quizName}">Testname</span> erstellen</p>
+                <p class="text-center">Übersicht: <span th:text="${quiz.quizName}">Testname</span></p>
             </div>
             <div class="card-body">
-                <p>Name des Tests: <span th:text="${quiz.quizName}">Test-Name</span></p>
-                <p>Anfang der Bearbeitungszeit: <span th:text="${quiz.startZeit}">Start-Zeit</span></p>
-                <p>Ende der Bearbeitungszeit: <span th:text="${quiz.startZeit}">End-Zeit</span></p>
+                <p>Name des Tests: <span th:text="${quiz.quizName}">Testname</span></p>
+                <p>Anfang der Bearbeitungszeit: <span
+                        th:text="${#temporals.format(quiz.startTime, 'dd. MMM yyyy, HH:mm')}"></span></p>
+                <p>Ende der Bearbeitungszeit: <span
+                        th:text="${#temporals.format(quiz.endTime, 'dd. MMM yyyy, HH:mm')}"></span></p>
                 <form th:action="@{/finalize-quiz}" method="post">
                     <button class="btn btn-primary" type="submit">Quiz erstellen</button>
                 </form>
+
+                <!--    <form th:action="@{/add-questions}" method="post">-->
+                <!--        <div>-->
+                <!--        </div>-->
+                <!--        <div>-->
+                <!--            <label for="questionText">Frage:</label>-->
+                <!--            <input type="text" id="questionText" name="questionText" required>-->
+                <!--        </div>-->
+                <!--        <h2>Falls es eine Multiple-Choice-Frage sein soll beliebige Anzahl an Antwortmöglichkeiten eingeben:</h2>-->
+                <!--        <div>-->
+                <!--            <label>Antwortmöglichkeiten:</label>-->
+                <!--            <div>-->
+                <!--                <label for="option1">Option 1:</label>-->
+                <!--                <input type="text" id="option1" name="options" placeholder="Option 1">-->
+                <!--            </div>-->
+                <!--            <div>-->
+                <!--                <label for="option2">Option 2:</label>-->
+                <!--                <input type="text" id="option2" name="options" placeholder="Option 2">-->
+                <!--            </div>-->
+                <!--            <div>-->
+                <!--                <label for="option3">Option 3:</label>-->
+                <!--                <input type="text" id="option3" name="options" placeholder="Option 3">-->
+                <!--            </div>-->
+                <!--            <div>-->
+                <!--                <label for="option4">Option 4:</label>-->
+                <!--                <input type="text" id="option4" name="options" placeholder="Option 4">-->
+                <!--            </div>-->
+                <!--            <div>-->
+                <!--                <label for="option5">Option 5:</label>-->
+                <!--                <input type="text" id="option5" name="options" placeholder="Option 5">-->
+                <!--            </div>-->
+                <!--            <div>-->
+                <!--                <label for="option6">Option 6:</label>-->
+                <!--                <input type="text" id="option6" name="options" placeholder="Option 6">-->
+                <!--            </div>-->
+                <!--        </div>-->
+                <!--        <div>-->
+                <!--            <button type="submit">Frage hinzufügen</button>-->
+                <!--        </div>-->
+                <!--    </form>-->
+                <!--</div>-->
+
             </div>
-
-            <!--    <form th:action="@{/add-questions}" method="post">-->
-            <!--        <div>-->
-            <!--        </div>-->
-            <!--        <div>-->
-            <!--            <label for="questionText">Frage:</label>-->
-            <!--            <input type="text" id="questionText" name="questionText" required>-->
-            <!--        </div>-->
-            <!--        <h2>Falls es eine Multiple-Choice-Frage sein soll beliebige Anzahl an Antwortmöglichkeiten eingeben:</h2>-->
-            <!--        <div>-->
-            <!--            <label>Antwortmöglichkeiten:</label>-->
-            <!--            <div>-->
-            <!--                <label for="option1">Option 1:</label>-->
-            <!--                <input type="text" id="option1" name="options" placeholder="Option 1">-->
-            <!--            </div>-->
-            <!--            <div>-->
-            <!--                <label for="option2">Option 2:</label>-->
-            <!--                <input type="text" id="option2" name="options" placeholder="Option 2">-->
-            <!--            </div>-->
-            <!--            <div>-->
-            <!--                <label for="option3">Option 3:</label>-->
-            <!--                <input type="text" id="option3" name="options" placeholder="Option 3">-->
-            <!--            </div>-->
-            <!--            <div>-->
-            <!--                <label for="option4">Option 4:</label>-->
-            <!--                <input type="text" id="option4" name="options" placeholder="Option 4">-->
-            <!--            </div>-->
-            <!--            <div>-->
-            <!--                <label for="option5">Option 5:</label>-->
-            <!--                <input type="text" id="option5" name="options" placeholder="Option 5">-->
-            <!--            </div>-->
-            <!--            <div>-->
-            <!--                <label for="option6">Option 6:</label>-->
-            <!--                <input type="text" id="option6" name="options" placeholder="Option 6">-->
-            <!--            </div>-->
-            <!--        </div>-->
-            <!--        <div>-->
-            <!--            <button type="submit">Frage hinzufügen</button>-->
-            <!--        </div>-->
-            <!--    </form>-->
-            <!--</div>-->
-
         </div>
-
     </div>
-
 </div>
 </body>
 </html>
