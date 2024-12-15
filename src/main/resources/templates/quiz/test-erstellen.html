@@ -7,17 +7,35 @@
 </head>
 <body class="bg-light">
 <div class="container">
-    <h1 class="py-3">Jetzt einen neuen Test erstellen</h1>
+    <h1 class="py-3 text-center">Jetzt einen neuen Test erstellen</h1>
     <div class="container">
-        <form th:object="${quiz}" th:action="@{/create-test}" method="post">
-            <div class="mb-3">
-                <label class="form-label" for="quizTestName">Testname:</label>
-                <input class="form-control w-25" type="text" id="quizTestName" th:field="*{quizName}">
+        <div class="card">
+            <div class="card-header pb-0">
+                <p class="text-center">Erstelle einen Test</p>
             </div>
-            <div>
-                <button class="btn btn-primary" type="submit">Test erstellen</button>
+            <div class="card-body">
+                <form th:object="${quiz}" th:action="@{/create-test}" method="post">
+                    <div class="mb-3">
+                        <label class="form-label" for="quizTestName">Testname:</label>
+                        <input class="form-control" type="text" id="quizTestName" th:field="*{quizName}">
+                    </div>
+                    <div class="mb-3 row">
+                        <div class="col-6">
+                            <label class="form-label" for="quizStartZeit">Anfang der Bearbeitungszeit</label>
+                            <input class="form-control" type="datetime-local" id="quizStartZeit" th:field="*{startZeit}" required>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label" for="quizEndZeit">Ende der Bearbeitungszeit</label>
+                            <input class="form-control" type="datetime-local" id="quizEndZeit" th:field="*{endZeit}" required>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-primary" type="submit">Test erstellen</button>
+                    </div>
+                </form>
             </div>
-        </form>
+
+        </div>
     </div>
 
 </div>

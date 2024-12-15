@@ -8,16 +8,34 @@ import java.util.List;
 public class Quiz {
     private Long id;
     String quizName;
-    LocalDateTime startzeit;
-    LocalDateTime endzeit;
+    LocalDateTime startZeit;
+    LocalDateTime endZeit;
     List<Question> fragen = new ArrayList<>();
 
     public String getQuizName() {
         return quizName;
     }
+
     public void setQuizName(String quizName) {
         this.quizName = quizName;
     }
+
+    public LocalDateTime getStartZeit() {
+        return startZeit;
+    }
+
+    public void setStartZeit(LocalDateTime startZeit) {
+        this.startZeit = startZeit;
+    }
+
+    public LocalDateTime getEndZeit() {
+        return endZeit;
+    }
+
+    public void setEndZeit(LocalDateTime endZeit) {
+        this.endZeit = endZeit;
+    }
+
     public List<Question> getFragen() {
         return fragen;
     }
