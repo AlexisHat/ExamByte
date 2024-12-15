@@ -24,60 +24,58 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
+import static org.springframework.security.config.http.MatcherType.mvc;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-//@WebMvcTest(CreateQuizController.class)
-//@Import({SecurityConfig.class, MethodSecurityConfig.class})
-//public class CreateQuizControllerTest {
+@WebMvcTest(CreateQuizController.class)
+@Import({SecurityConfig.class, MethodSecurityConfig.class})
+public class CreateQuizControllerTest {
 
-//    @Autowired
-//    MockMvc mockMvc;
-//
-//    @MockBean
-//    RolesConfig rolesConfig;
-//
-//   @MockBean
-//   QuizService quizService;
-//
-//   private Quiz quiz;
-//    @BeforeEach
-//    void setup() {
-//        quiz = new Quiz();
-//        when(quizService.createQuiz()).thenReturn(quiz);
-//    }
-//
-//
-//    @Test
-//    @DisplayName("Eine freitext Frage kann mit Titel und beschreibung erstellt werden")
-//    public void test_01(){
-//        Question question = new TextQuestion();
-//        question.setTitel("foo");
-//        question.setAufgabenstellung("bar");
-//
-//        assertThat(question.getTitel()).isEqualTo("foo");
-//        assertThat(question.getAufgabenstellung()).isEqualTo("bar");
-//    }
-////    @Test
-////    @DisplayName("Eine Multiple Choice Frage kann mit Titel und beschreibung erstellt werden und hat die richtige Anzahl an Options")
-////    public void test_02(){
-////        MultipleChoiceQuestion question = new MultipleChoiceQuestion(List.of("foo","bar"));
-////        question.setTitel("foo");
-////        question.setAufgabenstellung("bar");
-////
-////        assertThat(question.getTitel()).isEqualTo("foo");
-////        assertThat(question.getAufgabenstellung()).isEqualTo("bar");
-////        assertThat(question.getOptions().size()).isEqualTo(2);
-////    }
-//
-//    @Test
-//    @DisplayName("Ein leerer Quiz kann erstellt werden")
-//    public void test_03(){
-//        Quiz quiz = new Quiz();
-//        assertThat(quiz.getFragen()).isEmpty();
-//    }
+    @Autowired
+    MockMvc mvc;
+
+    @MockBean
+    RolesConfig rolesConfig;
+
+   @MockBean
+   QuizService quizService;
+
+   private Quiz quiz;
+    @BeforeEach
+    void setup() {
+        quiz = new Quiz();
+        when(quizService.createQuiz()).thenReturn(quiz);
+    }
+
+    @Test
+    @WithMockOAuth2User(roles = "STUDENT")
+    @DisplayName("Wir können die URL create-test als Student nicht aufrufen")
+    void test_1() throws Exception {
+        mvc.perform(get("/create-test"))
+                .andExpect(status().is4xxClientError())
+                .andReturn();
+    }
+
+    @Test
+    @WithMockOAuth2User(roles = "KORREKTOR")
+    @DisplayName("Wir können die URL create-test als Korrektor nicht aufrufen")
+    void test_2() throws Exception {
+        mvc.perform(get("/create-test"))
+                .andExpect(status().is4xxClientError())
+                .andReturn();
+    }
+
+    @Test
+    @WithMockOAuth2User(roles = "ORGANISATOR")
+    @DisplayName("Wir können die URL create-test als Organisator aufrufen")
+    void test_3() throws Exception {
+        mvc.perform(get("/create-test"))
+                .andExpect(status().is2xxSuccessful())
+                .andReturn();
+    }
 //
 //    @Test
 //    @DisplayName("Ein Quiz kann sowohl mit Mutiple Choice, als auch mit Freitext erstellt werden")
@@ -189,5 +187,5 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 //
 //        verify(quizService,times(2)).createNewQuestionInQuiz(eq(quiz),any(),any(),any());
 //    }
-//}
+}
 
