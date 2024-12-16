@@ -1,5 +1,6 @@
 package de.propra.exam.application.service;
 
+import de.propra.exam.DTO.QuestionDTO;
 import de.propra.exam.domain.model.quizcore.*;
 import de.propra.exam.domain.service.QuizRepository;
 import org.springframework.stereotype.Service;
@@ -17,11 +18,7 @@ public class QuizService {
         return new Quiz();
     }
 
-    public void createNewQuestionInQuiz(Quiz quiz,
-                                        String questionTitel,
-                                        String questionText,
-                                        Integer questionPoints,
-                                        String questionSolution) {
+    public void createNewQuestionInQuiz(Quiz quiz, QuestionDTO questionDTO) {
 
 //        List<String> validOptions = (options != null)
 //                ? options.stream()
@@ -37,10 +34,10 @@ public class QuizService {
 //        newQuestion.setTitel(questionTitel);
 
         TextQuestion newQuestion = new TextQuestion();
-        newQuestion.setTitle(questionTitel);
-        newQuestion.setTask(questionText);
-        newQuestion.setPoints(questionPoints);
-        newQuestion.setSolution(questionSolution);
+        newQuestion.setTitle(questionDTO.getTitle());
+        newQuestion.setTask(questionDTO.getTask());
+        newQuestion.setPoints(questionDTO.getPoints());
+        newQuestion.setSolution(questionDTO.getSolution());
         quiz.addQuestion(newQuestion);
 
     }

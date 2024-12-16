@@ -1,7 +1,9 @@
 package de.propra.exam.controllers;
 
+import de.propra.exam.DTO.QuestionDTO;
 import de.propra.exam.application.service.QuizService;
 import de.propra.exam.application.service.annotations.OrganisatorOnly;
+import de.propra.exam.domain.model.quizcore.Question;
 import de.propra.exam.domain.model.quizcore.Quiz;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,19 +38,15 @@ public class CreateQuizController {
     @OrganisatorOnly
     @GetMapping("/add-questions")
     public String showAddQuestionsPage(@ModelAttribute("quiz") Quiz quiz, Model model) {
+        model.addAttribute("questionDTO", new QuestionDTO());
         model.addAttribute("quiz", quiz);
         return "quiz/add-questions";
     }
 
     @OrganisatorOnly
     @PostMapping("/add-questions")
-    public String addQuestion(@ModelAttribute("quiz") Quiz quiz,
-                              @RequestParam String questionTitel,
-                              @RequestParam String questionText,
-                              @RequestParam Integer questionPoints,
-                              @RequestParam String questionSolution
-    ) {
-        quizService.createNewQuestionInQuiz(quiz, questionTitel, questionText, questionPoints, questionSolution);
+    public String addQuestion(@ModelAttribute("quiz") Quiz quiz, QuestionDTO questionDTO) {
+        quizService.createNewQuestionInQuiz(quiz, questionDTO);
         return "redirect:/add-questions";
     }
 
