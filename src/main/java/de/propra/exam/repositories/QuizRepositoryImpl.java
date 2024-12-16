@@ -1,6 +1,6 @@
 package de.propra.exam.repositories;
 
-import de.propra.exam.domain.model.quizcore.Quiz;
+import de.propra.exam.domain.model.quiz.Quiz;
 import de.propra.exam.domain.service.QuizRepository;
 import org.springframework.stereotype.Repository;
 

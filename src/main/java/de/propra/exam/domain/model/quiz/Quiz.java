@@ -1,4 +1,6 @@
-package de.propra.exam.domain.model.quizcore;
+package de.propra.exam.domain.model.quiz;
+
+import de.propra.exam.domain.model.quiz.question.Question;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

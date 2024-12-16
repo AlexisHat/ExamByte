@@ -5,6 +5,15 @@ public class QuestionDTO {
     private String task;
     private String solution;
     private Integer points;
+    private String type;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public String getTitle() {
         return title;

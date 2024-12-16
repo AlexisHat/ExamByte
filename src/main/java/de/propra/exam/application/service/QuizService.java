@@ -1,7 +1,9 @@
 package de.propra.exam.application.service;
 
 import de.propra.exam.DTO.QuestionDTO;
-import de.propra.exam.domain.model.quizcore.*;
+import de.propra.exam.domain.model.quiz.*;
+import de.propra.exam.domain.model.quiz.question.Question;
+import de.propra.exam.domain.model.quiz.question.QuestionBuilder;
 import de.propra.exam.domain.service.QuizRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,30 +16,20 @@ public class QuizService {
         this.quizRepository = quizRepository;
     }
 
-    public Quiz createQuiz(){
+    public Quiz createQuiz() {
         return new Quiz();
     }
 
     public void createNewQuestionInQuiz(Quiz quiz, QuestionDTO questionDTO) {
+        System.out.println("DTO= " + questionDTO.getType());
+        Question newQuestion = new QuestionBuilder()
+                .withQuestionType(questionDTO.getType())
+                .withTitle(questionDTO.getTitle())
+                .withTask(questionDTO.getTask())
+                .withPoints(questionDTO.getPoints())
+                .withSolution(questionDTO.getSolution())
+                .build();
 
-//        List<String> validOptions = (options != null)
-//                ? options.stream()
-//                .filter(option -> option != null && !option.trim().isEmpty())
-//                .toList()
-//                : List.of();
-//
-//        Question newQuestion = validOptions.isEmpty()
-//                ? new TextQuestion()
-//                : new MultipleChoiceQuestion(validOptions);
-//
-//        newQuestion.setAufgabenstellung(questionText);
-//        newQuestion.setTitel(questionTitel);
-
-        TextQuestion newQuestion = new TextQuestion();
-        newQuestion.setTitle(questionDTO.getTitle());
-        newQuestion.setTask(questionDTO.getTask());
-        newQuestion.setPoints(questionDTO.getPoints());
-        newQuestion.setSolution(questionDTO.getSolution());
         quiz.addQuestion(newQuestion);
 
     }

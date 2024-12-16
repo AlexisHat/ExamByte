@@ -5,11 +5,7 @@ import de.propra.exam.config.security.MethodSecurityConfig;
 import de.propra.exam.config.RolesConfig;
 import de.propra.exam.config.security.SecurityConfig;
 import de.propra.exam.facAndBuild.WithMockOAuth2User;
-import de.propra.exam.domain.model.quizcore.MultipleChoiceQuestion;
-import de.propra.exam.domain.model.quizcore.Question;
-import de.propra.exam.domain.model.quizcore.Quiz;
-import de.propra.exam.domain.model.quizcore.TextQuestion;
-import jakarta.servlet.http.HttpSession;
+import de.propra.exam.domain.model.quiz.Quiz;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,14 +15,10 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.InstanceOfAssertFactories.LOCAL_DATE_TIME;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
-import static org.springframework.security.config.http.MatcherType.mvc;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;

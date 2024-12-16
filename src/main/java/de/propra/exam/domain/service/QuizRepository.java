@@ -1,6 +1,6 @@
 package de.propra.exam.domain.service;
 
-import de.propra.exam.domain.model.quizcore.Quiz;
+import de.propra.exam.domain.model.quiz.Quiz;
 
 import java.util.List;
 import java.util.Optional;

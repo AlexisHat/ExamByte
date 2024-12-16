@@ -1,4 +1,4 @@
-package de.propra.exam.domain.model.quizcore;
+package de.propra.exam.domain.model.quiz;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class QuizTest {
 

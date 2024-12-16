@@ -1,4 +1,4 @@
-package de.propra.exam.domain.model.quizcore;
+package de.propra.exam.domain.model.quiz.question;
 
 public abstract class Question {
     String title;
@@ -6,12 +6,12 @@ public abstract class Question {
     Integer points;
     String solution;
 
-    public String getTitle(){
-        return title;
+    public Integer getPoints() {
+        return points;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setPoints(Integer points) {
+        this.points = points;
     }
 
     public String getTask() {
@@ -22,12 +22,12 @@ public abstract class Question {
         this.task = task;
     }
 
-    public Integer getPoints() {
-        return points;
+    public String getTitle() {
+        return title;
     }
 
-    public void setPoints(Integer points) {
-        this.points = points;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getSolution() {
