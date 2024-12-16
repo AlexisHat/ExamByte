@@ -48,4 +48,15 @@ public class Quiz {
     public void addQuestion(Question question){
         questions.add(question);
     }
+
+    public boolean isGestartet(LocalDateTime now) {
+        return !now.isBefore(startTime);
+    }
+
+    public boolean isBeendet(LocalDateTime now) {
+        return now.isAfter(endTime);
+    }
+    public Question findeFrage(Long frageId) {
+        return questions.stream().filter(question -> question.getQuestionId().equals(frageId)).findFirst().orElse(null);
+    }
 }

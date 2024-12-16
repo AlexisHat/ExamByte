@@ -6,6 +6,10 @@ public abstract class Question {
     Integer points;
     String solution;
 
+
+
+    Long questionId;
+
     public Integer getPoints() {
         return points;
     }
@@ -36,5 +40,8 @@ public abstract class Question {
 
     public void setSolution(String solution) {
         this.solution = solution;
+    }
+    public Long getQuestionId() {
+        return questionId;
     }
 }
