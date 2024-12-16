@@ -180,5 +180,17 @@ public class CreateQuizControllerTest {
         verify(quizService).createNewQuestionInQuiz(eq(quiz), any());
     }
 
+    @Test
+    @WithMockOAuth2User(roles = "ORGANISATOR")
+    @DisplayName("Wenn wir mit post finalize-test aufrufen, dann wird das Quiz gespeichert")
+    void test_14() throws Exception {
+        mvc.perform(post("/finalize-test")
+                        .sessionAttr("quiz", quiz)
+                        .with(csrf()))
+                .andExpect(redirectedUrl("/success"));
+
+        verify(quizService).addQuiz(quiz);
+    }
+
 }
 

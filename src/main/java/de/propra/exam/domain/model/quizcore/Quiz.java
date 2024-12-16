@@ -11,6 +11,10 @@ public class Quiz {
     LocalDateTime endTime;
     List<Question> questions = new ArrayList<>();
 
+    public boolean isActive(LocalDateTime clientLDT) {
+        return clientLDT.isAfter(startTime) && clientLDT.isBefore(endTime);
+    }
+
     public String getQuizName() {
         return quizName;
     }
