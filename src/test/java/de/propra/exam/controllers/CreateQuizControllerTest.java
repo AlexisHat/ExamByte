@@ -166,80 +166,19 @@ public class CreateQuizControllerTest {
         verify(quizService, times(1)).createQuiz();
     }
 
+    @Test
+    @DisplayName("Eine Post request an /add-questions löst aus, dass eine Frage zum Quiz hinzugefügt wird")
+    @WithMockOAuth2User(roles = "ORGANISATOR")
+    public void test_13() throws Exception {
+        Quiz quiz = new Quiz();
 
-//
-//    @Test
-//    @DisplayName("Die add-question page wird korrekt angezeigt mit dem session attr Quiz")
-//    @WithMockOAuth2User(roles = "STUDENT")
-//    public void test_08() throws Exception {
-//        Quiz quiz = new Quiz();
-//
-//        mockMvc.perform(get("/add-questions")
-//                        .sessionAttr("quiz", quiz))
-//                .andExpect(status().isOk())
-//                .andExpect(view().name("quiz/add-questions"))
-//                .andExpect(model().attributeExists("quiz"))
-//                .andExpect(model().attribute("quiz", quiz));
-//    }
+        mvc.perform(post("/add-questions")
+                        .sessionAttr("quiz", quiz)
+                        .with(csrf()))
+                .andExpect(redirectedUrl("/add-questions"));
 
-//    @Test
-//    @DisplayName("Eine Freitext Frage wird korrekt hinzugefügt")
-//    @WithMockOAuth2User(roles = "STUDENT")
-//    public void test_09() throws Exception {
-//        Quiz quiz = new Quiz();
-//
-//        mockMvc.perform(post("/add-questions")
-//                        .sessionAttr("quiz", quiz)
-//                        .param("questionTitel", "foo")
-//                        .param("questionText", "bar")
-//                        .param("options","")
-//                        .with(csrf()))
-//                .andExpect(status().is3xxRedirection())
-//                .andExpect(redirectedUrl("/add-questions"));
-//
-//        verify(quizService).createNewQuestionInQuiz(eq(quiz),any(),any(),any());
-//    }
-//    @Test
-//    @DisplayName("Eine Multiple-Choice Frage wird korrekt hinzugefügt")
-//    @WithMockOAuth2User(roles = "STUDENT")
-//    public void test_10() throws Exception {
-//
-//        mockMvc.perform(post("/add-questions")
-//                        .sessionAttr("quiz", quiz)
-//                        .param("questionTitel", "foo")
-//                        .param("questionText", "bar")
-//                        .param("options","1","2","3")
-//                        .with(csrf()))
-//                .andExpect(status().is3xxRedirection())
-//                .andExpect(redirectedUrl("/add-questions"));
-//
-//        verify(quizService).createNewQuestionInQuiz(eq(quiz),any(),any(),any());
-//    }
-//    @Test
-//    @DisplayName("In einen test können gleichzeitig Mutiple und Freitext Aufgaben hinzugefügt werden")
-//    @WithMockOAuth2User(roles = "STUDENT")
-//    public void test_11() throws Exception {
-//        Quiz quiz = new Quiz();
-//
-//        mockMvc.perform(post("/add-questions")
-//                        .sessionAttr("quiz", quiz)
-//                        .param("questionTitel", "foo")
-//                        .param("questionText", "bar")
-//                        .param("options","")
-//                        .with(csrf()))
-//                .andExpect(status().is3xxRedirection())
-//                .andExpect(redirectedUrl("/add-questions"));
-//
-//        mockMvc.perform(post("/add-questions")
-//                        .sessionAttr("quiz", quiz)
-//                        .param("questionTitel", "foo")
-//                        .param("questionText", "bar")
-//                        .param("options","1","2","3")
-//                        .with(csrf()))
-//                .andExpect(status().is3xxRedirection())
-//                .andExpect(redirectedUrl("/add-questions"));
-//
-//        verify(quizService,times(2)).createNewQuestionInQuiz(eq(quiz),any(),any(),any());
-//    }
+        verify(quizService).createNewQuestionInQuiz(eq(quiz), any());
+    }
+
 }
 
