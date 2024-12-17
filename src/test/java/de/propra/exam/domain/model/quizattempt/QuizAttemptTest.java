@@ -1,6 +1,8 @@
 package de.propra.exam.domain.model.quizattempt;
 
 
+import de.propra.exam.domain.exceptions.QuizAlreadyEndedException;
+import de.propra.exam.domain.exceptions.QuizNotStartedException;
 import de.propra.exam.domain.model.quiz.Quiz;
 import de.propra.exam.domain.model.quiz.question.TextQuestion;
 import org.junit.jupiter.api.DisplayName;
@@ -49,9 +51,7 @@ class QuizAttemptTest {
         QuizAttempt quizAttempt = new QuizAttempt(1L, 1L, 123L);
         FreitextAntwort bla = new FreitextAntwort(1L, "Bla", zeit);
 
-        assertThatThrownBy(() -> {
-            quizAttempt.addOrUpdateAnswer(1L, bla, quiz, zeit);
-        }).isInstanceOf(IllegalStateException.class)
+        assertThatThrownBy(() -> quizAttempt.addOrUpdateAnswer(1L, bla, quiz, zeit)).isInstanceOf(QuizNotStartedException.class)
                 .hasMessageContaining("Das Quiz hat noch nicht begonnen.");
     }
     @Test
@@ -65,10 +65,8 @@ class QuizAttemptTest {
         FreitextAntwort bla = new FreitextAntwort(1L, "Bla", zeit);
 
 
-        assertThatThrownBy(() -> {
-            quizAttempt.addOrUpdateAnswer(1L, bla, quiz, zeit);
-        }).isInstanceOf(IllegalStateException.class)
-                .hasMessageContaining("Das Quiz ist bereits beendet, Änderungen sind nicht mehr möglich.");
+        assertThatThrownBy(() -> quizAttempt.addOrUpdateAnswer(1L, bla, quiz, zeit)).isInstanceOf(QuizAlreadyEndedException.class)
+                .hasMessageContaining("Das Quiz ist beendet");
     }
 
     @Test
@@ -78,9 +76,7 @@ class QuizAttemptTest {
         quizAttempt.abgeschlossen = true;
         FreitextAntwort bla = new FreitextAntwort(1L, "Bla", LocalDateTime.now());
 
-        assertThatThrownBy(() -> {
-            quizAttempt.addOrUpdateAnswer(1L, bla, new Quiz(), LocalDateTime.now());
-        }).isInstanceOf(IllegalStateException.class)
+        assertThatThrownBy(() -> quizAttempt.addOrUpdateAnswer(1L, bla, new Quiz(), LocalDateTime.now())).isInstanceOf(IllegalStateException.class)
                 .hasMessageContaining("Versuch ist bereits abgeschlossen.");
     }
 
@@ -96,9 +92,7 @@ class QuizAttemptTest {
         FreitextAntwort antwort = new FreitextAntwort(1L, "Bla", LocalDateTime.now());
 
 
-        assertThatThrownBy(() -> {
-            quizAttempt.addOrUpdateAnswer(1L, antwort, quiz, zeit);
-        }).isInstanceOf(IllegalArgumentException.class)
+        assertThatThrownBy(() -> quizAttempt.addOrUpdateAnswer(1L, antwort, quiz, zeit)).isInstanceOf(IllegalArgumentException.class)
                 .hasMessageContaining("Frage gehört nicht zu diesem Quiz.");
     }
 

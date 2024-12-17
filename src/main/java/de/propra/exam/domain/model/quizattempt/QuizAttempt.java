@@ -1,5 +1,7 @@
 package de.propra.exam.domain.model.quizattempt;
 
+import de.propra.exam.domain.exceptions.QuizAlreadyEndedException;
+import de.propra.exam.domain.exceptions.QuizNotStartedException;
 import de.propra.exam.domain.model.quiz.question.Question;
 import de.propra.exam.domain.model.quiz.Quiz;
 
@@ -11,7 +13,7 @@ public class QuizAttempt {
     private final Long quizId;
     private final Long studentId;
     private final List<Antwort> antworten;
-    boolean abgeschlossen; // z. B. um anzuzeigen, dass keine Änderungen mehr möglich sind.
+    boolean abgeschlossen;
 
     public QuizAttempt(Long quizAttemptId, Long quizId, Long studentId) {
         this.quizAttemptId = quizAttemptId;
@@ -27,10 +29,10 @@ public class QuizAttempt {
             throw new IllegalStateException("Versuch ist bereits abgeschlossen.");
         }
         if (!quiz.isGestartet(now)) {
-            throw new IllegalStateException("Das Quiz hat noch nicht begonnen.");
+            throw new QuizNotStartedException("Das Quiz hat noch nicht begonnen.");
         }
         if (quiz.isBeendet(now)) {
-            throw new IllegalStateException("Das Quiz ist bereits beendet, Änderungen sind nicht mehr möglich.");
+            throw new QuizAlreadyEndedException("Das Quiz ist beendet");
         }
         Question frage = quiz.findeFrage(questionId);
         if (frage == null) {
