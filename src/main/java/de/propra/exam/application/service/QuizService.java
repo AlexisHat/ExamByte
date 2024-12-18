@@ -1,6 +1,7 @@
 package de.propra.exam.application.service;
 
 import de.propra.exam.DTO.QuestionDTO;
+import de.propra.exam.domain.exceptions.QuizNotFoundException;
 import de.propra.exam.domain.model.quiz.*;
 import de.propra.exam.domain.model.quiz.question.Question;
 import de.propra.exam.domain.model.quiz.question.QuestionBuilder;
@@ -37,5 +38,12 @@ public class QuizService {
     public void addQuiz(Quiz quiz) {
         quizRepository.save(quiz);
     }
+
+    public Quiz findQuizById(Long quizId) {
+        return quizRepository.findById(quizId).orElseThrow(() ->
+                new QuizNotFoundException("Quiz mit ID " + quizId + " nicht gefunden"));
+    }
+
+
 }
 

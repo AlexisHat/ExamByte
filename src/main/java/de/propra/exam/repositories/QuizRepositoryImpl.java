@@ -20,7 +20,7 @@ public class QuizRepositoryImpl implements QuizRepository {
     }
 
     @Override
-    public Optional<Quiz> findById(Integer id) {
+    public Optional<Quiz> findById(Long id) {
         return Optional.empty();
     }
 }

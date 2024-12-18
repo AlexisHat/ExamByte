@@ -8,5 +8,5 @@ import java.util.Optional;
 public interface QuizRepository {
     List<Quiz> findAll();
     void save(Quiz quiz);
-    Optional<Quiz> findById(Integer id);
+    Optional<Quiz> findById(Long id);
 }

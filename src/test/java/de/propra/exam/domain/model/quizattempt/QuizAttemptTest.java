@@ -5,6 +5,8 @@ import de.propra.exam.domain.exceptions.QuizAlreadyEndedException;
 import de.propra.exam.domain.exceptions.QuizNotStartedException;
 import de.propra.exam.domain.model.quiz.Quiz;
 import de.propra.exam.domain.model.quiz.question.TextQuestion;
+import de.propra.exam.domain.model.quizattempt.answer.Answer;
+import de.propra.exam.domain.model.quizattempt.answer.TextAnswer;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +26,7 @@ class QuizAttemptTest {
         QuizAttempt quizAttempt = new QuizAttempt(1L, 1L, 123L);
 
 
-        List<Antwort> antworten = quizAttempt.getAntworten();
+        List<Answer> antworten = quizAttempt.getAntworten();
 
         assertThat(antworten.size()).isZero();
     }
@@ -35,10 +37,10 @@ class QuizAttemptTest {
         Quiz quiz = mock(Quiz.class);
         when(quiz.isGestartet(zeit)).thenReturn(true);
         when(quiz.isBeendet(zeit)).thenReturn(false);
-        when(quiz.findeFrage(1L)).thenReturn(new TextQuestion());
+        when(quiz.findQuestionById(1L)).thenReturn(new TextQuestion());
         QuizAttempt quizAttempt = new QuizAttempt(1L, 1L, 123L);
-        quizAttempt.addOrUpdateAnswer(1L,new FreitextAntwort(1L,"Bla", zeit),quiz,zeit);
-        List<Antwort> antworten = quizAttempt.getAntworten();
+        quizAttempt.addOrUpdateAnswer(1L,new TextAnswer(1L,"Bla", zeit),quiz,zeit);
+        List<Answer> antworten = quizAttempt.getAntworten();
 
         assertThat(antworten.size()).isOne();
     }
@@ -49,7 +51,7 @@ class QuizAttemptTest {
         Quiz quiz = mock(Quiz.class);
         when(quiz.isGestartet(zeit)).thenReturn(false);
         QuizAttempt quizAttempt = new QuizAttempt(1L, 1L, 123L);
-        FreitextAntwort bla = new FreitextAntwort(1L, "Bla", zeit);
+        TextAnswer bla = new TextAnswer(1L, "Bla", zeit);
 
         assertThatThrownBy(() -> quizAttempt.addOrUpdateAnswer(1L, bla, quiz, zeit)).isInstanceOf(QuizNotStartedException.class)
                 .hasMessageContaining("Das Quiz hat noch nicht begonnen.");
@@ -62,7 +64,7 @@ class QuizAttemptTest {
         when(quiz.isBeendet(any())).thenReturn(true);
         when(quiz.isGestartet(zeit)).thenReturn(true);
         QuizAttempt quizAttempt = new QuizAttempt(1L, 1L, 123L);
-        FreitextAntwort bla = new FreitextAntwort(1L, "Bla", zeit);
+        TextAnswer bla = new TextAnswer(1L, "Bla", zeit);
 
 
         assertThatThrownBy(() -> quizAttempt.addOrUpdateAnswer(1L, bla, quiz, zeit)).isInstanceOf(QuizAlreadyEndedException.class)
@@ -74,7 +76,7 @@ class QuizAttemptTest {
     void test_05() {
         QuizAttempt quizAttempt = new QuizAttempt(1L, 1L, 123L);
         quizAttempt.abgeschlossen = true;
-        FreitextAntwort bla = new FreitextAntwort(1L, "Bla", LocalDateTime.now());
+        TextAnswer bla = new TextAnswer(1L, "Bla", LocalDateTime.now());
 
         assertThatThrownBy(() -> quizAttempt.addOrUpdateAnswer(1L, bla, new Quiz(), LocalDateTime.now())).isInstanceOf(IllegalStateException.class)
                 .hasMessageContaining("Versuch ist bereits abgeschlossen.");
@@ -85,11 +87,11 @@ class QuizAttemptTest {
     void test_06(){
         LocalDateTime zeit = LocalDateTime.now();
         Quiz quiz = mock(Quiz.class);
-        when(quiz.findeFrage(1L)).thenReturn(null);
+        when(quiz.findQuestionById(1L)).thenReturn(null);
         when(quiz.isGestartet(zeit)).thenReturn(true);
         when(quiz.isBeendet(zeit)).thenReturn(false);
         QuizAttempt quizAttempt = new QuizAttempt(1L, 1L, 123L);
-        FreitextAntwort antwort = new FreitextAntwort(1L, "Bla", LocalDateTime.now());
+        TextAnswer antwort = new TextAnswer(1L, "Bla", LocalDateTime.now());
 
 
         assertThatThrownBy(() -> quizAttempt.addOrUpdateAnswer(1L, antwort, quiz, zeit)).isInstanceOf(IllegalArgumentException.class)

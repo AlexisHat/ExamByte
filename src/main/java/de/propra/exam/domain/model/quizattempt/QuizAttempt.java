@@ -4,6 +4,9 @@ import de.propra.exam.domain.exceptions.QuizAlreadyEndedException;
 import de.propra.exam.domain.exceptions.QuizNotStartedException;
 import de.propra.exam.domain.model.quiz.question.Question;
 import de.propra.exam.domain.model.quiz.Quiz;
+import de.propra.exam.domain.model.quizattempt.answer.Answer;
+import de.propra.exam.domain.model.quizattempt.answer.MultipleChoiceAnswer;
+import de.propra.exam.domain.model.quizattempt.answer.TextAnswer;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -12,7 +15,7 @@ public class QuizAttempt {
     private final Long quizAttemptId;
     private final Long quizId;
     private final Long studentId;
-    private final List<Antwort> antworten;
+    private final List<Answer> antworten;
     boolean abgeschlossen;
 
     public QuizAttempt(Long quizAttemptId, Long quizId, Long studentId) {
@@ -24,7 +27,7 @@ public class QuizAttempt {
     }
 
 
-    public void addOrUpdateAnswer(Long questionId, Antwort neueAntwort, Quiz quiz, LocalDateTime now) {
+    public void addOrUpdateAnswer(Long questionId, Answer newAnswer, Quiz quiz, LocalDateTime now) {
         if (abgeschlossen) {
             throw new IllegalStateException("Versuch ist bereits abgeschlossen.");
         }
@@ -34,24 +37,24 @@ public class QuizAttempt {
         if (quiz.isBeendet(now)) {
             throw new QuizAlreadyEndedException("Das Quiz ist beendet");
         }
-        Question frage = quiz.findeFrage(questionId);
+        Question frage = quiz.findQuestionById(questionId);
         if (frage == null) {
             throw new IllegalArgumentException("Frage gehört nicht zu diesem Quiz.");
         }
-        Antwort bestehende = findAnswerByFrageId(questionId);
+        Answer bestehende = findAnswerByFrageId(questionId);
         if (bestehende == null) {
-            antworten.add(neueAntwort);
+            antworten.add(newAnswer);
         } else {
-            aktualisiereAntwort(bestehende, neueAntwort, now);
+            aktualisiereAntwort(bestehende, newAnswer, now);
         }
     }
 
-    void aktualisiereAntwort(Antwort bestehende, Antwort neueAntwort, LocalDateTime now) {
-        if (bestehende instanceof FreitextAntwort bestehendeTextAntwort
-                && neueAntwort instanceof FreitextAntwort neuTextAntwort) {
+    void aktualisiereAntwort(Answer bestehende, Answer newAnswer, LocalDateTime now) {
+        if (bestehende instanceof TextAnswer bestehendeTextAntwort
+                && newAnswer instanceof TextAnswer neuTextAntwort) {
             bestehendeTextAntwort.setText(neuTextAntwort.getText(), now);
-        } else if (bestehende instanceof MultipleChoiceAntwort bestehendeMultipleAntwort
-                && neueAntwort instanceof MultipleChoiceAntwort neuMultipleAntwort) {
+        } else if (bestehende instanceof MultipleChoiceAnswer bestehendeMultipleAntwort
+                && newAnswer instanceof MultipleChoiceAnswer neuMultipleAntwort) {
             bestehendeMultipleAntwort.setAusgewaehlteOptionen(neuMultipleAntwort.getAusgewaehlteOptionen(), now);
         } else {
             throw new IllegalStateException("Antwortentyp stimmt nicht überein.");
@@ -63,14 +66,14 @@ public class QuizAttempt {
         return abgeschlossen;
     }
 
-    public Antwort findAnswerByFrageId(Long frageId) {
+    public Answer findAnswerByFrageId(Long frageId) {
         return antworten.stream()
-                .filter(antwort -> antwort.getFrageId().equals(frageId))
+                .filter(answer -> answer.getFrageId().equals(frageId))
                 .findFirst()
                 .orElse(null);
     }
 
-    public List<Antwort> getAntworten() {
+    public List<Answer> getAntworten() {
         return new ArrayList<>(antworten);
     }
 

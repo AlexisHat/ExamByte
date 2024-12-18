@@ -56,7 +56,7 @@ public class Quiz {
     public boolean isBeendet(LocalDateTime now) {
         return now.isAfter(endTime);
     }
-    public Question findeFrage(Long frageId) {
-        return questions.stream().filter(question -> question.getQuestionId().equals(frageId)).findFirst().orElse(null);
+    public Question findQuestionById(Long questionID) {
+        return questions.stream().filter(question -> question.getQuestionId().equals(questionID)).findFirst().orElse(null);
     }
 }

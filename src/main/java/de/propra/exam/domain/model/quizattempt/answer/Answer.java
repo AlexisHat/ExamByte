@@ -1,12 +1,12 @@
-package de.propra.exam.domain.model.quizattempt;
+package de.propra.exam.domain.model.quizattempt.answer;
 
 import java.time.LocalDateTime;
 
-public abstract class Antwort {
+public abstract class Answer {
     private final Long frageId;
     private LocalDateTime abgegebenAm;
 
-    public Antwort(Long frageId, LocalDateTime abgegebenAm) {
+    public Answer(Long frageId, LocalDateTime abgegebenAm) {
         this.frageId = frageId;
         this.abgegebenAm = abgegebenAm;
     }

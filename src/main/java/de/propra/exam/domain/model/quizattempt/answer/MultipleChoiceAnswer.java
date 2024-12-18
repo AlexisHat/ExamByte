@@ -1,12 +1,14 @@
-package de.propra.exam.domain.model.quizattempt;
+package de.propra.exam.domain.model.quizattempt.answer;
+
+import de.propra.exam.domain.model.quizattempt.answer.Answer;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class MultipleChoiceAntwort extends Antwort {
+public class MultipleChoiceAnswer extends Answer {
     private List<String> ausgewaehlteOptionen;
 
-    public MultipleChoiceAntwort(Long frageId, List<String> ausgewaehlteOptionen, LocalDateTime abgegebenAm) {
+    public MultipleChoiceAnswer(Long frageId, List<String> ausgewaehlteOptionen, LocalDateTime abgegebenAm) {
         super(frageId, abgegebenAm);
         this.ausgewaehlteOptionen = ausgewaehlteOptionen;
     }

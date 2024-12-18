@@ -1,12 +1,14 @@
-package de.propra.exam.domain.model.quizattempt;
+package de.propra.exam.domain.model.quizattempt.answer;
 
+
+import de.propra.exam.domain.model.quizattempt.answer.Answer;
 
 import java.time.LocalDateTime;
 
-public class FreitextAntwort extends Antwort {
+public class TextAnswer extends Answer {
     private String text;
 
-    public FreitextAntwort(Long frageId, String text, LocalDateTime abgegebenAm) {
+    public TextAnswer(Long frageId, String text, LocalDateTime abgegebenAm) {
         super(frageId, abgegebenAm);
         this.text = text;
     }
