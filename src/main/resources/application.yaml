@@ -12,3 +12,7 @@ spring:
             client-id: ${GitHubClientID}
             client-secret: ${GitHubClientSecret}
             scope: read:public_repo
+  datasource:
+    password: user
+    username: mypassword123
+    url: jdbc:postgresql://localhost:5432/postgres

@@ -16,6 +16,8 @@ import org.springframework.test.web.servlet.MvcResult;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
 
 @WebMvcTest(SecureController.class)
 @Import({SecurityConfig.class, MethodSecurityConfig.class})
