@@ -17,7 +17,7 @@ public class QuizEntity {
 
 
     @PersistenceCreator
-    private QuizEntity(Long quizId, String quizName, LocalDateTime startTime, LocalDateTime endTime, List<QuestionEntity> questions) {
+    public QuizEntity(Long quizId, String quizName, LocalDateTime startTime, LocalDateTime endTime, List<QuestionEntity> questions) {
         this.quizId = quizId;
         this.quizName = quizName;
         this.startTime = startTime;
@@ -28,6 +28,10 @@ public class QuizEntity {
 
     public QuizEntity(String quizName, LocalDateTime startTime, LocalDateTime endTime) {
         this(null, quizName, startTime, endTime, new ArrayList<>());
+    }
+
+    public static QuizEntity createEmpty() {
+        return new QuizEntity(null,null,null,null,null);
     }
 
     public Long getQuizId() {

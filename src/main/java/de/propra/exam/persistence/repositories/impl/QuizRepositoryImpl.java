@@ -1,7 +1,8 @@
-package de.propra.exam.persistence.repositories;
+package de.propra.exam.persistence.repositories.impl;
 
 import de.propra.exam.domain.model.quiz.Quiz;
 import de.propra.exam.domain.service.QuizRepository;
+import de.propra.exam.persistence.repositories.crud.QuizCrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

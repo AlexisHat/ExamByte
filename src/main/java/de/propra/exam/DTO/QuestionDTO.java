@@ -4,7 +4,7 @@ public class QuestionDTO {
     private String title;
     private String task;
     private String solution;
-    private Integer points;
+    private Double points;
     private String type;
 
     public String getType() {
@@ -39,11 +39,11 @@ public class QuestionDTO {
         this.solution = solution;
     }
 
-    public Integer getPoints() {
+    public Double getPoints() {
         return points;
     }
 
-    public void setPoints(Integer points) {
+    public void setPoints(Double points) {
         this.points = points;
     }
 }

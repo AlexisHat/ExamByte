@@ -1,4 +1,4 @@
-package de.propra.exam.persistence.repositories;
+package de.propra.exam.persistence.repositories.impl;
 
 import de.propra.exam.domain.model.quizattempt.QuizAttempt;
 import de.propra.exam.domain.model.quizattempt.answer.Answer;

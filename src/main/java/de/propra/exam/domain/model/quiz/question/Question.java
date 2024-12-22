@@ -3,15 +3,15 @@ package de.propra.exam.domain.model.quiz.question;
 public abstract class Question {
     String title;
     String task;
-    Integer points;
+    Double points;
     String solution;
     Long questionId;
 
-    public Integer getPoints() {
+    public Double getPoints() {
         return points;
     }
 
-    public void setPoints(Integer points) {
+    public void setPoints(Double points) {
         this.points = points;
     }
 
