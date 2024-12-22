@@ -1,4 +1,4 @@
-package de.propra.exam.repositories;
+package de.propra.exam.persistence.repositories;
 
 import de.propra.exam.domain.model.quiz.Quiz;
 import de.propra.exam.domain.service.QuizRepository;
@@ -9,6 +9,13 @@ import java.util.Optional;
 
 @Repository
 public class QuizRepositoryImpl implements QuizRepository {
+
+    private QuizCrudRepository quizCrudRepository;
+
+    public QuizRepositoryImpl(QuizCrudRepository quizCrudRepository) {
+        this.quizCrudRepository = quizCrudRepository;
+    }
+
     @Override
     public List<Quiz> findAll() {
         return null;

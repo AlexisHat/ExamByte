@@ -5,9 +5,6 @@ public abstract class Question {
     String task;
     Integer points;
     String solution;
-
-
-
     Long questionId;
 
     public Integer getPoints() {

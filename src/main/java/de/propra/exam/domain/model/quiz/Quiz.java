@@ -9,10 +9,7 @@ import java.util.Objects;
 
 
 public class Quiz {
-
-    Integer quizID;
-
-
+    Long quizID;
     String quizName;
     LocalDateTime startTime;
     LocalDateTime endTime;
@@ -21,11 +18,11 @@ public class Quiz {
     public boolean isActive(LocalDateTime clientLDT) {
         return clientLDT.isAfter(startTime) && clientLDT.isBefore(endTime);
     }
-    public Integer getQuizID() {
+    public Long getQuizID() {
         return quizID;
     }
 
-    public void setQuizID(Integer quizID) {
+    public void setQuizID(Long quizID) {
         this.quizID = quizID;
     }
 
