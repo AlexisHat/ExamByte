@@ -3,9 +3,11 @@ package de.propra.exam.persistence.entity.quiz;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceCreator;
+import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.List;
 
+@Table("question")
 public class QuestionEntity {
     @Id
     private Long questionId;
