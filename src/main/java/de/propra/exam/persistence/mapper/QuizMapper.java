@@ -78,8 +78,8 @@ public class QuizMapper {
                     multipleChoiceQuestion.getPoints(),
                     multipleChoiceQuestion.getTitle(),
                     multipleChoiceQuestion.getTask(),
-                    multipleChoiceQuestion.getOptions(),
-                    multipleChoiceQuestion.getCorrectOptionIndexes()
+                    multipleChoiceQuestion.getOptionsAsString(),
+                    multipleChoiceQuestion.getCorrectOptionIndexesAsString()
             );
         }
         return null;

@@ -3,9 +3,12 @@ package de.propra.exam.persistence.entity.quiz;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceCreator;
+import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Table("question")
 public class QuestionEntity {
@@ -20,16 +23,16 @@ public class QuestionEntity {
 
     private final QuestionType type;
 
-    private final List<String> options;
+    private final String options;
 
-    private final List<Integer> correctOptionIndex;
+    private final String  correctOptionIndex;
 
     private final String musterLoesungForTextQuestion;
 
 
     private QuestionEntity(Long questionId,Double points ,String titel ,
-                           String task, QuestionType type, List<String> options,
-                           List<Integer> correctOptionIndex, String musterLoesungForTextQuestion) {
+                           String task, QuestionType type, String options,
+                           String correctOptionIndex, String musterLoesungForTextQuestion) {
         this.questionId = questionId;
         this.points = points;
         this.titel = titel;
@@ -41,9 +44,9 @@ public class QuestionEntity {
     }
     @PersistenceCreator
     public static QuestionEntity of(Long questionId,Double points, String titel,
-                                    String task, QuestionType type, List<String> options,
-                                    List<Integer> correctOptionIndex, String correctAnswer) {
-        return new QuestionEntity(questionId,points, titel, task, type, options, correctOptionIndex, correctAnswer);
+                                    String task, QuestionType type, String options,
+                                    String correctOptionIndex, String musterLoesungForTextQuestion) {
+        return new QuestionEntity(questionId,points, titel, task, type, options, correctOptionIndex, musterLoesungForTextQuestion);
     }
 
     public static QuestionEntity ofText(Long questionId, Double points, String titel,
@@ -53,7 +56,7 @@ public class QuestionEntity {
     }
 
     public static QuestionEntity ofMutiple(Long questionId, Double points, String titel,
-                                           String task, List<String> options, List<Integer> correctOptionIndex) {
+                                           String task, String options, String correctOptionIndex) {
         return new QuestionEntity(questionId,points, titel, task,
                 QuestionType.MULTIPLE_CHOICE, options ,correctOptionIndex, null);
     }
@@ -75,11 +78,15 @@ public class QuestionEntity {
     }
 
     public List<String> getOptions() {
-        return options;
+        return Arrays.stream(options.split(","))
+                .collect(Collectors.toList());
     }
 
+
     public List<Integer> getCorrectOptionIndex() {
-        return correctOptionIndex;
+        return Arrays.stream(this.correctOptionIndex.split(","))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
     }
 
     public String getMusterLoesungForTextQuestion() {

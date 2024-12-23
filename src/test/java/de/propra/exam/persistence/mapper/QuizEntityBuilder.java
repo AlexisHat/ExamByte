@@ -42,7 +42,7 @@ public QuizEntityBuilder withId(Long id) {
 
     public QuizEntityBuilder withDefaultQuestions() {
         QuestionEntity mutiple = QuestionEntity.ofMutiple
-                (1L, 1.0, "a", "b", List.of(), List.of(1));
+                (1L, 1.0, "a", "b", "hallo,bla", "1");
         QuestionEntity text = QuestionEntity.ofText
                 (2L,1.5,"s","e", "x");
 

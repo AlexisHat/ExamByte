@@ -10,10 +10,10 @@ create table if not exists question(
     quiz integer references quiz(quiz_id),
     quiz_key integer,
     points double precision,
-    titel varchar(40),
+    titel varchar(250),
     task text,
-    type varchar(10),
-    options jsonb,
-    correct_option_index jsonb,
+    type varchar(30),
+    options text,
+    correct_option_index text,
     muster_loesung_for_text_question text
 )

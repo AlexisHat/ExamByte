@@ -33,7 +33,7 @@ public class QuizEntity {
     }
 
     public static QuizEntity createEmpty() {
-        return new QuizEntity(null,null,null,null,null);
+        return new QuizEntity(null,null,null,null,new ArrayList<>());
     }
 
     public Long getQuizId() {
