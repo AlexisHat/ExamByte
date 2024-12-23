@@ -4,6 +4,7 @@ import de.propra.exam.domain.model.quiz.Quiz;
 import de.propra.exam.domain.model.quiz.question.MultipleChoiceQuestion;
 import de.propra.exam.domain.model.quiz.question.Question;
 import de.propra.exam.domain.model.quiz.question.TextQuestion;
+import de.propra.exam.facAndBuild.QuizEntityBuilder;
 import de.propra.exam.persistence.entity.quiz.QuestionEntity;
 import de.propra.exam.persistence.entity.quiz.QuestionType;
 import de.propra.exam.persistence.entity.quiz.QuizEntity;
@@ -11,10 +12,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class QuizMapperTest {
 
@@ -33,7 +32,7 @@ class QuizMapperTest {
     @DisplayName("Wenn eine Question Entity mit dem Feld Type Mutiple-Choice übergeben bekommt wird ein Domain" +
             "Objekt der Klasse Mutiple zurück gegeben")
     void test_02(){
-        QuestionEntity questionEntity = QuestionEntity.ofMutiple(1L, 1.0, "foo", "bar",List.of("foo"),List.of(1));
+        QuestionEntity questionEntity = QuestionEntity.ofMutiple(1L, 1.0, "foo", "bar","foo,bar","1");
 
         Question domain = QuizMapper.toDomain(questionEntity);
 

@@ -53,7 +53,6 @@ public class CreateQuizController {
     @PostMapping("/finalize-test")
     public String finalizeTest(@ModelAttribute("quiz") Quiz quiz) {
         quizService.addQuiz(quiz);
-        // TODO: Quiz speichern, wenn eine Datenbank verfügbar ist
         return "redirect:/success";
     }
 }

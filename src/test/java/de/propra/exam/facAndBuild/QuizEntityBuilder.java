@@ -1,6 +1,5 @@
-package de.propra.exam.persistence.mapper;
+package de.propra.exam.facAndBuild;
 
-import de.propra.exam.domain.model.quiz.Quiz;
 import de.propra.exam.persistence.entity.quiz.QuestionEntity;
 import de.propra.exam.persistence.entity.quiz.QuizEntity;
 

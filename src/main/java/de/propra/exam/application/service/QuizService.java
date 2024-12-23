@@ -6,10 +6,12 @@ import de.propra.exam.domain.model.quiz.*;
 import de.propra.exam.domain.model.quiz.question.Question;
 import de.propra.exam.domain.model.quiz.question.QuestionBuilder;
 import de.propra.exam.domain.service.QuizRepository;
+import de.propra.exam.persistence.repositories.crud.QuizCrudRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class QuizService {
+
 
     private final QuizRepository quizRepository;
 
@@ -35,8 +37,8 @@ public class QuizService {
 
     }
 
-    public void addQuiz(Quiz quiz) {
-        quizRepository.save(quiz);
+    public Long addQuiz(Quiz quiz) {
+        return quizRepository.save(quiz);
     }
 
     public Quiz findQuizById(Long quizId) {

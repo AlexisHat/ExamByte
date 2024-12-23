@@ -7,6 +7,22 @@ public class QuestionDTO {
     private Double points;
     private String type;
 
+    private QuestionDTO(String title, String task, String solution, Double points, String type) {
+        this.title = title;
+        this.task = task;
+        this.solution = solution;
+        this.points = points;
+        this.type = type;
+    }
+
+    public QuestionDTO() {
+        this(null,null,null,null,null);
+    }
+
+    public static QuestionDTO withDummy() {
+        return new QuestionDTO("titel","task","solution", 1.0, "text");
+    }
+
     public String getType() {
         return type;
     }
