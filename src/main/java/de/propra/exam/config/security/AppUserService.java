@@ -1,6 +1,9 @@
 package de.propra.exam.config.security;
 
 import de.propra.exam.config.RolesConfig;
+import de.propra.exam.domain.model.users.Student;
+import de.propra.exam.domain.service.StudentRepository;
+import de.propra.exam.persistence.repositories.impl.StudentRepositoryImpl;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
@@ -20,19 +23,33 @@ public class AppUserService implements OAuth2UserService<OAuth2UserRequest, OAut
 
     private final DefaultOAuth2UserService defaultOAuth2UserService = new DefaultOAuth2UserService();
     private final RolesConfig rolesConfig;
+    private final StudentRepository studentRepository;
 
-    public AppUserService(RolesConfig rolesConfig) {
+    public AppUserService(RolesConfig rolesConfig, StudentRepository studentRepository) {
         this.rolesConfig = rolesConfig;
+        this.studentRepository = studentRepository;
     }
-
 
     @Override
     public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+
         OAuth2User originalUser = defaultOAuth2UserService.loadUser(userRequest);
+
         Set<GrantedAuthority> authorities = new HashSet<>(originalUser.getAuthorities());
         String id = originalUser.getAttribute("id").toString();
+        String name = originalUser.getAttribute("name");
+        String email = originalUser.getAttribute("email");
+
         if (rolesConfig.getStudent().contains(id)) {
             authorities.add(new SimpleGrantedAuthority("ROLE_STUDENT"));
+
+            studentRepository.findByGithubId(id).orElseGet(() -> {
+                Student newStudent = new Student();
+                newStudent.setGithubId(id);
+                newStudent.setName(name);
+                newStudent.setEmail(email);
+                return studentRepository.save(newStudent);
+            });
         }
         if (rolesConfig.getKorrektor().contains(id)) {
             authorities.add(new SimpleGrantedAuthority("ROLE_KORREKTOR"));
