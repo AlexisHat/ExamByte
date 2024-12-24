@@ -13,5 +13,7 @@ public interface AttemptRepository {
     void saveQuizAttempt(QuizAttempt quizAttempt);
 
     List<Answer> findAllByQuizIdAndStudentId(Long quizId, Long studentId);
+
+    QuizAttempt createQuizAttempt(Long quizId, Long studentId);
 }
 

@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class MultipleChoiceAnswer extends Answer {
+
     private List<String> ausgewaehlteOptionen;
 
     public MultipleChoiceAnswer(Long frageId, List<String> ausgewaehlteOptionen, LocalDateTime abgegebenAm) {

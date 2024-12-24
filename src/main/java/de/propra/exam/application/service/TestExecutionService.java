@@ -1,38 +1,41 @@
 package de.propra.exam.application.service;
 
-import de.propra.exam.domain.exceptions.QuizAlreadyEndedException;
+import de.propra.exam.domain.exceptions.QuestionNotFoundException;
 import de.propra.exam.domain.exceptions.QuizNotStartedException;
 import de.propra.exam.domain.model.quiz.*;
+import de.propra.exam.domain.model.quiz.question.MultipleChoiceQuestion;
 import de.propra.exam.domain.model.quiz.question.Question;
+import de.propra.exam.domain.model.quiz.question.TextQuestion;
 import de.propra.exam.domain.model.quizattempt.answer.Answer;
 import de.propra.exam.domain.model.quizattempt.QuizAttempt;
+import de.propra.exam.domain.model.quizattempt.answer.MultipleChoiceAnswer;
 import de.propra.exam.domain.model.quizattempt.answer.TextAnswer;
 import de.propra.exam.domain.service.AttemptRepository;
-import de.propra.exam.domain.service.Clock;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TestExecutionService {
-    private final QuizService quizService;
-    private final AttemptRepository attemptRepository;
-    private final Clock clock;
 
-    public TestExecutionService(QuizService quizService, AttemptRepository attemptRepository, Clock clock) {
+    private final QuizService quizService;
+    private final QuizValidationService quizValidationService;
+    private final AttemptRepository attemptRepository;
+
+    public TestExecutionService(QuizService quizService,
+                                QuizValidationService quizValidationService,
+                                AttemptRepository attemptRepository) {
         this.quizService = quizService;
+        this.quizValidationService = quizValidationService;
         this.attemptRepository = attemptRepository;
-        this.clock = clock;
     }
 
     public List<Question> getQuestionsForStudent(Long quizId, Long studentId) {
         Quiz quiz = quizService.findQuizById(quizId);
-        LocalDateTime now = clock.now();
-
-        if (!(quiz.isGestartet(now)) ){
-            throw new QuizNotStartedException("Quiz noch nicht begonnen.");
-        }
+        quizValidationService.validateQuizStarted(quiz);
 
         //TODO: mby later checken ob student für quiz berechtigt ist
 
@@ -40,40 +43,47 @@ public class TestExecutionService {
     }
 
     public void submitAnswer(Long quizId, Long studentId, Long questionId, String answerContent) {
-        Quiz quiz = quizService.findQuizById(quizId);
-        LocalDateTime now = clock.now();
+            Quiz quiz = quizService.findQuizById(quizId);
+            quizValidationService.validateQuizStartedAndNotEnded(quiz);
 
-        if (!(quiz.isGestartet(now)) ){
-            throw new QuizNotStartedException("Quiz hat noch nicht begonnen.");
-        }
 
-        if (quiz.isBeendet(now)) {
-            throw new QuizAlreadyEndedException("Quiz beendet.");
-        }
+            Question question = quiz.findQuestionById(questionId);
 
-        Question question = quiz.findQuestionById(questionId);
         if (question == null) {
-            throw new IllegalArgumentException("Ungültige Frage-ID.");
+            throw new QuestionNotFoundException("Ungültige Frage-ID.");
         }
 
-        QuizAttempt quizAttempt = attemptRepository.findQuizAttemptByQuizIdAndStudentId(quizId, studentId)
-                .orElseGet(() -> new QuizAttempt(System.currentTimeMillis(), quizId, studentId));
+        QuizAttempt quizAttempt = findOrCreateQuizAttempt(quizId, studentId);
+        Answer newAnswer;
+        if (question instanceof TextQuestion) {
+            newAnswer = new TextAnswer(questionId, answerContent, quizValidationService.getCurrentTime());
+        } else if (question instanceof MultipleChoiceQuestion) {
+            List<String> options = parseMultipleChoiceAnswer(answerContent);
+            newAnswer = new MultipleChoiceAnswer(questionId, options, quizValidationService.getCurrentTime());
+        }else {
+            throw new IllegalStateException("Unbekannter Fragetyp.");
+        }
 
-        Answer newAnswer = new TextAnswer(questionId, answerContent, now);
-        quizAttempt.addOrUpdateAnswer(questionId, newAnswer, quiz, now);
+        quizAttempt.addOrUpdateAnswer(questionId, newAnswer, quiz, quizValidationService.getCurrentTime());
 
         attemptRepository.saveQuizAttempt(quizAttempt);
     }
 
+    private List<String> parseMultipleChoiceAnswer(String answerContent) {
+        return Arrays.stream(answerContent.split(","))
+                .map(String::trim)
+                .collect(Collectors.toList());
+    }
 
     public List<Answer> getSubmittedAnswers(Long quizId, Long studentId) {
         Quiz quiz = quizService.findQuizById(quizId);
-        LocalDateTime now = clock.now();
-
-        if (!(quiz.isGestartet(now))) {
-            throw new QuizNotStartedException("Der Test hat noch nicht begonnen.");
-        }
+        quizValidationService.validateQuizStarted(quiz);
 
         return attemptRepository.findAllByQuizIdAndStudentId(quizId, studentId);
+    }
+
+    private QuizAttempt findOrCreateQuizAttempt(Long quizId, Long studentId) {
+        return attemptRepository.findQuizAttemptByQuizIdAndStudentId(quizId, studentId)
+                .orElseGet(() -> attemptRepository.createQuizAttempt(quizId, studentId));
     }
 }

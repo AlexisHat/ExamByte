@@ -6,6 +6,7 @@ import de.propra.exam.domain.model.quizattempt.answer.Answer;
 import java.time.LocalDateTime;
 
 public class TextAnswer extends Answer {
+
     private String text;
 
     public TextAnswer(Long frageId, String text, LocalDateTime abgegebenAm) {
