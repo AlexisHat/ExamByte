@@ -12,10 +12,10 @@ import java.util.List;
 public class QuizEntity {
     @Id
     private Long quizId;
-    private String quizName;
-    private LocalDateTime startTime;
-    private LocalDateTime endTime;
-    private List<QuestionEntity> questions;
+    private final String quizName;
+    private final LocalDateTime startTime;
+    private final LocalDateTime endTime;
+    private final List<QuestionEntity> questions;
 
 
     @PersistenceCreator
@@ -54,9 +54,5 @@ public class QuizEntity {
 
     public List<QuestionEntity> getQuestions() {
         return questions;
-    }
-
-    public void addQuestions(QuestionEntity question) {
-        questions.add(question);
     }
 }

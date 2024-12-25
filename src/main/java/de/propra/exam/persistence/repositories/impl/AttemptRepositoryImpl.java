@@ -24,4 +24,9 @@ public class AttemptRepositoryImpl implements AttemptRepository {
     public List<Answer> findAllByQuizIdAndStudentId(Long quizId, Long studentId) {
         return null;
     }
+
+    @Override
+    public QuizAttempt createQuizAttempt(Long quizId, Long studentId) {
+        return null;
+    }
 }
