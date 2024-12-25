@@ -9,11 +9,15 @@ public class MultipleChoiceAnswer extends Answer {
 
     private List<String> ausgewaehlteOptionen;
 
-    public MultipleChoiceAnswer(Long frageId, List<String> ausgewaehlteOptionen, LocalDateTime abgegebenAm) {
-        super(frageId, abgegebenAm);
+    public MultipleChoiceAnswer( Long frageId, List<String> ausgewaehlteOptionen, LocalDateTime abgegebenAm) {
+        super(null, frageId, abgegebenAm);
         this.ausgewaehlteOptionen = ausgewaehlteOptionen;
     }
 
+    public MultipleChoiceAnswer(Long id, Long frageId, LocalDateTime abgegebenAm, List<String> ausgewaehlteOptionen) {
+        super(id, frageId, abgegebenAm);
+        this.ausgewaehlteOptionen = ausgewaehlteOptionen;
+    }
 
     public List<String> getAusgewaehlteOptionen() {
         return ausgewaehlteOptionen;

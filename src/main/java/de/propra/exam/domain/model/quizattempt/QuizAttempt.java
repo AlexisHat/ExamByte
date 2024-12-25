@@ -28,6 +28,14 @@ public class QuizAttempt {
         this.abgeschlossen = false;
     }
 
+    public QuizAttempt(Long quizAttemptId, Long quizId, Long studentId, List<Answer> antworten) {
+        this.quizAttemptId = quizAttemptId;
+        this.quizId = quizId;
+        this.studentId = studentId;
+        this.antworten = antworten;
+        this.abgeschlossen = false;
+    }
+
 
     public void addOrUpdateAnswer(Long questionId, Answer newAnswer, Quiz quiz, LocalDateTime now) {
         if (abgeschlossen) {

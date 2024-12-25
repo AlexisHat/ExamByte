@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 class QuizAttemptTest {
 
     @Test
-    @DisplayName("wenn noch keine antwort hinzugefügt wurde ist die antworten Liste leer")
+    @DisplayName("wenn noch keine antwort hinzugefügt wurde ist die answers Liste leer")
     void test_01(){
         QuizAttempt quizAttempt = new QuizAttempt(1L, 1L, 123L);
 
