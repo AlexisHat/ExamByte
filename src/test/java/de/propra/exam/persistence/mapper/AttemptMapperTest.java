@@ -10,7 +10,6 @@ import de.propra.exam.persistence.entity.quiz.QuestionType;
 import de.propra.exam.persistence.entity.quizattempt.AnswerEntity;
 import de.propra.exam.persistence.entity.quizattempt.QuizAttemptEntity;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -103,7 +102,7 @@ public class AttemptMapperTest {
 
         QuizAttemptEntity attemptEntity = QuizAttemptMapper.toAttemptEntity(quizAttempt);
 
-        assertThat(attemptEntity.quizAttemptId()).isEqualTo(quizAttempt.getQuizAttemptId());
+        assertThat(attemptEntity.id()).isEqualTo(quizAttempt.getQuizAttemptId());
         assertThat(attemptEntity.quizId()).isEqualTo(quizAttempt.getQuizId());
         assertThat(attemptEntity.studentId()).isEqualTo(quizAttempt.getStudentId());
         assertThat(attemptEntity.answers()).hasSize(1);

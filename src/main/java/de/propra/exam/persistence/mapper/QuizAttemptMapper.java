@@ -12,7 +12,7 @@ public class QuizAttemptMapper {
 
     public static QuizAttempt toDomain(QuizAttemptEntity attemptEntity){
         return new QuizAttempt
-                (attemptEntity.quizAttemptId(), attemptEntity.quizId(), attemptEntity.studentId(), attemptEntity
+                (attemptEntity.id(), attemptEntity.quizId(), attemptEntity.studentId(), attemptEntity
                         .answers().stream()
                         .map(QuizAttemptMapper::toDomain)
                         .toList());

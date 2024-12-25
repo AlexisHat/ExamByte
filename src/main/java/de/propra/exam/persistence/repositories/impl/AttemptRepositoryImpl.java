@@ -12,7 +12,7 @@ import java.util.Optional;
 public class AttemptRepositoryImpl implements AttemptRepository {
     @Override
     public Optional<QuizAttempt> findQuizAttemptByQuizIdAndStudentId(Long quizId, Long studentId) {
-        return Optional.empty();
+        return Optional.of(null);
     }
 
     @Override
