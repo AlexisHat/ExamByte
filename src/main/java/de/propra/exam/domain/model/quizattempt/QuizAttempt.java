@@ -11,6 +11,8 @@ import de.propra.exam.domain.model.quizattempt.answer.TextAnswer;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
 public class QuizAttempt {
     private final Long quizAttemptId;
     private final Long quizId;
@@ -23,6 +25,14 @@ public class QuizAttempt {
         this.quizId = quizId;
         this.studentId = studentId;
         this.antworten = new ArrayList<>();
+        this.abgeschlossen = false;
+    }
+
+    public QuizAttempt(Long quizAttemptId, Long quizId, Long studentId, List<Answer> antworten) {
+        this.quizAttemptId = quizAttemptId;
+        this.quizId = quizId;
+        this.studentId = studentId;
+        this.antworten = antworten;
         this.abgeschlossen = false;
     }
 
@@ -87,5 +97,17 @@ public class QuizAttempt {
 
     public Long getStudentId() {
         return studentId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        QuizAttempt that = (QuizAttempt) o;
+        return Objects.equals(quizAttemptId, that.quizAttemptId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(quizAttemptId);
     }
 }

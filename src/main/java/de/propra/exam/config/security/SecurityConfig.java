@@ -10,10 +10,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 public class SecurityConfig {
 
-    private RolesConfig rolesConfig;
+    private final AppUserService appUserService;
 
-    public SecurityConfig(RolesConfig rolesConfig) {
-        this.rolesConfig = rolesConfig;
+    public SecurityConfig(AppUserService appUserService) {
+        this.appUserService = appUserService;
     }
 
     @Bean
@@ -25,11 +25,8 @@ public class SecurityConfig {
                         .authenticated()
                 )
                 .oauth2Login(config -> config.userInfoEndpoint(
-                        info -> info.userService(new AppUserService(rolesConfig))
+                        info -> info.userService(appUserService)
                 ));
         return chainBuilder.build();
     }
-
-
-
 }
