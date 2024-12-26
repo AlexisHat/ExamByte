@@ -6,6 +6,8 @@ create table if not exists quiz_attempt(
 
 create table if not exists answer(
     answer_id serial primary key,
+    quiz_attempt integer references quiz_attempt(id),
+    quiz_attempt_key integer,
     frage_id integer references question(question_id),
     type varchar(30),
     selected_options text,

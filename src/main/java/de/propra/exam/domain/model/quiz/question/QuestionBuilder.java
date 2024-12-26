@@ -14,6 +14,11 @@ public class QuestionBuilder {
         return this;
     }
 
+    public QuestionBuilder withId(Long id) {
+        question.setQuestionId(id);
+        return this;
+    }
+
     public QuestionBuilder withTitle(String title) {
         question.setTitle(title);
         return this;

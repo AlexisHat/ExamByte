@@ -41,4 +41,8 @@ public abstract class Question {
     public Long getQuestionId() {
         return questionId;
     }
+
+    public void setQuestionId(Long questionId) {
+        this.questionId = questionId;
+    }
 }

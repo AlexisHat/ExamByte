@@ -71,8 +71,12 @@ public class Quiz {
     }
 
     public Question findQuestionById(Long questionID) {
-        return questions.stream().filter(question -> question.getQuestionId().equals(questionID)).findFirst().orElse(null);
+        return questions.stream()
+                .filter(question -> question.getQuestionId() != null && question.getQuestionId().equals(questionID))
+                .findFirst()
+                .orElse(null);
     }
+
 
     @Override
     public boolean equals(Object o) {

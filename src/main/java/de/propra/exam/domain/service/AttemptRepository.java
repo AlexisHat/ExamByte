@@ -10,10 +10,10 @@ public interface AttemptRepository {
 
     Optional<QuizAttempt> findQuizAttemptByQuizIdAndStudentId(Long quizId, Long studentId);
 
-    void saveQuizAttempt(QuizAttempt quizAttempt);
+    QuizAttempt saveQuizAttempt(QuizAttempt quizAttempt);
 
     List<Answer> findAllByQuizIdAndStudentId(Long quizId, Long studentId);
 
-    QuizAttempt createQuizAttempt(Long quizId, Long studentId);
+    QuizAttempt findById(Long quizAttemptId);
 }
 

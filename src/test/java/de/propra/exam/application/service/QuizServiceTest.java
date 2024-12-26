@@ -5,17 +5,17 @@ import de.propra.exam.config.TestcontainersConfiguration;
 import de.propra.exam.domain.exceptions.QuizNotFoundException;
 import de.propra.exam.domain.model.quiz.Quiz;
 import de.propra.exam.domain.service.QuizRepository;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
+import java.time.LocalDateTime;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @Import(TestcontainersConfiguration.class)
@@ -76,5 +76,4 @@ class QuizServiceTest {
         Quiz quizById = quizService.findQuizById(l);
         assertThat(quizById).isNotNull();
     }
-
 }

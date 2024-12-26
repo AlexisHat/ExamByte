@@ -41,6 +41,7 @@ public class QuizMapper {
             case TEXT -> {
                 return new QuestionBuilder()
                         .withQuestionType("text")
+                        .withId(questionEntity.getQuestionId())
                         .withPoints(questionEntity.getPoints())
                         .withSolution(questionEntity.getMusterLoesungForTextQuestion())
                         .withTask(questionEntity.getTask())
@@ -51,6 +52,7 @@ public class QuizMapper {
             case MULTIPLE_CHOICE -> {
                 return new QuestionBuilder()
                         .withQuestionType("multipleChoice")
+                        .withId(questionEntity.getQuestionId())
                         .withPoints(questionEntity.getPoints())
                         .withSolution(questionEntity.getMusterLoesungForTextQuestion())
                         .withTask(questionEntity.getTask())
