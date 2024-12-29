@@ -50,7 +50,7 @@ public class CreateQuizController {
     }
 
     @OrganisatorOnly
-    @PostMapping("/finalize-test")
+    @PostMapping("/finalize-quiz")
     public String finalizeTest(@ModelAttribute("quiz") Quiz quiz) {
         quizService.addQuiz(quiz);
         return "redirect:/success";

@@ -37,8 +37,10 @@ public class AppUserService implements OAuth2UserService<OAuth2UserRequest, OAut
 
         Set<GrantedAuthority> authorities = new HashSet<>(originalUser.getAuthorities());
         String id = originalUser.getAttribute("id").toString();
-        String name = originalUser.getAttribute("name");
+        String name = originalUser.getAttribute("login");
         String email = originalUser.getAttribute("email");
+
+        System.out.println(id+ name+ email);
 
         if (rolesConfig.getStudent().contains(id)) {
             authorities.add(new SimpleGrantedAuthority("ROLE_STUDENT"));
