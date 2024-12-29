@@ -55,4 +55,9 @@ public class CreateQuizController {
         quizService.addQuiz(quiz);
         return "redirect:/success";
     }
+
+    @GetMapping("/success")
+    public String showSuccessPage() {
+        return "quiz/success";
+    }
 }
