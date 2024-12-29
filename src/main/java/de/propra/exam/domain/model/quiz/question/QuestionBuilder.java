@@ -33,12 +33,6 @@ public class QuestionBuilder {
         question.setPoints(points);
         return this;
     }
-
-    public QuestionBuilder withSolution(String solution) {
-        question.setSolution(solution);
-        return this;
-    }
-
     public QuestionBuilder withOptions(List<String> options) {
         if (!(question instanceof MultipleChoiceQuestion)) {
             throw new IllegalArgumentException("Question must be a MultipleChoiceQuestion to add options");

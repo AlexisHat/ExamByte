@@ -43,10 +43,9 @@ public class QuizMapper {
                         .withQuestionType("text")
                         .withId(questionEntity.getQuestionId())
                         .withPoints(questionEntity.getPoints())
-                        .withSolution(questionEntity.getMusterLoesungForTextQuestion())
+                        .withMusterLoesung(questionEntity.getMusterLoesungForTextQuestion())
                         .withTask(questionEntity.getTask())
                         .withTitle(questionEntity.getTitel())
-                        .withMusterLoesung(questionEntity.getMusterLoesungForTextQuestion())
                         .build();
             }
             case MULTIPLE_CHOICE -> {
@@ -54,7 +53,6 @@ public class QuizMapper {
                         .withQuestionType("multipleChoice")
                         .withId(questionEntity.getQuestionId())
                         .withPoints(questionEntity.getPoints())
-                        .withSolution(questionEntity.getMusterLoesungForTextQuestion())
                         .withTask(questionEntity.getTask())
                         .withTitle(questionEntity.getTitel())
                         .withOptions(questionEntity.getOptions())

@@ -1,16 +1,20 @@
 package de.propra.exam.DTO;
 
+import java.util.List;
+
 public class QuestionDTO {
     private String title;
     private String task;
-    private String solution;
+    private String textMusterLoesung;
     private Double points;
     private String type;
+    private List<String> options;
+    private List<Integer> correctOptionIndexes;
 
-    private QuestionDTO(String title, String task, String solution, Double points, String type) {
+    private QuestionDTO(String title, String task, String textMusterLoesung, Double points, String type) {
         this.title = title;
         this.task = task;
-        this.solution = solution;
+        this.textMusterLoesung = textMusterLoesung;
         this.points = points;
         this.type = type;
     }
@@ -47,12 +51,12 @@ public class QuestionDTO {
         this.task = task;
     }
 
-    public String getSolution() {
-        return solution;
+    public String getTextMusterLoesung() {
+        return textMusterLoesung;
     }
 
-    public void setSolution(String solution) {
-        this.solution = solution;
+    public void setTextMusterLoesung(String textMusterLoesung) {
+        this.textMusterLoesung = textMusterLoesung;
     }
 
     public Double getPoints() {
@@ -61,5 +65,21 @@ public class QuestionDTO {
 
     public void setPoints(Double points) {
         this.points = points;
+    }
+
+    public List<String> getOptions() {
+        return options;
+    }
+
+    public void setOptions(List<String> options) {
+        this.options = options;
+    }
+
+    public List<Integer> getCorrectOptionIndexes() {
+        return correctOptionIndexes;
+    }
+
+    public void setCorrectOptionIndexes(List<Integer> correctOptionIndexes) {
+        this.correctOptionIndexes = correctOptionIndexes;
     }
 }

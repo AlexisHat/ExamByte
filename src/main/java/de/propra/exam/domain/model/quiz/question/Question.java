@@ -4,7 +4,6 @@ public abstract class Question {
     String title;
     String task;
     Double points;
-    String solution;
     Long questionId;
 
     public Double getPoints() {
@@ -31,13 +30,6 @@ public abstract class Question {
         this.title = title;
     }
 
-    public String getSolution() {
-        return solution;
-    }
-
-    public void setSolution(String solution) {
-        this.solution = solution;
-    }
     public Long getQuestionId() {
         return questionId;
     }

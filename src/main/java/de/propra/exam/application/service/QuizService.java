@@ -6,7 +6,6 @@ import de.propra.exam.domain.model.quiz.*;
 import de.propra.exam.domain.model.quiz.question.Question;
 import de.propra.exam.domain.model.quiz.question.QuestionBuilder;
 import de.propra.exam.domain.service.QuizRepository;
-import de.propra.exam.persistence.repositories.crud.QuizCrudRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,16 +24,21 @@ public class QuizService {
 
     public void createNewQuestionInQuiz(Quiz quiz, QuestionDTO questionDTO) {
         System.out.println("DTO= " + questionDTO.getType());
-        Question newQuestion = new QuestionBuilder()
+        QuestionBuilder builder = new QuestionBuilder()
                 .withQuestionType(questionDTO.getType())
                 .withTitle(questionDTO.getTitle())
                 .withTask(questionDTO.getTask())
-                .withPoints(questionDTO.getPoints())
-                .withSolution(questionDTO.getSolution())
-                .build();
+                .withPoints(questionDTO.getPoints());
 
+        if ("multipleChoice".equals(questionDTO.getType())) {
+            builder.withOptions(questionDTO.getOptions());
+            builder.withCorrectOptionIndexes(questionDTO.getCorrectOptionIndexes());
+        } else if ("text".equals(questionDTO.getType())) {
+            builder.withMusterLoesung(questionDTO.getTextMusterLoesung());
+        }
+
+        Question newQuestion = builder.build();
         quiz.addQuestion(newQuestion);
-
     }
 
     public Long addQuiz(Quiz quiz) {
