@@ -8,9 +8,10 @@ import de.propra.exam.domain.model.quiz.question.QuestionBuilder;
 import de.propra.exam.domain.service.QuizRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class QuizService {
-
 
     private final QuizRepository quizRepository;
 
@@ -50,6 +51,10 @@ public class QuizService {
                 new QuizNotFoundException("Quiz mit ID " + quizId + " nicht gefunden"));
     }
 
+    public List<Quiz> findAllQuiz() {
+        return quizRepository.findAll();
+    }
 
 }
+
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @SessionAttributes("quiz")
 public class CreateQuizController {
+
     private final QuizService quizService;
 
     public CreateQuizController(QuizService quizService) {
@@ -56,6 +57,7 @@ public class CreateQuizController {
         return "redirect:/success";
     }
 
+    @OrganisatorOnly
     @GetMapping("/success")
     public String showSuccessPage() {
         return "quiz/success";
