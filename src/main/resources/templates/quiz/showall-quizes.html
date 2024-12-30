@@ -15,11 +15,16 @@
         <div th:each="quiz : ${allQuiz}">
             <a th:href="@{'/quiz/' + ${quiz.getQuizID()}}" class="list-group-item list-group-item-action">
                 <span th:text="${quiz.getQuizName()}">Quiz Name</span>
+                <div class="small text-muted">
+                    <span><strong>Startzeit:</strong> <span th:text="${quiz.getStartTime()}">Startzeit</span></span>
+                    <br>
+                    <span><strong>Endzeit:</strong> <span th:text="${quiz.getEndTime()}">Endzeit</span></span>
+                </div>
             </a>
         </div>
     </div>
     <div class="mt-4 text-center">
-        <a href="/index" class="btn btn-secondary">Zurück zur Startseite</a>
+        <a href="/" class="btn btn-secondary">Zurück zur Startseite</a>
     </div>
 </div>
 </body>
