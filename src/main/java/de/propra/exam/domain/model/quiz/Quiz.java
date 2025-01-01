@@ -9,11 +9,14 @@ import java.util.Objects;
 
 
 public class Quiz {
+
+
     Long quizID;
     String quizName;
     LocalDateTime startTime;
     LocalDateTime endTime;
     List<Question> questions = new ArrayList<>();
+    private double maxScore;
 
     public boolean isActive(LocalDateTime clientLDT) {
         return clientLDT.isAfter(startTime) && clientLDT.isBefore(endTime);
@@ -62,11 +65,22 @@ public class Quiz {
         questions.add(question);
     }
 
+    public boolean isGestartet() {
+        LocalDateTime now = LocalDateTime.now();
+        return !now.isBefore(startTime);
+    }
+
     public boolean isGestartet(LocalDateTime now) {
         return !now.isBefore(startTime);
     }
 
     public boolean isBeendet(LocalDateTime now) {
+        return now.isAfter(endTime);
+    }
+
+
+    public boolean isBeendet() {
+        LocalDateTime now = LocalDateTime.now();
         return now.isAfter(endTime);
     }
 
@@ -77,6 +91,12 @@ public class Quiz {
                 .orElse(null);
     }
 
+    public double getMaxScore() {
+        return questions
+                .stream()
+                .mapToDouble(Question::getPoints)
+                .sum();
+    }
 
     @Override
     public boolean equals(Object o) {

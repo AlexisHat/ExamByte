@@ -110,4 +110,8 @@ public class QuizAttempt {
     public int hashCode() {
         return Objects.hashCode(quizAttemptId);
     }
+
+    public double getScore() {
+        return 0.0;
+    }
 }

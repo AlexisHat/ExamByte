@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz konfigurieren</title>
+    <link rel="stylesheet" th:href="@{bootstrap.min.css}" href="../../static/bootstrap.min.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Studenten Tests</a>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Willkommen zu deinen Tests</h1>
+
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+        <tr>
+            <th scope="col">Quizname</th>
+            <th scope="col">Status</th>
+            <th scope="col">Punktzahl</th>
+            <th scope="col">Aktion</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="quiz : ${quizs}">
+            <td th:text="${quiz.quizName}">Quizname</td>
+            <td th:text="${quiz.status.name()}">Status</td>
+            <td th:text="${quiz.score + ' / ' + quiz.maxScore}">Punktzahl</td>
+            <td>
+                <a th:if="${quiz.status == T(de.propra.exam.DTO.QuizStatus).BEGONNEN}"
+                   class="btn btn-primary btn-sm"
+                   th:href="@{/quiz/{id}(id=${quiz.quizId})}">
+                    Bearbeiten
+                </a>
+                <span th:if="${quiz.status != T(de.propra.exam.DTO.QuizStatus).BEGONNEN}" class="text-muted">Keine Aktion möglich</span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+</html>

@@ -16,7 +16,7 @@ public class SecureController {
     }
 
     @AtLeastStudent
-    @GetMapping("/student")
+    @GetMapping("/studi")
     public String getStudent() {
         return "role_test_sites/student";
     }
