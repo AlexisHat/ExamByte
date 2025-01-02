@@ -2,6 +2,7 @@ package de.propra.exam.controllers;
 
 import de.propra.exam.DTO.QuizOverviewDTO;
 import de.propra.exam.DTO.QuizStatus;
+import de.propra.exam.application.service.QuizOverviewService;
 import de.propra.exam.application.service.QuizService;
 import de.propra.exam.domain.model.quiz.Quiz;
 import de.propra.exam.domain.model.quizattempt.QuizAttempt;
@@ -18,12 +19,10 @@ import java.util.Objects;
 @Controller
 public class StudentQuizController {
 
-    AttemptRepository quizAttemptRepo;
-    QuizService quizService;
+    QuizOverviewService quizOverviewService;
 
-    public StudentQuizController(QuizService quizService, AttemptRepository quizAttemptRepo) {
-        this.quizService = quizService;
-        this.quizAttemptRepo = quizAttemptRepo;
+    public StudentQuizController(QuizOverviewService quizOverviewService) {
+        this.quizOverviewService = quizOverviewService;
     }
 
     @GetMapping("/student")
@@ -32,19 +31,7 @@ public class StudentQuizController {
 
         Long studentId = id != null ? Long.valueOf(id.toString()) : null;
 
-        List<Quiz> quizzes = quizService.findAllQuiz();
-
-        List<QuizOverviewDTO> overviewDTOs = quizzes.stream()
-                .map(quiz -> {
-                    QuizAttempt attempt = quizAttemptRepo.findQuizAttemptByQuizIdAndStudentId(quiz.getQuizID(), studentId).orElse(null);
-                    return attempt != null ? QuizOverviewDTO.from(quiz, attempt)
-                            : new QuizOverviewDTO(
-                            quiz,
-                            0.0,
-                            quiz.getMaxScore()
-                    );
-                })
-                .toList();
+        List<QuizOverviewDTO> overviewDTOs = quizOverviewService.getStudentQuizOverviews(studentId);
 
         model.addAttribute("quizs", overviewDTOs);
         return "student/landing";
