@@ -1,5 +1,6 @@
 package de.propra.exam.controllers;
 
+import de.propra.exam.config.security.AppUserService;
 import de.propra.exam.config.security.MethodSecurityConfig;
 import de.propra.exam.config.RolesConfig;
 import de.propra.exam.config.security.SecurityConfig;
@@ -23,11 +24,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 @Import({SecurityConfig.class, MethodSecurityConfig.class})
 public class SecureControllerTest {
 
+    @MockBean
+    AppUserService appUserService;
+
     @Autowired
     MockMvc mvc;
-
-    @MockBean
-    RolesConfig rolesConfig;
 
     @Test
     @DisplayName("Die öffentliche /sec Seite ist für alle User erreichbar")
@@ -50,7 +51,7 @@ public class SecureControllerTest {
     @WithMockOAuth2User(roles = "STUDENT")
     @DisplayName("Die /student Seite ist für User mit der Rolle Student erreichbar")
     void test_3() throws Exception {
-        mvc.perform(get("/student"))
+        mvc.perform(get("/studi"))
                 .andExpect(status().isOk())
                 .andReturn();
     }
@@ -58,7 +59,7 @@ public class SecureControllerTest {
     @WithMockOAuth2User(roles = "KORREKTOR")
     @DisplayName("Die /student Seite ist für User mit der Rolle Korrektor erreichbar")
     void test_4() throws Exception {
-        mvc.perform(get("/student"))
+        mvc.perform(get("/studi"))
                 .andExpect(status().isOk())
                 .andReturn();
     }
@@ -66,7 +67,7 @@ public class SecureControllerTest {
     @WithMockOAuth2User(roles = "ORGANISATOR")
     @DisplayName("Die /student Seite ist für User mit der Rolle Organisator erreichbar")
     void test_5() throws Exception {
-        mvc.perform(get("/student"))
+        mvc.perform(get("/studi"))
                 .andExpect(status().isOk())
                 .andReturn();
     }
@@ -92,7 +93,7 @@ public class SecureControllerTest {
     @WithMockOAuth2User(roles = "KORREKTOR")
     @DisplayName("Die /korrektor Seite ist für User mit der Rolle Korrektor erreichbar")
     void test_8() throws Exception {
-        mvc.perform(get("/student"))
+        mvc.perform(get("/studi"))
                 .andExpect(status().isOk())
                 .andReturn();
     }
@@ -100,7 +101,7 @@ public class SecureControllerTest {
     @WithMockOAuth2User(roles = "ORGANISATOR")
     @DisplayName("Die /korrektor Seite ist für User mit der Rolle Organisator erreichbar")
     void test_9() throws Exception {
-        mvc.perform(get("/student"))
+        mvc.perform(get("/studi"))
                 .andExpect(status().isOk())
                 .andReturn();
     }

@@ -1,6 +1,7 @@
 package de.propra.exam.controllers;
 
 import de.propra.exam.application.service.QuizService;
+import de.propra.exam.config.security.AppUserService;
 import de.propra.exam.config.security.MethodSecurityConfig;
 import de.propra.exam.config.RolesConfig;
 import de.propra.exam.config.security.SecurityConfig;
@@ -29,6 +30,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(CreateQuizController.class)
 @Import({SecurityConfig.class, MethodSecurityConfig.class})
 public class CreateQuizControllerTest {
+
+    @MockBean
+    AppUserService appUserService;
 
     @Autowired
     MockMvc mvc;
@@ -177,7 +181,7 @@ public class CreateQuizControllerTest {
     @WithMockOAuth2User(roles = "ORGANISATOR")
     @DisplayName("Wenn wir mit post finalize-test aufrufen, dann wird das Quiz gespeichert")
     void test_14() throws Exception {
-        mvc.perform(post("/finalize-test")
+        mvc.perform(post("/finalize-quiz")
                         .sessionAttr("quiz", quiz)
                         .with(csrf()))
                 .andExpect(redirectedUrl("/success"));

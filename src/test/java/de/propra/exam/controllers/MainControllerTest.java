@@ -1,5 +1,6 @@
 package de.propra.exam.controllers;
 
+import de.propra.exam.config.security.AppUserService;
 import de.propra.exam.config.security.MethodSecurityConfig;
 import de.propra.exam.config.RolesConfig;
 import de.propra.exam.config.security.SecurityConfig;
@@ -22,7 +23,8 @@ class MainControllerTest {
     MockMvc mvc;
 
     @MockBean
-    RolesConfig rolesConfig;
+    AppUserService appUserService;
+
     @Test
     @DisplayName("Die Anwendung akzeptiert GET-req auf die Index seite")
     public void test_01() throws Exception {

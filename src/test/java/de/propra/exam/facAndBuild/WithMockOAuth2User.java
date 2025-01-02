@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @WithSecurityContext(factory = WithOAuth2UserSecurityContextFactory.class)
 public @interface WithMockOAuth2User {
-    int id() default 666666;
+    long id() default 666666L;
 
 
     String login() default "username";

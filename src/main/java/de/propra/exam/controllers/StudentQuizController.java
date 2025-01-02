@@ -4,6 +4,7 @@ import de.propra.exam.DTO.QuizOverviewDTO;
 import de.propra.exam.DTO.QuizStatus;
 import de.propra.exam.application.service.QuizOverviewService;
 import de.propra.exam.application.service.QuizService;
+import de.propra.exam.application.service.annotations.StudentOnly;
 import de.propra.exam.domain.model.quiz.Quiz;
 import de.propra.exam.domain.model.quizattempt.QuizAttempt;
 import de.propra.exam.domain.service.AttemptRepository;
@@ -25,6 +26,7 @@ public class StudentQuizController {
         this.quizOverviewService = quizOverviewService;
     }
 
+    @StudentOnly
     @GetMapping("/student")
     public String getStudentTests(Model model, @AuthenticationPrincipal OAuth2User principal) {
         Object id = principal.getAttribute("id");
@@ -36,4 +38,5 @@ public class StudentQuizController {
         model.addAttribute("quizs", overviewDTOs);
         return "student/landing";
     }
+
 }
