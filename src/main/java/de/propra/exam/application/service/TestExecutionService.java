@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -31,15 +32,6 @@ public class TestExecutionService {
         this.quizService = quizService;
         this.quizValidationService = quizValidationService;
         this.attemptRepository = attemptRepository;
-    }
-
-    public List<Question> getQuestionsForStudent(Long quizId, Long studentId) {
-        Quiz quiz = quizService.findQuizById(quizId);
-        quizValidationService.validateQuizStarted(quiz);
-
-        //TODO: mby later checken ob student für quiz berechtigt ist
-
-        return quiz.getQuestions();
     }
 
     public void submitAnswer(Long quizId, Long studentId, Long questionId, String answerContent) {
@@ -94,7 +86,7 @@ public class TestExecutionService {
         return attemptRepository.findAllByQuizIdAndStudentId(quizId, studentId);
     }
 
-    QuizAttempt findOrCreateQuizAttempt(Long quizId, Long studentId) {
+    public QuizAttempt findOrCreateQuizAttempt(Long quizId, Long studentId) {
         return attemptRepository.findQuizAttemptByQuizIdAndStudentId(quizId, studentId)
                 .orElseGet(() -> createQuizAttempt(quizId, studentId));
     }
