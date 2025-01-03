@@ -23,6 +23,24 @@ public class QuizService {
         return new Quiz();
     }
 
+    public Question getQuestion(Long id, Integer questionIndex) {
+        Quiz quiz = findQuizById(id);
+
+        if (questionIndex < 1 || questionIndex >= quiz.getQuestions().size()) {
+            throw new IllegalArgumentException("Falscher Fragen Index");
+        }
+        return quiz.getQuestions().get(questionIndex - 1);
+    }
+
+    public Quiz findQuizById(Long quizId) {
+        return quizRepository.findById(quizId).orElseThrow(() ->
+                new QuizNotFoundException("Quiz mit ID " + quizId + " nicht gefunden"));
+    }
+
+    public Long addQuiz(Quiz quiz) {
+        return quizRepository.save(quiz);
+    }
+
     public void createNewQuestionInQuiz(Quiz quiz, QuestionDTO questionDTO) {
         System.out.println("DTO= " + questionDTO.getType());
         QuestionBuilder builder = new QuestionBuilder()
@@ -42,19 +60,14 @@ public class QuizService {
         quiz.addQuestion(newQuestion);
     }
 
-    public Long addQuiz(Quiz quiz) {
-        return quizRepository.save(quiz);
-    }
-
-    public Quiz findQuizById(Long quizId) {
-        return quizRepository.findById(quizId).orElseThrow(() ->
-                new QuizNotFoundException("Quiz mit ID " + quizId + " nicht gefunden"));
-    }
-
     public List<Quiz> findAllQuiz() {
         return quizRepository.findAll();
     }
 
+    public int getQuestionListLength(Long id) {
+        Quiz quizById = findQuizById(id);
+        return quizById.getQuestions().size();
+    }
 }
 
 

@@ -1,5 +1,9 @@
 package de.propra.exam.DTO;
 
+import de.propra.exam.domain.model.quiz.question.MultipleChoiceQuestion;
+import de.propra.exam.domain.model.quiz.question.Question;
+import de.propra.exam.domain.model.quiz.question.TextQuestion;
+
 import java.util.List;
 
 public class QuestionDTO {
@@ -10,6 +14,7 @@ public class QuestionDTO {
     private String type;
     private List<String> options;
     private List<Integer> correctOptionIndexes;
+    private int questionIndex;
 
     private QuestionDTO(String title, String task, String textMusterLoesung, Double points, String type) {
         this.title = title;
@@ -17,6 +22,43 @@ public class QuestionDTO {
         this.textMusterLoesung = textMusterLoesung;
         this.points = points;
         this.type = type;
+    }
+
+    private QuestionDTO(int questionIndex, String title, String task, String textMusterLoesung, Double points, String type, List<String> options, List<Integer> correctOptionIndexes) {
+        this.questionIndex = questionIndex;
+        this.title = title;
+        this.task = task;
+        this.textMusterLoesung = textMusterLoesung;
+        this.points = points;
+        this.type = type;
+        this.options = options;
+        this.correctOptionIndexes = correctOptionIndexes;
+    }
+
+    public static QuestionDTO ofQuestion(Question question, int questionIndex) {
+        String type = question instanceof TextQuestion ? "text" : "multiple";
+
+        List<String> options = null;
+        List<Integer> correctOptionIndexes = null;
+        String textMusterLoesung = null;
+
+        if (question instanceof MultipleChoiceQuestion mcQuestion) {
+            options = mcQuestion.getOptions();
+            correctOptionIndexes = mcQuestion.getCorrectOptionIndexes();
+        } else if (question instanceof TextQuestion textQuestion) {
+            textMusterLoesung = textQuestion.getMusterLoesung();
+        }
+
+        return new QuestionDTO(
+                questionIndex,
+                question.getTitle(),
+                question.getTask(),
+                textMusterLoesung,
+                question.getPoints(),
+                type,
+                options,
+                correctOptionIndexes
+        );
     }
 
     public QuestionDTO() {
@@ -81,5 +123,9 @@ public class QuestionDTO {
 
     public void setCorrectOptionIndexes(List<Integer> correctOptionIndexes) {
         this.correctOptionIndexes = correctOptionIndexes;
+    }
+
+    public int getQuestionIndex() {
+        return questionIndex;
     }
 }
