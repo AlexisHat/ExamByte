@@ -13,6 +13,7 @@ public class StudentMapper {
             return null;
         }
         return new Student(
+                studentEntity.id(),
                 studentEntity.githubId(),
                 studentEntity.name(),
                 studentEntity.email()
