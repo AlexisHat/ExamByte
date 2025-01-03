@@ -65,6 +65,20 @@ public class StudentQuizController {
         return "student/attempt";
     }
 
+//    @StudentOnly
+//    @PostMapping("/quiz/submit/{id}/{questionIndex}")
+//    public String submitAnswer(@PathVariable Long id, @PathVariable Integer questionIndex,
+//                               @RequestParam String answer, @AuthenticationPrincipal OAuth2User principal) {
+//        Long studentId = getStudentId(principal);
+//
+//        QuizAttempt attempt = testExecutionService.findOrCreateQuizAttempt(id, studentId);
+//        attempt.addAnswer(questionIndex, answer);
+//
+//        testExecutionService.saveQuizAttempt(attempt);
+//
+//        return "redirect:/quiz/edit/" + id + "/" + (questionIndex + 1);
+//    }
+
     private Long getStudentId(OAuth2User principal) {
         Object id = principal.getAttribute("id");
         return id != null ? Long.valueOf(id.toString()) : null;
