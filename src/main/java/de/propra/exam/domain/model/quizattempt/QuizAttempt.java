@@ -119,4 +119,7 @@ public class QuizAttempt {
     public Optional<Answer> getAnswerByQuestionId(Long questionId) {
         return antworten.stream().filter(answer -> answer.getFrageId().equals(questionId)).findFirst();
     }
+    public void setAbgeschlossen(boolean abgeschlossen) {
+        this.abgeschlossen = abgeschlossen;
+    }
 }

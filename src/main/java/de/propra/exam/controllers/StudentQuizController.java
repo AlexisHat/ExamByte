@@ -3,10 +3,7 @@ package de.propra.exam.controllers;
 import de.propra.exam.DTO.QuestionDTO;
 import de.propra.exam.DTO.QuizOverviewDTO;
 import de.propra.exam.DTO.QuizStatus;
-import de.propra.exam.application.service.QuizOverviewService;
-import de.propra.exam.application.service.QuizService;
-import de.propra.exam.application.service.StudentService;
-import de.propra.exam.application.service.TestExecutionService;
+import de.propra.exam.application.service.*;
 import de.propra.exam.application.service.annotations.StudentOnly;
 import de.propra.exam.domain.model.quiz.Quiz;
 import de.propra.exam.domain.model.quiz.question.MultipleChoiceQuestion;
@@ -38,12 +35,14 @@ public class StudentQuizController {
     private final TestExecutionService testExecutionService;
     private final QuizOverviewService quizOverviewService;
     private final StudentService studentService;
+    private final QuizValidationService quizValidationService;
 
-    public StudentQuizController(QuizService quizService, QuizOverviewService quizOverviewService, TestExecutionService testExecutionService, StudentService studentService) {
+    public StudentQuizController(QuizService quizService, QuizOverviewService quizOverviewService, TestExecutionService testExecutionService, StudentService studentService, QuizValidationService quizValidationService) {
         this.quizService = quizService;
         this.quizOverviewService = quizOverviewService;
         this.testExecutionService = testExecutionService;
         this.studentService = studentService;
+        this.quizValidationService = quizValidationService;
     }
 
     @StudentOnly
@@ -60,6 +59,8 @@ public class StudentQuizController {
     @StudentOnly
     @GetMapping("/quiz/{id}/answer-question/{questionIndex}")
     public String editQuiz(@PathVariable Long id, @PathVariable Integer questionIndex, Model model, @AuthenticationPrincipal OAuth2User principal) {
+        quizValidationService.validateQuizStartedAndNotEnded(quizService.findQuizById(id));
+
         Question question = quizService.getQuestion(id, questionIndex);
         int questionListLength = quizService.getQuestionListLength(id);
         QuestionDTO questionDTO = QuestionDTO.ofQuestion(question, questionIndex);
@@ -123,9 +124,17 @@ public class StudentQuizController {
         return "redirect:/quiz/" + id + "/answer-question/" + urlQuestionIndex;
     }
 
+//    @StudentOnly
+//    @GetMapping("/quiz/{id}/complete")
+//    public String completeAttempt(@PathVariable Long id, @AuthenticationPrincipal OAuth2User principal) {
+//        QuizAttempt orCreateQuizAttempt = testExecutionService.findOrCreateQuizAttempt(id, getStudentId(principal));
+//        orCreateQuizAttempt.setAbgeschlossen(true);
+//    }
+
     private Long getStudentId(OAuth2User principal) {
         Object idO = principal.getAttribute("id");
         String id = String.valueOf(idO);
         return studentService.findStudentIdByGitHubId(id);
     }
+
 }

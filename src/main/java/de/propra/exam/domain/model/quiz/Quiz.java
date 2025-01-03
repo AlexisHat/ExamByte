@@ -75,14 +75,13 @@ public class Quiz {
     }
 
     public boolean isBeendet(LocalDateTime now) {
+        System.out.println("Aktuelle Zeit: " + now);
+        System.out.println("Endzeit: " + endTime);
         return now.isAfter(endTime);
+
     }
 
 
-    public boolean isBeendet() {
-        LocalDateTime now = LocalDateTime.now();
-        return now.isAfter(endTime);
-    }
 
     public Question findQuestionById(Long questionID) {
         return questions.stream()

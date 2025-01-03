@@ -2,10 +2,7 @@ package de.propra.exam.controllers;
 
 import de.propra.exam.DTO.QuestionDTO;
 import de.propra.exam.DTO.QuizOverviewDTO;
-import de.propra.exam.application.service.QuizOverviewService;
-import de.propra.exam.application.service.QuizService;
-import de.propra.exam.application.service.StudentService;
-import de.propra.exam.application.service.TestExecutionService;
+import de.propra.exam.application.service.*;
 import de.propra.exam.config.RolesConfig;
 import de.propra.exam.config.security.AppUserService;
 import de.propra.exam.config.security.MethodSecurityConfig;
@@ -59,6 +56,9 @@ public class StudentQuizControllerTest {
 
     @MockBean
     StudentService studentService;
+
+    @MockBean
+    QuizValidationService quizValidationService;
 
 
     @Test

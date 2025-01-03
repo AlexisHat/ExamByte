@@ -1,6 +1,7 @@
 package de.propra.exam.application.service;
 
 import de.propra.exam.DTO.QuestionDTO;
+import de.propra.exam.domain.exceptions.IllegalQuestionIndexException;
 import de.propra.exam.domain.exceptions.QuizNotFoundException;
 import de.propra.exam.domain.model.quiz.*;
 import de.propra.exam.domain.model.quiz.question.Question;
@@ -27,7 +28,7 @@ public class QuizService {
         Quiz quiz = findQuizById(id);
 
         if (questionIndex < 1 || questionIndex > quiz.getQuestions().size()) {
-            throw new IllegalArgumentException("Falscher Fragen Index" + questionIndex);
+            throw new IllegalQuestionIndexException("Falscher Fragen Index" + questionIndex);
         }
         return quiz.getQuestions().get(questionIndex - 1);
     }
