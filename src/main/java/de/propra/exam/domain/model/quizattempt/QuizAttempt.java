@@ -12,12 +12,13 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 public class QuizAttempt {
     private final Long quizAttemptId;
     private final Long quizId;
     private final Long studentId;
-    private final List<Answer> antworten;
+    private List<Answer> antworten;
     boolean abgeschlossen;
 
     public QuizAttempt(Long quizAttemptId, Long quizId, Long studentId) {
@@ -32,7 +33,7 @@ public class QuizAttempt {
         this.quizAttemptId = quizAttemptId;
         this.quizId = quizId;
         this.studentId = studentId;
-        this.antworten = antworten;
+        this.antworten = new ArrayList<>(antworten != null ? antworten : new ArrayList<>());
         this.abgeschlossen = false;
     }
 
@@ -113,5 +114,9 @@ public class QuizAttempt {
 
     public double getScore() {
         return 0.0;
+    }
+
+    public Optional<Answer> getAnswerByQuestionId(Long questionId) {
+        return antworten.stream().filter(answer -> answer.getFrageId().equals(questionId)).findFirst();
     }
 }

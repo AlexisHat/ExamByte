@@ -13,6 +13,8 @@ public abstract class Answer {
         this.abgegebenAm = abgegebenAm;
     }
 
+
+
     public Long getId() {
         return id;
     }

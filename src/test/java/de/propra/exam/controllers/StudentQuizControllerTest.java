@@ -4,6 +4,7 @@ import de.propra.exam.DTO.QuestionDTO;
 import de.propra.exam.DTO.QuizOverviewDTO;
 import de.propra.exam.application.service.QuizOverviewService;
 import de.propra.exam.application.service.QuizService;
+import de.propra.exam.application.service.StudentService;
 import de.propra.exam.application.service.TestExecutionService;
 import de.propra.exam.config.RolesConfig;
 import de.propra.exam.config.security.AppUserService;
@@ -11,6 +12,11 @@ import de.propra.exam.config.security.MethodSecurityConfig;
 import de.propra.exam.config.security.SecurityConfig;
 import de.propra.exam.domain.model.quiz.Quiz;
 import de.propra.exam.domain.model.quiz.question.MultipleChoiceQuestion;
+import de.propra.exam.domain.model.quiz.question.TextQuestion;
+import de.propra.exam.domain.model.quizattempt.QuizAttempt;
+import de.propra.exam.domain.model.quizattempt.answer.Answer;
+import de.propra.exam.domain.model.quizattempt.answer.MultipleChoiceAnswer;
+import de.propra.exam.domain.model.quizattempt.answer.TextAnswer;
 import de.propra.exam.facAndBuild.WithMockOAuth2User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -23,11 +29,13 @@ import org.springframework.test.web.servlet.MvcResult;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(StudentQuizController.class)
@@ -48,6 +56,9 @@ public class StudentQuizControllerTest {
 
     @MockBean
     TestExecutionService testExecutionService;
+
+    @MockBean
+    StudentService studentService;
 
 
     @Test
@@ -122,6 +133,7 @@ public class StudentQuizControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("quizID", 1L));
     }
+
     @Test
     @WithMockOAuth2User(roles = "STUDENT", id = 42069L)
     @DisplayName("das model question enhält das dto aus der question welche dem quiz mit dem richtigen index")
@@ -130,6 +142,8 @@ public class StudentQuizControllerTest {
         long quizId = 1L;
         int questionIndex = 1;
         when(quizService.getQuestion(quizId, questionIndex)).thenReturn(multipleChoiceQuestion);
+        QuizAttempt quiattempt = new QuizAttempt(quizId,quizId,quizId);
+        when(testExecutionService.findOrCreateQuizAttempt(any(),any())).thenReturn(quiattempt);
 
         QuestionDTO multipleChoiceQuestionDTO = QuestionDTO.ofQuestion(multipleChoiceQuestion, questionIndex);
         MvcResult mvcResult = mockMvc.perform(get("/quiz/{id}/answer-question/{questionIndex}", quizId, questionIndex))
@@ -138,5 +152,163 @@ public class StudentQuizControllerTest {
         QuestionDTO question = (QuestionDTO) mvcResult.getModelAndView().getModel().get("question");
 
         assertThat(question.getType()).isEqualTo(multipleChoiceQuestionDTO.getType());
+    }
+
+    @Test
+    @WithMockOAuth2User(roles = "STUDENT", id = 42069L)
+    @DisplayName("das Modell erstellt eine Answer mit dem richtigen content also bei mutiple mit komma geteilt")
+    void test_07() throws Exception {
+        MultipleChoiceQuestion multipleChoiceQuestion = new MultipleChoiceQuestion();
+        long quizId = 1L;
+        int questionIndex = 1;
+        when(quizService.getQuestion(quizId, questionIndex)).thenReturn(multipleChoiceQuestion);
+        QuizAttempt quiattempt = mock(QuizAttempt.class);
+        when(testExecutionService.findOrCreateQuizAttempt(any(),any())).thenReturn(quiattempt);
+
+        MultipleChoiceAnswer multipleChoiceAnswer = new MultipleChoiceAnswer(quizId,List.of("Option1", "Option2"),LocalDateTime.now());
+        when(quiattempt.getAnswerByQuestionId(any())).thenReturn(Optional.of(multipleChoiceAnswer));
+
+
+        MvcResult mvcResult = mockMvc.perform(get("/quiz/{id}/answer-question/{questionIndex}", quizId, questionIndex))
+                .andExpect(status().isOk()).andReturn();
+
+        String answer = (String) mvcResult.getModelAndView().getModel().get("existingAnswer");
+
+        assertThat(answer).isEqualTo("Option1,Option2");
+    }
+    @Test
+    @WithMockOAuth2User(roles = "STUDENT", id = 42069L)
+    @DisplayName("das Modell erstellt eine Answer mit dem richtigen content also bei text den übergeben Text")
+    void test_08() throws Exception {
+        MultipleChoiceQuestion multipleChoiceQuestion = new MultipleChoiceQuestion();
+        long quizId = 1L;
+        int questionIndex = 1;
+        when(quizService.getQuestion(quizId, questionIndex)).thenReturn(multipleChoiceQuestion);
+        QuizAttempt quiattempt = mock(QuizAttempt.class);
+        when(testExecutionService.findOrCreateQuizAttempt(any(),any())).thenReturn(quiattempt);
+
+        String text = "BlaBlaBlaWer Das Liest ist... toll";
+        TextAnswer textAnswer = new TextAnswer(1L, text,LocalDateTime.now());
+        when(quiattempt.getAnswerByQuestionId(any())).thenReturn(Optional.of(textAnswer));
+
+
+        MvcResult mvcResult = mockMvc.perform(get("/quiz/{id}/answer-question/{questionIndex}", quizId, questionIndex))
+                .andExpect(status().isOk()).andReturn();
+
+        String answer = (String) mvcResult.getModelAndView().getModel().get("existingAnswer");
+
+        assertThat(answer).isEqualTo(text);
+    }
+
+    @Test
+    @WithMockOAuth2User(roles = "STUDENT", id = 42069L)
+    @DisplayName("submitAnswerText leitet korrekt zur nächsten Frage weiter")
+    void test_09() throws Exception {
+        Long quizId = 1L;
+        int currentQuestionIndex = 1;
+        int totalQuestions = 3;
+        String answer = "foo";
+
+        TextQuestion question = new TextQuestion();
+        question.setQuestionId(99L);
+        when(quizService.getQuestion(quizId, currentQuestionIndex)).thenReturn(question);
+        when(quizService.getQuestionListLength(quizId)).thenReturn(totalQuestions);
+
+        mockMvc.perform(post("/quiz/submit/text/{id}/{questionIndex}", quizId, currentQuestionIndex)
+                        .param("answer", answer)
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/quiz/" + quizId + "/answer-question/" + (currentQuestionIndex + 1)));
+
+        verify(quizService).getQuestionListLength(quizId);
+    }
+    @Test
+    @WithMockOAuth2User(roles = "STUDENT", id = 42069L)
+    @DisplayName("submitMutipleText leitet korrekt zur nächsten Frage weiter")
+    void test_10() throws Exception {
+        Long quizId = 1L;
+        int currentQuestionIndex = 1;
+        int totalQuestions = 3;
+
+        MultipleChoiceQuestion question = new MultipleChoiceQuestion();
+        question.setQuestionId(99L);
+        when(quizService.getQuestion(quizId, currentQuestionIndex)).thenReturn(question);
+        when(quizService.getQuestionListLength(quizId)).thenReturn(totalQuestions);
+
+        mockMvc.perform(post("/quiz/submit/multiple/{id}/{questionIndex}", quizId, currentQuestionIndex)
+                        .param("answer", "1","2","3")
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/quiz/" + quizId + "/answer-question/" + (currentQuestionIndex + 1)));
+
+        verify(quizService).getQuestion(quizId, currentQuestionIndex);
+    }
+
+    @Test
+    @WithMockOAuth2User(roles = "STUDENT", id = 42069L)
+    @DisplayName("submitMultiple leitet nicht weiter, wenn es die letzte Frage ist")
+    void test_11() throws Exception {
+        Long quizId = 1L;
+        int currentQuestionIndex = 3;
+        int totalQuestions = 3;
+
+        MultipleChoiceQuestion question = new MultipleChoiceQuestion();
+        question.setQuestionId(10L);
+
+        when(quizService.getQuestion(quizId, currentQuestionIndex)).thenReturn(question);
+        when(quizService.getQuestionListLength(quizId)).thenReturn(totalQuestions);
+
+        mockMvc.perform(post("/quiz/submit/multiple/{id}/{questionIndex}", quizId, currentQuestionIndex)
+                        .param("answer", "Option1", "Option2")
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/quiz/" + quizId + "/answer-question/" + currentQuestionIndex));
+    }
+    @Test
+    @WithMockOAuth2User(roles = "STUDENT", id = 42069L)
+    @DisplayName("submitMultiple leitet nicht weiter, wenn es die letzte Frage ist")
+    void test_12() throws Exception {
+        Long quizId = 1L;
+        int currentQuestionIndex = 3;
+        int totalQuestions = 3;
+        String answer = "foo";
+
+        TextQuestion question = new TextQuestion();
+        question.setQuestionId(10L);
+
+        when(quizService.getQuestion(quizId, currentQuestionIndex)).thenReturn(question);
+        when(quizService.getQuestionListLength(quizId)).thenReturn(totalQuestions);
+
+        mockMvc.perform(post("/quiz/submit/multiple/{id}/{questionIndex}", quizId, currentQuestionIndex)
+                        .param("answer", answer)
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/quiz/" + quizId + "/answer-question/" + currentQuestionIndex));
+    }
+
+    @Test
+    @WithMockOAuth2User(roles = "STUDENT", id = 42069L)
+    @DisplayName("es werden die nötigen methoden im Service aufgerufen von submitText")
+    void test_13() throws Exception {
+        Long quizId = 1L;
+        int currentQuestionIndex = 3;
+        int totalQuestions = 3;
+        String answer = "foo";
+
+        TextQuestion question = new TextQuestion();
+        question.setQuestionId(10L);
+
+        when(quizService.getQuestion(quizId, currentQuestionIndex)).thenReturn(question);
+        when(quizService.getQuestionListLength(quizId)).thenReturn(totalQuestions);
+
+        mockMvc.perform(post("/quiz/submit/multiple/{id}/{questionIndex}", quizId, currentQuestionIndex)
+                        .param("answer", answer)
+                        .with(csrf()))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/quiz/" + quizId + "/answer-question/" + currentQuestionIndex));
+
+        verify(testExecutionService).submitAnswer(eq(quizId), any(Long.class), eq(10L), eq(answer));
+        verify(quizService).getQuestion(quizId, currentQuestionIndex);
+        verify(quizService).getQuestionListLength(quizId);
     }
 }

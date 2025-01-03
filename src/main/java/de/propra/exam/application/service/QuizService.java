@@ -26,8 +26,8 @@ public class QuizService {
     public Question getQuestion(Long id, Integer questionIndex) {
         Quiz quiz = findQuizById(id);
 
-        if (questionIndex < 1 || questionIndex >= quiz.getQuestions().size()) {
-            throw new IllegalArgumentException("Falscher Fragen Index");
+        if (questionIndex < 1 || questionIndex > quiz.getQuestions().size()) {
+            throw new IllegalArgumentException("Falscher Fragen Index" + questionIndex);
         }
         return quiz.getQuestions().get(questionIndex - 1);
     }
