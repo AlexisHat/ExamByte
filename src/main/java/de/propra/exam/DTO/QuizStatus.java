@@ -4,5 +4,6 @@ public enum QuizStatus {
     NOCH_NICHT_BEGONNEN,
     BEGONNEN,
     BEENDET,
-    BEWERTET
+    BEWERTET_POSITIV,
+    BEWERTET_NEGATIV
 }
