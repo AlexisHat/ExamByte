@@ -4,6 +4,27 @@
     <meta charset="UTF-8">
     <title>Quiz konfigurieren</title>
     <link rel="stylesheet" th:href="@{bootstrap.min.css}" href="../../static/bootstrap.min.css">
+    <style>
+        td.NOCH_NICHT_BEGONNEN {
+            color: #7f8c8d;
+        }
+
+        td.BEGONNEN {
+            color: #9adf0e;
+        }
+
+        td.BEENDET {
+            color: rgba(35, 2, 57, 0.86) !important;
+        }
+
+        td.BEWERTET_POSITIV {
+            color: #028504;
+        }
+
+        td.BEWERTET_NEGATIV {
+            color: #8c0505;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -27,7 +48,10 @@
         <tbody>
         <tr th:each="quiz : ${quizs}">
             <td th:text="${quiz.quizName}">Quizname</td>
-            <td th:text="${quiz.status.name()}">Status</td>
+            <td th:text="${quiz.status.name()}"
+                th:class="${quiz.status.name()}">
+                Status
+            </td>
             <td th:text="${quiz.score + ' / ' + quiz.maxScore}">Punktzahl</td>
             <td>
                 <a th:if="${quiz.status == T(de.propra.exam.DTO.QuizStatus).BEGONNEN}"
@@ -40,7 +64,7 @@
                    th:href="@{/quiz/{id}/overview/1(id=${quiz.quizId})}">
                     Gegebene Antworten Ansehen
                 </a>
-                <span th:if="${quiz.status != T(de.propra.exam.DTO.QuizStatus).BEGONNEN}" class="text-muted">Keine Aktion möglich</span>
+                <span th:if="${quiz.status == T(de.propra.exam.DTO.QuizStatus).NOCH_NICHT_BEGONNEN}" class="text-muted">Keine Aktion möglich</span>
             </td>
         </tr>
         </tbody>
