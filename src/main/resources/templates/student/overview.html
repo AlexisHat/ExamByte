@@ -1,0 +1,88 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz Übersicht</title>
+    <link rel="stylesheet" th:href="@{/bootstrap.min.css}" href="/bootstrap.min.css">
+    <style>
+        .highlight-box-positive {
+            background-color: rgba(208, 178, 227, 0.29);
+            border-radius: 5px;
+            padding: 10px;
+        }
+        .highlight-box-negative {
+            background-color: rgba(232, 147, 147, 0.29);
+            border-radius: 5px;
+            padding: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container-fluid">
+        <a class="navbar-brand" th:href="@{/student}">Quiz Übersicht</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon">☰</span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item"
+                    th:each="i : ${#numbers.sequence(1, totalQuestions)}">
+                    <a class="nav-link"
+                       th:href="@{/quiz/{id}/overview/{index}(id=${quizID}, index=${i})}"
+                       th:text="${'Frage ' + (i)}">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-5">
+    <h1 th:text="${question.title}">Titel</h1>
+
+    <p class="text-muted" th:text="'Punkte für diese Frage: ' + ${question.points}">punkte</p>
+
+    <h2 th:text="${question.task}">Aufgabe:</h2>
+
+    <div th:if="${question.type == 'text'}">
+        <p><strong>Ihre Antwort:</strong></p>
+        <p class="text-body highlight-box-positive" th:text="${existingAnswer != null ? existingAnswer : 'Keine Antwort gegeben'}"></p>
+    </div>
+
+    <div th:if="${question.type == 'multiple'}">
+        <p><strong>Ihre gewählten Optionen:</strong></p>
+        <ul>
+            <li th:each="option : ${existingAnswer}" th:text="${option}"></li>
+        </ul>
+    </div>
+
+    <div th:if="${existingAnswer == null}">
+        <p class="text-muted highlight-box-negative">Keine Antwort gegeben.</p>
+    </div>
+
+    <div class="mt-3">
+        <a th:if="${questionIndex > 1}"
+           th:href="@{/quiz/{id}/overview/{index}(id=${quizID}, index=${questionIndex - 1})}"
+           class="btn btn-secondary me-2">
+            Zurück
+        </a>
+
+        <a th:if="${questionIndex < totalQuestions}"
+           th:href="@{/quiz/{id}/overview/{index}(id=${quizID}, index=${questionIndex + 1})}"
+           class="btn btn-secondary">
+            Nächste Frage
+        </a>
+
+        <a th:if="${questionIndex == totalQuestions}"
+           th:href="@{/student}"
+           class="btn btn-success">
+            zurück zur Übersicht
+        </a>
+    </div>
+</div>
+</body>
+</html>

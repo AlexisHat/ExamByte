@@ -55,12 +55,27 @@ public class StudentQuizController {
         model.addAttribute("quizs", overviewDTOs);
         return "student/landing";
     }
+    @StudentOnly
+    @GetMapping("/quiz/{id}/overview/{questionIndex}")
+    public String seeQuizOverview(@PathVariable Long id,@PathVariable Integer questionIndex,
+                                  Model model, @AuthenticationPrincipal OAuth2User principal) {
+        getQuizExecutionContent(id, questionIndex, model, principal);
+        return "student/overview";
+    }
+
+
 
     @StudentOnly
     @GetMapping("/quiz/{id}/answer-question/{questionIndex}")
     public String editQuiz(@PathVariable Long id, @PathVariable Integer questionIndex, Model model, @AuthenticationPrincipal OAuth2User principal) {
         quizValidationService.validateQuizStartedAndNotEnded(quizService.findQuizById(id));
 
+        getQuizExecutionContent(id, questionIndex, model, principal);
+
+        return "student/attempt";
+    }
+
+    private void getQuizExecutionContent(@PathVariable Long id, @PathVariable Integer questionIndex, Model model, @AuthenticationPrincipal OAuth2User principal) {
         Question question = quizService.getQuestion(id, questionIndex);
         int questionListLength = quizService.getQuestionListLength(id);
         QuestionDTO questionDTO = QuestionDTO.ofQuestion(question, questionIndex);
@@ -83,10 +98,7 @@ public class StudentQuizController {
         model.addAttribute("question", questionDTO);
         model.addAttribute("quizID", id);
         model.addAttribute("totalQuestions", questionListLength);
-
-        return "student/attempt";
     }
-
     @StudentOnly
     @PostMapping("/quiz/submit/text/{id}/{questionIndex}")
     public String submitAnswerText(@PathVariable Long id, @PathVariable Integer questionIndex,

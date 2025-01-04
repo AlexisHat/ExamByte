@@ -35,6 +35,11 @@
                    th:href="@{/quiz/{id}/answer-question/1(id=${quiz.quizId})}">
                     Bearbeiten
                 </a>
+                <a th:if="${quiz.status == T(de.propra.exam.DTO.QuizStatus).BEENDET}"
+                   class="btn btn-primary btn-sm"
+                   th:href="@{/quiz/{id}/overview/1(id=${quiz.quizId})}">
+                    Gegebene Antworten Ansehen
+                </a>
                 <span th:if="${quiz.status != T(de.propra.exam.DTO.QuizStatus).BEGONNEN}" class="text-muted">Keine Aktion möglich</span>
             </td>
         </tr>
