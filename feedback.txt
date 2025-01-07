@@ -1,0 +1,37 @@
+1. Modellierung der Geschäftslogik & Funktionalität:
+    Eure Geschäftslogik sieht gut aus und auch eure Aggregate scheinen gut aufgeteilt zu sein, jedoch kann ich nur
+    spekulieren durch die Ordner welche Aggregate ihr habt. Ihr solltet eure Aggregate annotieren, um einen besseren 
+    Überblick zu verschaffen. Außerdem sind fast alle eurer Klassen public, da solltet ihr euch nochmal Gedanken machen,
+    ob das nötig ist.
+    
+2. Accessibility:
+    Die Accessibility sieht gut aus bei euch, jedoch ist die Seite auf Deutsch und dass ihr die Sprache auf Englisch
+    setzt, kann beim Screenreader zu Problemen führen.
+
+3. Architektur und Struktur:
+    Die Architektur sieht schon ganz gut aus, jedoch solltet ihr euch überlegen, wo die DTOs hingehören. ArchUnit Tests
+    habt ihr auch schon hinzugefügt was gut ist. Ihr solltet zwischendurch immer mal wieder den Test durchlaufen lassen
+    um zu überprüfen, ob die Architektur verletzt wurde. Ihr seht beim Testdurchlauf auch, dass der Test fehlschlägt.
+    Schaut euch also nochmal über eure Architektur drüber
+
+4. Authentifikation und Autorisierung:
+    Die Authentifikation und Autorisierung sieht gut aus!
+
+5. Code:
+    Der Code ist einheitlich formatiert und ihr befolgt auch den üblichen Java Regel. Ihr könnt zur Kontrolle auch
+    CheckStyle einbauen, um sicherzustellen, dass es so bleibt.
+
+6. Dokumentation:
+    Die Dokumentation fehlt bei euch noch. Vergesst nicht euch an das arc42 Template zu halten.
+
+7. Git:
+    Eure Commits scheinen sinnvoll aufgeteilt und auch nicht zu groß zu sein. Es ist auch schön zu sehen, dass nicht
+    nur eine Person alles commitet hat, sondern das gesamte Team mal etwas gemacht hat.
+
+8. Testing:
+    Ihr habt schon einige Tests, jedoch laufen nicht alle durch also solltet ihr euch diese noch mal anschauen. Die
+    Anzahl an Tests sieht gut aus!
+
+Wenn ihr Fragen zu dem Feedback habt oder neue Fragen zu eurer Anwendung aufkommen, könnt ihr euch gerne über den
+Rocketchat(kahuc101) bei mir melden.
+Viel Spaß und Erfolg beim weitereren programmieren der Anwendung!
