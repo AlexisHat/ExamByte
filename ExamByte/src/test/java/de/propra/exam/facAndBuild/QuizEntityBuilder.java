@@ -52,6 +52,6 @@ public QuizEntityBuilder withId(Long id) {
     }
 
     public QuizEntity build() {
-        return new QuizEntity(id, name, startTime, endTime, questions);
+        return new QuizEntity(id, name, startTime, endTime, null , questions);
     }
 }

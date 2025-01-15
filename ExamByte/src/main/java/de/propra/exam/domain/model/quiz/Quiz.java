@@ -15,8 +15,17 @@ public class Quiz {
     String quizName;
     LocalDateTime startTime;
     LocalDateTime endTime;
+    LocalDateTime resultTime;
     List<Question> questions = new ArrayList<>();
     private double maxScore;
+
+    public LocalDateTime getResultTime() {
+        return resultTime;
+    }
+
+    public void setResultTime(LocalDateTime resultTime) {
+        this.resultTime = resultTime;
+    }
 
     public boolean isActive(LocalDateTime clientLDT) {
         return clientLDT.isAfter(startTime) && clientLDT.isBefore(endTime);

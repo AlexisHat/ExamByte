@@ -16,6 +16,7 @@ public class QuizMapper {
         quiz.setQuizName(quizEntity.getQuizName());
         quiz.setStartTime(quizEntity.getStartTime());
         quiz.setEndTime(quizEntity.getEndTime());
+        quiz.setResultTime(quizEntity.getResultTime());
 
         quiz.setQuestions(quizEntity.getQuestions().stream()
                 .map(QuizMapper::toDomain)
@@ -30,10 +31,10 @@ public class QuizMapper {
                 quiz.getQuizName(),
                 quiz.getStartTime(),
                 quiz.getEndTime(),
+                quiz.getResultTime(),
                 quiz.getQuestions().stream()
                         .map(QuizMapper::toQuestionEntity)
-                        .toList()
-        );
+                        .toList());
     }
 
     public static Question toDomain(QuestionEntity questionEntity) {

@@ -28,6 +28,10 @@
                             <label class="form-label" for="quizEndZeit">Ende der Bearbeitungszeit</label>
                             <input class="form-control" type="datetime-local" id="quizEndZeit" th:field="*{endTime}" required>
                         </div>
+                        <div class="col-6">
+                            <label class="form-label" for="resultRealease">Zeitpunkt der Ergbeniss-Veröffentlichung</label>
+                            <input class="form-control" type="datetime-local" id="resultRealease" th:field="*{resultTime}" required>
+                        </div>
                     </div>
                     <div>
                         <button class="btn btn-primary" type="submit">Test erstellen</button>
