@@ -1,11 +1,10 @@
 package de.propra.exam.controllers;
 
-import de.propra.exam.application.service.QuizOverviewService;
 import de.propra.exam.application.service.QuizService;
-import de.propra.exam.config.RolesConfig;
 import de.propra.exam.config.security.AppUserService;
 import de.propra.exam.config.security.MethodSecurityConfig;
 import de.propra.exam.config.security.SecurityConfig;
+import de.propra.exam.controllers.organisator.QuizOverviewController;
 import de.propra.exam.domain.model.quiz.Quiz;
 import de.propra.exam.facAndBuild.WithMockOAuth2User;
 import org.junit.jupiter.api.DisplayName;

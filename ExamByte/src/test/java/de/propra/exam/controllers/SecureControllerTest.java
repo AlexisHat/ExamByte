@@ -2,8 +2,8 @@ package de.propra.exam.controllers;
 
 import de.propra.exam.config.security.AppUserService;
 import de.propra.exam.config.security.MethodSecurityConfig;
-import de.propra.exam.config.RolesConfig;
 import de.propra.exam.config.security.SecurityConfig;
+import de.propra.exam.controllers.index.SecureController;
 import de.propra.exam.facAndBuild.WithMockOAuth2User;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,6 @@ import org.springframework.test.web.servlet.MvcResult;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 
 @WebMvcTest(SecureController.class)

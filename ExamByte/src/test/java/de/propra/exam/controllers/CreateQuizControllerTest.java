@@ -5,6 +5,7 @@ import de.propra.exam.config.security.AppUserService;
 import de.propra.exam.config.security.MethodSecurityConfig;
 import de.propra.exam.config.RolesConfig;
 import de.propra.exam.config.security.SecurityConfig;
+import de.propra.exam.controllers.organisator.CreateQuizController;
 import de.propra.exam.facAndBuild.WithMockOAuth2User;
 import de.propra.exam.domain.model.quiz.Quiz;
 import org.junit.jupiter.api.BeforeEach;

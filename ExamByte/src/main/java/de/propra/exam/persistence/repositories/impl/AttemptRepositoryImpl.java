@@ -15,8 +15,6 @@ import java.util.Optional;
 public class AttemptRepositoryImpl implements AttemptRepository {
     AttemptCrudRepository attemptCrudRepository;
 
-
-
     public AttemptRepositoryImpl(AttemptCrudRepository attemptCrudRepository) {
         this.attemptCrudRepository = attemptCrudRepository;
     }
