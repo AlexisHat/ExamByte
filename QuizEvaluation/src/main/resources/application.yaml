@@ -1,9 +1,20 @@
-
+roles:
+  korrektor: 133146593
+  organisator: 123456789
 
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: ${CLIENT_ID}
+            client-secret: ${CLIENT_SECRET}
+            scope: read:public_repo
   datasource:
     password: password2
     username: user2
     url: jdbc:postgresql://localhost:5433/postgres
+
 server:
   port: 8081

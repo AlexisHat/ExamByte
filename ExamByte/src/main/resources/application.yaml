@@ -1,6 +1,5 @@
 roles:
   student: 133146593, 38407435
-  korrektor: 133146593, 38407435
   organisator: 133146593, 38407435
 
 spring:
