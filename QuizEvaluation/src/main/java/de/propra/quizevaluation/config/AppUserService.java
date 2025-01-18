@@ -46,8 +46,7 @@ public class AppUserService implements OAuth2UserService<OAuth2UserRequest, OAut
             authorities.add(new SimpleGrantedAuthority("ROLE_KORREKTOR"));
 
             korrektorRepo.findByGithubId(id).orElseGet(() -> {
-                Korrektor korrektor = new Korrektor();
-                korrektor.setGithubId(id);
+                Korrektor korrektor = new Korrektor(id);
                 return korrektorRepo.save(korrektor);
             });
 

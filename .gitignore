@@ -5,6 +5,11 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+/QuizEvaluation/data/
+/ExamByte/data/
+
+**/data/**
+
 .env
 
 ### STS ###
@@ -38,5 +43,4 @@ out/
 ### VS Code ###
 .vscode/
 .DS_Store
-/QuizEvaluation/data/
-/ExamByte/data/
+

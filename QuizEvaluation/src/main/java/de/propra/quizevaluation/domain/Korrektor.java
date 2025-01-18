@@ -1,14 +1,28 @@
 package de.propra.quizevaluation.domain;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceCreator;
 
 import java.util.Set;
 
 public class Korrektor {
     @Id
     private Long id;
-    private Integer githubId;
+    private String githubId;
     private Set<Answer> textAufgaben;
+
+
+    @PersistenceCreator
+    public Korrektor(Long id, String githubId, Set<Answer> textAufgaben) {
+        this.id = id;
+        this.githubId = githubId;
+        this.textAufgaben = textAufgaben;
+    }
+
+    public Korrektor(String githubId) {
+        this.githubId = githubId;
+    }
+
 
     public void addTextAufgaben(Answer answer) {
         textAufgaben.add(answer);
@@ -16,9 +30,5 @@ public class Korrektor {
 
     public int textAufgabenSize() {
         return textAufgaben.size();
-    }
-
-    public void setGithubId(String id) {
-        this.githubId = Integer.parseInt(id);
     }
 }
