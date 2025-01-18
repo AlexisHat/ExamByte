@@ -53,9 +53,6 @@ public class AppUserService implements OAuth2UserService<OAuth2UserRequest, OAut
                 return studentRepository.save(newStudent);
             });
         }
-        if (rolesConfig.getKorrektor().contains(id)) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_KORREKTOR"));
-        }
         if (rolesConfig.getOrganisator().contains(id)) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ORGANISATOR"));
         }
