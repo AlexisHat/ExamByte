@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Table("answer")
-public class AnswerEvent {
+public class Answer {
 
     @Id
     private Long answerId;
@@ -23,12 +23,16 @@ public class AnswerEvent {
 
     private final LocalDateTime submittedAt;
 
-    public AnswerEvent(Long frageId, QuestionType type, List<String> selectedOptions, String textAnswer, LocalDateTime submittedAt, Long answerId) {
+    public Answer(Long frageId, QuestionType type, List<String> selectedOptions, String textAnswer, LocalDateTime submittedAt, Long answerId) {
         this.frageId = frageId;
         this.type = type;
         this.selectedOptions = selectedOptions;
         this.textAnswer = textAnswer;
         this.submittedAt = submittedAt;
         this.answerId = answerId;
+    }
+
+    public QuestionType getType() {
+        return type;
     }
 }

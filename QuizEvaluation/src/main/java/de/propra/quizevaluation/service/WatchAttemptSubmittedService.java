@@ -1,12 +1,13 @@
 package de.propra.quizevaluation.service;
 
+import de.propra.quizevaluation.domain.Answer;
 import de.propra.quizevaluation.domain.QuizAbgeschlossen;
 import de.propra.quizevaluation.domain.Attempt;
+import de.propra.quizevaluation.domain.db.QuestionType;
 import de.propra.quizevaluation.repo.AttemptReposittoryImpl;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import java.time.Duration;
 import java.util.List;
@@ -17,9 +18,11 @@ import static java.lang.Math.max;
 public class WatchAttemptSubmittedService {
 
     AttemptReposittoryImpl attemptRepository;
+    private final KorrektorService korrektorService;
 
-    public WatchAttemptSubmittedService(AttemptReposittoryImpl attemptRepository) {
+    public WatchAttemptSubmittedService(AttemptReposittoryImpl attemptRepository, KorrektorService korrektorService) {
         this.attemptRepository = attemptRepository;
+        this.korrektorService = korrektorService;
     }
 
     int lastSeen = -1;
@@ -33,12 +36,14 @@ public class WatchAttemptSubmittedService {
         System.out.printf("Got %d events.%n", events.size());
 
         for (QuizAbgeschlossen event : events) {
-
             lastSeen = max(event.eventId(), lastSeen);
-
             Attempt attempt = new Attempt(null, event.quizId(), event.studentId(), event.antworten());
 
-            System.out.printf("Attempt %d: %s%n", lastSeen, attempt);
+            List<Answer> textAntworten = event.antworten().stream()
+                    .filter(a -> a.getType().equals(QuestionType.TEXT))
+                    .toList();
+
+            korrektorService.distributeTextAnswers(textAntworten);
             attemptRepository.save(attempt);
         }
     }
