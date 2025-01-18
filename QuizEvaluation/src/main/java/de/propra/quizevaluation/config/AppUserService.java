@@ -30,7 +30,7 @@ public class AppUserService implements OAuth2UserService<OAuth2UserRequest, OAut
         this.korrektorRepo = korrektorRepo;
     }
 
-    private DefaultOAuth2UserService deuserService = new DefaultOAuth2UserService();
+    private final DefaultOAuth2UserService deuserService = new DefaultOAuth2UserService();
 
 
 
@@ -40,10 +40,9 @@ public class AppUserService implements OAuth2UserService<OAuth2UserRequest, OAut
 
         Set<GrantedAuthority> authorities = new HashSet<>(oAuth2User.getAuthorities());
         String id = oAuth2User.getAttribute("id").toString();
-        String name = oAuth2User.getAttribute("login");
 
 
-        if(rolesConfig.getKorrektor().contains(oAuth2User.getAttribute("id").toString())){
+        if(rolesConfig.getKorrektor().contains(id)){
             authorities.add(new SimpleGrantedAuthority("ROLE_KORREKTOR"));
 
             korrektorRepo.findByGithubId(id).orElseGet(() -> {
@@ -52,7 +51,7 @@ public class AppUserService implements OAuth2UserService<OAuth2UserRequest, OAut
                 return korrektorRepo.save(korrektor);
             });
 
-        } else if (rolesConfig.getOrganisator().contains(oAuth2User.getAttribute("id").toString())) {
+        } else if (rolesConfig.getOrganisator().contains(id)) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ORGANISATOR"));
         }
         return new DefaultOAuth2User(authorities,oAuth2User.getAttributes(),"id");
