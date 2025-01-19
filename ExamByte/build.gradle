@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.3.5'
 	id 'io.spring.dependency-management' version '1.1.6'
+	id "com.github.spotbugs" version "6.0.5"
 }
 
 group = 'de.propra'
@@ -10,6 +11,17 @@ version = '0.0.1-SNAPSHOT'
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+spotbugs {
+	effort = com.github.spotbugs.snom.Effort.MAX
+}
+
+spotbugsMain {
+	reports {
+		xml.enabled = false
+		html.enabled = true
 	}
 }
 
@@ -33,6 +45,8 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-testcontainers'
 	testImplementation 'org.testcontainers:junit-jupiter'
 	testImplementation 'org.testcontainers:postgresql'
+
+	compileOnly 'com.github.spotbugs:spotbugs-annotations:4.8.3'
 }
 
 tasks.named('test') {
