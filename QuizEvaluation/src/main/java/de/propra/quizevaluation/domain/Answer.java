@@ -2,6 +2,7 @@ package de.propra.quizevaluation.domain;
 
 import de.propra.quizevaluation.domain.db.QuestionType;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.PersistenceCreator;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
@@ -23,6 +24,7 @@ public class Answer {
 
     private final LocalDateTime submittedAt;
 
+    @PersistenceCreator
     public Answer(Long frageId, QuestionType type, List<String> selectedOptions, String textAnswer, LocalDateTime submittedAt, Long answerId) {
         this.frageId = frageId;
         this.type = type;
@@ -30,6 +32,10 @@ public class Answer {
         this.textAnswer = textAnswer;
         this.submittedAt = submittedAt;
         this.answerId = answerId;
+    }
+
+    public static Answer createDummyAnswer() {
+        return new Answer((long) (Math.random() * 100) + 1, QuestionType.TEXT, null, null, null, (long) (Math.random() * 100) + 1);
     }
 
     public QuestionType getType() {

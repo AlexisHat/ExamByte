@@ -3,6 +3,7 @@ package de.propra.quizevaluation.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceCreator;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class Korrektor {
@@ -17,6 +18,10 @@ public class Korrektor {
         this.id = id;
         this.githubId = githubId;
         this.textAufgaben = textAufgaben;
+    }
+
+    public static Korrektor createDummy() {
+        return new Korrektor(1L, "dummy", new HashSet<>());
     }
 
     public Korrektor(String githubId) {
