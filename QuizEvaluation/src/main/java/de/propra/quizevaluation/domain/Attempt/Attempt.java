@@ -1,4 +1,4 @@
-package de.propra.quizevaluation.domain;
+package de.propra.quizevaluation.domain.Attempt;
 
 
 import org.springframework.data.annotation.Id;

@@ -1,18 +1,13 @@
-package de.propra.exam.application.service;
+package de.propra.exam.application.service.events;
 
 import de.propra.exam.domain.model.events.QuizAbgeschlossen;
 import de.propra.exam.domain.model.quizattempt.answer.Answer;
-import de.propra.exam.domain.model.quizattempt.answer.MultipleChoiceAnswer;
-import de.propra.exam.domain.model.quizattempt.answer.TextAnswer;
 import de.propra.exam.persistence.entity.quizattempt.AnswerEntity;
 import de.propra.exam.persistence.mapper.QuizAttemptMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class QuizSubmitEventService {

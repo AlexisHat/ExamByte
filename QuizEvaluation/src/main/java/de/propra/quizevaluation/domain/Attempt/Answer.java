@@ -1,6 +1,5 @@
-package de.propra.quizevaluation.domain;
+package de.propra.quizevaluation.domain.Attempt;
 
-import de.propra.quizevaluation.domain.db.QuestionType;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceCreator;
 import org.springframework.data.relational.core.mapping.Table;
