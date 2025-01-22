@@ -34,10 +34,10 @@ public class QuizRepositoryImpl implements QuizRepository {
 
 
     @Override
-    public Long save(Quiz quiz) {
+    public Quiz save(Quiz quiz) {
         QuizEntity quizEntity = QuizMapper.toQuizEntity(quiz);
         QuizEntity save = quizCrudRepository.save(quizEntity);
-        return save.getQuizId();
+        return QuizMapper.toDomain(save);
     }
 
     @Override

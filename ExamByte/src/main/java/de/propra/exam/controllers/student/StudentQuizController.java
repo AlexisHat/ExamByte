@@ -4,6 +4,7 @@ import de.propra.exam.DTO.QuestionDTO;
 import de.propra.exam.DTO.QuizOverviewDTO;
 import de.propra.exam.application.service.*;
 import de.propra.exam.application.service.annotations.StudentOnly;
+import de.propra.exam.application.service.events.QuizSubmitEventService;
 import de.propra.exam.domain.model.quiz.question.Question;
 import de.propra.exam.domain.model.quizattempt.QuizAttempt;
 import de.propra.exam.domain.model.quizattempt.answer.Answer;

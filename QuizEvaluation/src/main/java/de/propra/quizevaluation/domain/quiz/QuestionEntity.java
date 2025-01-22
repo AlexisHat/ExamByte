@@ -61,12 +61,12 @@ public class QuestionEntity {
                 QuestionType.MULTIPLE_CHOICE, options ,correctOptionIndex, null);
     }
 
-    public QuestionType getType() {
-        return type;
-    }
-
     public Long getQuestionId() {
         return questionId;
+    }
+
+    public Double getPoints() {
+        return points;
     }
 
     public String getTitel() {
@@ -77,23 +77,19 @@ public class QuestionEntity {
         return task;
     }
 
-    public List<String> getOptions() {
-        return Arrays.stream(options.split(","))
-                .collect(Collectors.toList());
+    public QuestionType getType() {
+        return type;
     }
 
+    public String getOptions() {
+        return options;
+    }
 
-    public List<Integer> getCorrectOptionIndex() {
-        return Arrays.stream(this.correctOptionIndex.split(","))
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
+    public String getCorrectOptionIndex() {
+        return correctOptionIndex;
     }
 
     public String getMusterLoesungForTextQuestion() {
         return musterLoesungForTextQuestion;
-    }
-
-    public Double getPoints() {
-        return points;
     }
 }

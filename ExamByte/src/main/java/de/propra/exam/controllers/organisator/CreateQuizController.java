@@ -3,6 +3,7 @@ package de.propra.exam.controllers.organisator;
 import de.propra.exam.DTO.QuestionDTO;
 import de.propra.exam.application.service.QuizService;
 import de.propra.exam.application.service.annotations.OrganisatorOnly;
+import de.propra.exam.application.service.events.QuizCreateEventService;
 import de.propra.exam.domain.model.quiz.Quiz;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +14,11 @@ import org.springframework.web.bind.annotation.*;
 public class CreateQuizController {
 
     private final QuizService quizService;
+    private final QuizCreateEventService quizCreateEventService;
 
-    public CreateQuizController(QuizService quizService) {
+    public CreateQuizController(QuizService quizService, QuizCreateEventService quizCreateEventService) {
         this.quizService = quizService;
+        this.quizCreateEventService = quizCreateEventService;
     }
 
     @ModelAttribute("quiz")

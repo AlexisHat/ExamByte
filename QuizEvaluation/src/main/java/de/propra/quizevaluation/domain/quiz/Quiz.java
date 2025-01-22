@@ -28,4 +28,36 @@ public class Quiz{
         this.resultTime = resultTime;
         this.questions = questions;
     }
+
+    public void setId(Long quizId) {
+        this.quizId = quizId;
+    }
+
+    public Long getId() {
+        return quizId;
+    }
+
+    public Long getQuizId() {
+        return quizId;
+    }
+
+    public String getQuizName() {
+        return quizName;
+    }
+
+    public LocalDateTime getStartTime() {
+        return startTime;
+    }
+
+    public LocalDateTime getEndTime() {
+        return endTime;
+    }
+
+    public LocalDateTime getResultTime() {
+        return resultTime;
+    }
+
+    public List<QuestionEntity> getQuestions() {
+        return questions;
+    }
 }

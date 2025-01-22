@@ -1,6 +1,7 @@
 package de.propra.exam.application.service;
 
 import de.propra.exam.DTO.QuestionDTO;
+import de.propra.exam.application.service.events.QuizCreateEventService;
 import de.propra.exam.domain.exceptions.IllegalQuestionIndexException;
 import de.propra.exam.domain.exceptions.QuizNotFoundException;
 import de.propra.exam.domain.model.quiz.*;
@@ -15,9 +16,11 @@ import java.util.List;
 public class QuizService {
 
     private final QuizRepository quizRepository;
+    private final QuizCreateEventService quizCreateEventService;
 
-    public QuizService(QuizRepository quizRepository) {
+    public QuizService(QuizRepository quizRepository, QuizCreateEventService quizCreateEventService) {
         this.quizRepository = quizRepository;
+        this.quizCreateEventService = quizCreateEventService;
     }
 
     public Quiz createQuiz() {
@@ -38,8 +41,10 @@ public class QuizService {
                 new QuizNotFoundException("Quiz mit ID " + quizId + " nicht gefunden"));
     }
 
-    public Long addQuiz(Quiz quiz) {
-        return quizRepository.save(quiz);
+    public Quiz addQuiz(Quiz quiz) {
+        Quiz save = quizRepository.save(quiz);
+        quizCreateEventService.addCreatedEvent(save);
+        return save;
     }
 
     public void createNewQuestionInQuiz(Quiz quiz, QuestionDTO questionDTO) {

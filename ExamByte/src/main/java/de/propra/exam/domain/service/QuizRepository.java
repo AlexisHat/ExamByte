@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface QuizRepository {
     List<Quiz> findAll();
-    Long save(Quiz quiz);
+    Quiz save(Quiz quiz);
     Optional<Quiz> findById(Long id);
 }

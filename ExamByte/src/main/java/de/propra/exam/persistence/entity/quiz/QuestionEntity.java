@@ -3,7 +3,6 @@ package de.propra.exam.persistence.entity.quiz;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceCreator;
-import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.util.Arrays;
@@ -77,16 +76,24 @@ public class QuestionEntity {
         return task;
     }
 
-    public List<String> getOptions() {
+    public List<String> getOptionsAsList() {
         return Arrays.stream(options.split(","))
                 .collect(Collectors.toList());
     }
 
 
-    public List<Integer> getCorrectOptionIndex() {
+    public List<Integer> getCorrectOptionIndexAsList() {
         return Arrays.stream(this.correctOptionIndex.split(","))
                 .map(Integer::parseInt)
                 .collect(Collectors.toList());
+    }
+
+    public String getOptions() {
+        return options;
+    }
+
+    public String getCorrectOptionIndex() {
+        return correctOptionIndex;
     }
 
     public String getMusterLoesungForTextQuestion() {

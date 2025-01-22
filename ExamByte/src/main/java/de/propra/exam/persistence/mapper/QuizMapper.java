@@ -56,8 +56,8 @@ public class QuizMapper {
                         .withPoints(questionEntity.getPoints())
                         .withTask(questionEntity.getTask())
                         .withTitle(questionEntity.getTitel())
-                        .withOptions(questionEntity.getOptions())
-                        .withCorrectOptionIndexes(questionEntity.getCorrectOptionIndex())
+                        .withOptions(questionEntity.getOptionsAsList())
+                        .withCorrectOptionIndexes(questionEntity.getCorrectOptionIndexAsList())
                         .build();
             }
             }

@@ -84,8 +84,6 @@ public class Quiz {
     }
 
     public boolean isBeendet(LocalDateTime now) {
-        System.out.println("Aktuelle Zeit: " + now);
-        System.out.println("Endzeit: " + endTime);
         return now.isAfter(endTime);
 
     }

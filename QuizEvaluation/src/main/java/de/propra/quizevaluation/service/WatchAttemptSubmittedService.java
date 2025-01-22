@@ -1,9 +1,9 @@
 package de.propra.quizevaluation.service;
 
-import de.propra.quizevaluation.domain.Answer;
+import de.propra.quizevaluation.domain.Attempt.Answer;
 import de.propra.quizevaluation.domain.QuizAbgeschlossen;
-import de.propra.quizevaluation.domain.Attempt;
-import de.propra.quizevaluation.domain.db.QuestionType;
+import de.propra.quizevaluation.domain.Attempt.Attempt;
+import de.propra.quizevaluation.domain.Attempt.QuestionType;
 import de.propra.quizevaluation.repo.AttemptReposittoryImpl;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import static java.lang.Math.max;
 @Service
 public class WatchAttemptSubmittedService {
 
-    AttemptReposittoryImpl attemptRepository;
+    private final AttemptReposittoryImpl attemptRepository;
     private final KorrektorService korrektorService;
 
     public WatchAttemptSubmittedService(AttemptReposittoryImpl attemptRepository, KorrektorService korrektorService) {
@@ -59,7 +59,7 @@ public List<QuizAbgeschlossen> fetch() {
             .get()
             .uri(
                     uriBuilder -> uriBuilder
-                            .path("/events")
+                            .path("/events/attempt/submitted")
                             .queryParam("nr", lastSeen)
                             .build()
             )
