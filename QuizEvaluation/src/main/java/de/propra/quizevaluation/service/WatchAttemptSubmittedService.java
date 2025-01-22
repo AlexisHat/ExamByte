@@ -43,6 +43,10 @@ public class WatchAttemptSubmittedService {
                     .filter(a -> a.getType().equals(QuestionType.TEXT))
                     .toList();
 
+            List<Answer> mutiple = event.antworten().stream()
+                    .filter(a -> a.getType().equals(QuestionType.MULTIPLE_CHOICE))
+                    .toList();
+
             korrektorService.distributeTextAnswers(textAntworten);
             attemptRepository.save(attempt);
         }
