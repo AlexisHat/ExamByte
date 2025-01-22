@@ -3,7 +3,6 @@ package de.propra.quizevaluation.service;
 import de.propra.quizevaluation.domain.Attempt.Answer;
 import de.propra.quizevaluation.domain.Korrektor;
 import de.propra.quizevaluation.domain.service.KorrektorRepo;
-import de.propra.quizevaluation.repo.AnswerRepoImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -15,7 +14,7 @@ public class KorrektorService {
     private final List<Korrektor> korrektoren;
     private final KorrektorRepo korrektorRepo;
 
-    public KorrektorService(KorrektorRepo korrektorRepo, AnswerRepoImpl answerRepo) {
+    public KorrektorService(KorrektorRepo korrektorRepo) {
         this.korrektoren = korrektorRepo.findAll();
         this.korrektorRepo = korrektorRepo;
     }
