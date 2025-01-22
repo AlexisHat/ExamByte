@@ -1,5 +1,6 @@
 package de.propra.quizevaluation.domain;
 
+import de.propra.quizevaluation.domain.Attempt.Answer;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceCreator;
 

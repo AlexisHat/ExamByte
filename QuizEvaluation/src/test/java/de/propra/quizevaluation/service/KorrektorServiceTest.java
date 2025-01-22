@@ -1,6 +1,6 @@
 package de.propra.quizevaluation.service;
 
-import de.propra.quizevaluation.domain.Answer;
+import de.propra.quizevaluation.domain.Attempt.Answer;
 import de.propra.quizevaluation.domain.Korrektor;
 import de.propra.quizevaluation.domain.service.KorrektorRepo;
 import org.junit.jupiter.api.DisplayName;

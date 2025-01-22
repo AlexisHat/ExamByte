@@ -1,6 +1,6 @@
 package de.propra.quizevaluation.repo;
 
-import de.propra.quizevaluation.domain.Attempt;
+import de.propra.quizevaluation.domain.Attempt.Attempt;
 import de.propra.quizevaluation.domain.service.AttemptRepo;
 import org.springframework.stereotype.Repository;
 

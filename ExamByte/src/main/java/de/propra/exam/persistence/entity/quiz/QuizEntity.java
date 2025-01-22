@@ -29,7 +29,6 @@ public class QuizEntity {
         this.questions = questions;
     }
 
-
     public QuizEntity(String quizName, LocalDateTime startTime, LocalDateTime endTime, LocalDateTime resultTime) {
         this(null, quizName, startTime, endTime, resultTime, new ArrayList<>());
     }

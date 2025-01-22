@@ -1,10 +1,9 @@
 package de.propra.quizevaluation.service;
 
-import de.propra.quizevaluation.domain.Answer;
+import de.propra.quizevaluation.domain.Attempt.Answer;
 import de.propra.quizevaluation.domain.Korrektor;
 import de.propra.quizevaluation.domain.service.KorrektorRepo;
 import de.propra.quizevaluation.repo.AnswerRepoImpl;
-import de.propra.quizevaluation.repo.KorrektorRepoImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
