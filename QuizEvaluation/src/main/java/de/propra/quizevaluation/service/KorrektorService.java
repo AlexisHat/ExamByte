@@ -14,12 +14,10 @@ public class KorrektorService {
 
     private final List<Korrektor> korrektoren;
     private final KorrektorRepo korrektorRepo;
-    private final AnswerRepoImpl answerRepo;
 
     public KorrektorService(KorrektorRepo korrektorRepo, AnswerRepoImpl answerRepo) {
         this.korrektoren = korrektorRepo.findAll();
         this.korrektorRepo = korrektorRepo;
-        this.answerRepo = answerRepo;
     }
 
     public void distributeTextAnswers(List<Answer> textAntworten) {
