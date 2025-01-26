@@ -1,5 +1,6 @@
 package de.propra.quizevaluation.repo;
 
+import de.propra.quizevaluation.domain.quiz.QuestionEntity;
 import de.propra.quizevaluation.domain.quiz.Quiz;
 import org.springframework.data.jdbc.repository.query.Modifying;
 import org.springframework.data.jdbc.repository.query.Query;
@@ -8,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Repository
 public interface QuizCrudRepo extends CrudRepository<Quiz, Long> {
@@ -35,4 +37,8 @@ public interface QuizCrudRepo extends CrudRepository<Quiz, Long> {
             @Param("correctOptionIndex") String correctOptionIndex,
             @Param("musterLoesungForTextQuestion") String musterLoesungForTextQuestion
     );
+
+    @Query("SELECT q FROM Quiz quiz JOIN question q ON q.quiz = quiz.quiz_id WHERE q.question_id = :questionId")
+    Optional<QuestionEntity> findQuestionById(@Param("questionId") Long questionId);
+
 }

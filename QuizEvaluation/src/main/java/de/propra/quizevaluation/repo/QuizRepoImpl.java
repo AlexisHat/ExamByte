@@ -52,6 +52,8 @@ public class QuizRepoImpl {
         }
     }
 
-
+    public QuestionEntity findQuestionById(Long questionId) {
+        return quizCrudRepository.findQuestionById(questionId).orElse(null);
+    }
 }
 
