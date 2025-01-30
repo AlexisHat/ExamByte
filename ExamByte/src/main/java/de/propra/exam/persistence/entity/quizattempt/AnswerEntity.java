@@ -26,31 +26,35 @@ public class AnswerEntity {
 
     private final LocalDateTime submittedAt;
 
+    private final Double points;
+
+
     private AnswerEntity(Long answerId, Long frageId, QuestionType type, String selectedOptions,
-                         String textAnswer, LocalDateTime submittedAt) {
+                         String textAnswer, LocalDateTime submittedAt, Double points) {
         this.answerId = answerId;
         this.frageId = frageId;
         this.type = type;
         this.selectedOptions = selectedOptions;
         this.textAnswer = textAnswer;
         this.submittedAt = submittedAt;
+        this.points = points;
     }
 
     @PersistenceCreator
     public static AnswerEntity of(Long answerId, Long frageId, QuestionType type,
-                                  String selectedOptions, String textAnswer, LocalDateTime submittedAt) {
-        return new AnswerEntity(answerId, frageId, type, selectedOptions, textAnswer, submittedAt);
+                                  String selectedOptions, String textAnswer, LocalDateTime submittedAt, Double points) {
+        return new AnswerEntity(answerId, frageId, type, selectedOptions, textAnswer, submittedAt, points);
     }
 
     public static AnswerEntity ofMultipleChoice(Long answerId, Long frageId, List<String> options,
                                                 LocalDateTime submittedAt) {
         String optionsAsString = String.join(",", options);
-        return new AnswerEntity(answerId, frageId, QuestionType.MULTIPLE_CHOICE, optionsAsString, null, submittedAt);
+        return new AnswerEntity(answerId, frageId, QuestionType.MULTIPLE_CHOICE, optionsAsString, null, submittedAt,null);
     }
 
     public static AnswerEntity ofText(Long answerId, Long frageId, String textAnswer,
                                       LocalDateTime submittedAt) {
-        return new AnswerEntity(answerId, frageId, QuestionType.TEXT, null, textAnswer, submittedAt);
+        return new AnswerEntity(answerId, frageId, QuestionType.TEXT, null, textAnswer, submittedAt,null);
     }
 
     public Long getAnswerId() {

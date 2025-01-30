@@ -6,6 +6,7 @@ public abstract class Answer {
     private final Long id;
     private final Long frageId;
     private LocalDateTime abgegebenAm;
+    private double points;
 
     public Answer(Long id, Long frageId, LocalDateTime abgegebenAm) {
         this.id = id;
@@ -29,5 +30,9 @@ public abstract class Answer {
 
     public void aktualisiereAbgabeZeit(LocalDateTime zeitpunkt) {
         this.abgegebenAm = zeitpunkt;
+    }
+
+    public void setPoints(double points) {
+        this.points = points;
     }
 }

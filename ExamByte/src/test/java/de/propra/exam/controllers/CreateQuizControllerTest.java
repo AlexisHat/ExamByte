@@ -17,6 +17,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -130,9 +132,10 @@ public class CreateQuizControllerTest {
     @WithMockOAuth2User(roles = "STUDENT")
     @DisplayName("Wir können an die URL add-questions als Student keine Post Request abgeben")
     void test_9() throws Exception {
-        mvc.perform(post("/add-questions"))
+        MvcResult mvcResult = mvc.perform(post("/add-questions"))
                 .andExpect(status().is4xxClientError())
                 .andReturn();
+
     }
 
     @Test

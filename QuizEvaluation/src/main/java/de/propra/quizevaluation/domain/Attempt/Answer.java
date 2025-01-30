@@ -23,21 +23,48 @@ public class Answer {
 
     private final LocalDateTime submittedAt;
 
+    private double points;
+
     @PersistenceCreator
-    public Answer(Long frageId, QuestionType type, List<String> selectedOptions, String textAnswer, LocalDateTime submittedAt, Long answerId) {
+    public Answer(Long frageId, QuestionType type, List<String> selectedOptions, String textAnswer, LocalDateTime submittedAt, Long answerId, double points) {
         this.frageId = frageId;
         this.type = type;
         this.selectedOptions = selectedOptions;
         this.textAnswer = textAnswer;
         this.submittedAt = submittedAt;
         this.answerId = answerId;
+        this.points = points;
     }
 
     public static Answer createDummyAnswer() {
-        return new Answer((long) (Math.random() * 100) + 1, QuestionType.TEXT, null, null, null, (long) (Math.random() * 100) + 1);
+        return new Answer((long) (Math.random() * 100) + 1, QuestionType.TEXT, null, null, null, (long) (Math.random() * 100) + 1, 1.0);
     }
 
     public QuestionType getType() {
         return type;
+    }
+
+    public Long getAnswerId() {
+        return answerId;
+    }
+
+    public Long getFrageId() {
+        return frageId;
+    }
+
+    public List<String> getSelectedOptions() {
+        return selectedOptions;
+    }
+
+    public String getTextAnswer() {
+        return textAnswer;
+    }
+
+    public LocalDateTime getSubmittedAt() {
+        return submittedAt;
+    }
+
+    public void setPoints(double points) {
+        this.points = points;
     }
 }

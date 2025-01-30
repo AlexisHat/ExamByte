@@ -19,10 +19,12 @@ public class WatchAttemptSubmittedService {
 
     private final AttemptReposittoryImpl attemptRepository;
     private final KorrektorService korrektorService;
+    private final CorrectionService correctionService;
 
-    public WatchAttemptSubmittedService(AttemptReposittoryImpl attemptRepository, KorrektorService korrektorService) {
+    public WatchAttemptSubmittedService(AttemptReposittoryImpl attemptRepository, KorrektorService korrektorService, CorrectionService correctionService) {
         this.attemptRepository = attemptRepository;
         this.korrektorService = korrektorService;
+        this.correctionService = correctionService;
     }
 
     int lastSeen = -1;
@@ -46,6 +48,8 @@ public class WatchAttemptSubmittedService {
             List<Answer> mutiple = event.antworten().stream()
                     .filter(a -> a.getType().equals(QuestionType.MULTIPLE_CHOICE))
                     .toList();
+
+            correctionService.autoCorrectMutiple(mutiple);
 
             korrektorService.distributeTextAnswers(textAntworten);
             attemptRepository.save(attempt);
