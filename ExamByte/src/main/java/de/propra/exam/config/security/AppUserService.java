@@ -2,8 +2,7 @@ package de.propra.exam.config.security;
 
 import de.propra.exam.config.RolesConfig;
 import de.propra.exam.domain.model.users.Student;
-import de.propra.exam.domain.service.StudentRepository;
-import de.propra.exam.persistence.repositories.impl.StudentRepositoryImpl;
+import de.propra.exam.application.service.repository.StudentRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;

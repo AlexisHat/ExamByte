@@ -1,7 +1,7 @@
 package de.propra.exam.controllers.student;
 
-import de.propra.exam.DTO.QuestionDTO;
-import de.propra.exam.DTO.QuizOverviewDTO;
+import de.propra.exam.domain.DTO.QuestionDTO;
+import de.propra.exam.domain.DTO.QuizOverviewDTO;
 import de.propra.exam.application.service.*;
 import de.propra.exam.application.service.annotations.StudentOnly;
 import de.propra.exam.application.service.events.QuizSubmitEventService;

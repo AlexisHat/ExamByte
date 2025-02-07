@@ -9,7 +9,7 @@ import de.propra.exam.domain.model.quiz.question.TextQuestion;
 import de.propra.exam.domain.model.quizattempt.answer.Answer;
 import de.propra.exam.domain.model.quizattempt.answer.MultipleChoiceAnswer;
 import de.propra.exam.domain.model.quizattempt.answer.TextAnswer;
-import de.propra.exam.domain.service.AttemptRepository;
+import de.propra.exam.application.service.repository.AttemptRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

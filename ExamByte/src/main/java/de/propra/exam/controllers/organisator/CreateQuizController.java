@@ -1,6 +1,6 @@
 package de.propra.exam.controllers.organisator;
 
-import de.propra.exam.DTO.QuestionDTO;
+import de.propra.exam.domain.DTO.QuestionDTO;
 import de.propra.exam.application.service.QuizService;
 import de.propra.exam.application.service.annotations.OrganisatorOnly;
 import de.propra.exam.application.service.events.QuizCreateEventService;

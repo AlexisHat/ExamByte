@@ -3,7 +3,7 @@ package de.propra.exam.application.service;
 import de.propra.exam.domain.exceptions.QuizAlreadyEndedException;
 import de.propra.exam.domain.exceptions.QuizNotStartedException;
 import de.propra.exam.domain.model.quiz.Quiz;
-import de.propra.exam.domain.service.Clock;
+import de.propra.exam.application.service.repository.Clock;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

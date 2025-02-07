@@ -1,16 +1,16 @@
 package de.propra.exam.DTO;
 
+import de.propra.exam.domain.DTO.QuizOverviewDTO;
+import de.propra.exam.domain.DTO.QuizStatus;
 import de.propra.exam.domain.model.quiz.Quiz;
 import de.propra.exam.domain.model.quizattempt.QuizAttempt;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 class QuizOverviewDTOTest {
 

@@ -1,9 +1,9 @@
 package de.propra.exam.application.service;
 
-import de.propra.exam.DTO.QuizOverviewDTO;
+import de.propra.exam.domain.DTO.QuizOverviewDTO;
 import de.propra.exam.domain.model.quiz.Quiz;
 import de.propra.exam.domain.model.quizattempt.QuizAttempt;
-import de.propra.exam.domain.service.AttemptRepository;
+import de.propra.exam.application.service.repository.AttemptRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

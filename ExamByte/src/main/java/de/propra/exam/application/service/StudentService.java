@@ -1,11 +1,8 @@
 package de.propra.exam.application.service;
 
 import de.propra.exam.domain.model.users.Student;
-import de.propra.exam.domain.service.StudentRepository;
+import de.propra.exam.application.service.repository.StudentRepository;
 import org.springframework.stereotype.Service;
-
-import java.time.format.SignStyle;
-import java.util.Optional;
 
 @Service
 public class StudentService {

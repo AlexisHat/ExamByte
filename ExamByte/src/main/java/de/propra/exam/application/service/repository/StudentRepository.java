@@ -1,4 +1,4 @@
-package de.propra.exam.domain.service;
+package de.propra.exam.application.service.repository;
 
 import de.propra.exam.domain.model.users.Student;
 

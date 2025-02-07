@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 @Service
 public class CorrectionService {
 
-
     private final QuizRepoImpl quizRepoImpl;
     private final AnswerRepoImpl answerRepoImpl;
 
@@ -55,6 +54,5 @@ public class CorrectionService {
             }
             answerRepoImpl.save(answer);
         }
-
     }
 }

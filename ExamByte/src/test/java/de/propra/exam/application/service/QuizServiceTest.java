@@ -1,21 +1,18 @@
 package de.propra.exam.application.service;
 
-import de.propra.exam.DTO.QuestionDTO;
+import de.propra.exam.domain.DTO.QuestionDTO;
 import de.propra.exam.config.TestcontainersConfiguration;
 import de.propra.exam.domain.exceptions.QuizNotFoundException;
 import de.propra.exam.domain.model.quiz.Quiz;
-import de.propra.exam.domain.service.QuizRepository;
+import de.propra.exam.application.service.repository.QuizRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
-import java.time.LocalDateTime;
-
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest
 @Import(TestcontainersConfiguration.class)

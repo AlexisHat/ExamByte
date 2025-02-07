@@ -1,7 +1,6 @@
 package de.propra.exam.application.service;
 
 import de.propra.exam.domain.exceptions.QuestionNotFoundException;
-import de.propra.exam.domain.exceptions.QuizNotStartedException;
 import de.propra.exam.domain.model.quiz.*;
 import de.propra.exam.domain.model.quiz.question.MultipleChoiceQuestion;
 import de.propra.exam.domain.model.quiz.question.Question;
@@ -10,13 +9,11 @@ import de.propra.exam.domain.model.quizattempt.answer.Answer;
 import de.propra.exam.domain.model.quizattempt.QuizAttempt;
 import de.propra.exam.domain.model.quizattempt.answer.MultipleChoiceAnswer;
 import de.propra.exam.domain.model.quizattempt.answer.TextAnswer;
-import de.propra.exam.domain.service.AttemptRepository;
+import de.propra.exam.application.service.repository.AttemptRepository;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service

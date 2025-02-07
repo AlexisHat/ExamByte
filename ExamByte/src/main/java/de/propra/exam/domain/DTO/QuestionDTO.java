@@ -1,4 +1,4 @@
-package de.propra.exam.DTO;
+package de.propra.exam.domain.DTO;
 
 import de.propra.exam.domain.model.quiz.question.MultipleChoiceQuestion;
 import de.propra.exam.domain.model.quiz.question.Question;

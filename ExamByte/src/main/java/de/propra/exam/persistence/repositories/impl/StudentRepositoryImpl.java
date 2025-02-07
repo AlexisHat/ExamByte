@@ -1,7 +1,7 @@
 package de.propra.exam.persistence.repositories.impl;
 
 import de.propra.exam.domain.model.users.Student;
-import de.propra.exam.domain.service.StudentRepository;
+import de.propra.exam.application.service.repository.StudentRepository;
 import de.propra.exam.persistence.entity.users.StudentEntity;
 import de.propra.exam.persistence.mapper.StudentMapper;
 import de.propra.exam.persistence.repositories.crud.StudentCrudRepository;

@@ -1,8 +1,8 @@
 package de.propra.exam.application.service;
 
-import de.propra.exam.DTO.QuizOverviewDTO;
+import de.propra.exam.domain.DTO.QuizOverviewDTO;
 import de.propra.exam.domain.model.quiz.Quiz;
-import de.propra.exam.domain.service.AttemptRepository;
+import de.propra.exam.application.service.repository.AttemptRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

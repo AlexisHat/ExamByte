@@ -1,13 +1,13 @@
 package de.propra.exam.application.service;
 
-import de.propra.exam.DTO.QuestionDTO;
+import de.propra.exam.domain.DTO.QuestionDTO;
 import de.propra.exam.application.service.events.QuizCreateEventService;
 import de.propra.exam.domain.exceptions.IllegalQuestionIndexException;
 import de.propra.exam.domain.exceptions.QuizNotFoundException;
 import de.propra.exam.domain.model.quiz.*;
 import de.propra.exam.domain.model.quiz.question.Question;
 import de.propra.exam.domain.model.quiz.question.QuestionBuilder;
-import de.propra.exam.domain.service.QuizRepository;
+import de.propra.exam.application.service.repository.QuizRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

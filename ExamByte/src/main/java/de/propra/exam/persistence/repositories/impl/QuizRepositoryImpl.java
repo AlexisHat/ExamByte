@@ -2,7 +2,7 @@ package de.propra.exam.persistence.repositories.impl;
 
 import de.propra.exam.domain.model.quiz.Quiz;
 import de.propra.exam.domain.model.quiz.question.Question;
-import de.propra.exam.domain.service.QuizRepository;
+import de.propra.exam.application.service.repository.QuizRepository;
 import de.propra.exam.persistence.entity.quiz.QuestionEntity;
 import de.propra.exam.persistence.entity.quiz.QuizEntity;
 import de.propra.exam.persistence.mapper.QuizMapper;
