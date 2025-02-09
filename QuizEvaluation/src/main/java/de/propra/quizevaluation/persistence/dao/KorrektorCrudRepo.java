@@ -1,4 +1,4 @@
-package de.propra.quizevaluation.repo;
+package de.propra.quizevaluation.persistence.dao;
 
 import de.propra.quizevaluation.domain.Korrektor;
 import org.springframework.data.repository.CrudRepository;

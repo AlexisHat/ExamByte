@@ -1,4 +1,4 @@
-package de.propra.quizevaluation.domain;
+package de.propra.quizevaluation.domain.events;
 
 import de.propra.quizevaluation.domain.quiz.Quiz;
 

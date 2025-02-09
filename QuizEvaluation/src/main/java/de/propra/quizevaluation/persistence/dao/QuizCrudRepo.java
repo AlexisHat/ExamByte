@@ -1,4 +1,4 @@
-package de.propra.quizevaluation.repo;
+package de.propra.quizevaluation.persistence.dao;
 
 import de.propra.quizevaluation.domain.quiz.QuestionEntity;
 import de.propra.quizevaluation.domain.quiz.Quiz;

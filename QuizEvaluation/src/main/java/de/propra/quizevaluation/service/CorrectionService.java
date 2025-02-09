@@ -3,13 +3,12 @@ package de.propra.quizevaluation.service;
 import de.propra.quizevaluation.domain.Attempt.Answer;
 import de.propra.quizevaluation.domain.Attempt.QuestionType;
 import de.propra.quizevaluation.domain.quiz.QuestionEntity;
-import de.propra.quizevaluation.repo.AnswerRepoImpl;
-import de.propra.quizevaluation.repo.QuizRepoImpl;
+import de.propra.quizevaluation.persistence.repo.AnswerRepoImpl;
+import de.propra.quizevaluation.persistence.repo.QuizRepoImpl;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CorrectionService {

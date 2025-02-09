@@ -1,10 +1,10 @@
 package de.propra.quizevaluation.service;
 
 import de.propra.quizevaluation.domain.Attempt.Answer;
-import de.propra.quizevaluation.domain.QuizAbgeschlossen;
+import de.propra.quizevaluation.domain.events.QuizAbgeschlossen;
 import de.propra.quizevaluation.domain.Attempt.Attempt;
 import de.propra.quizevaluation.domain.Attempt.QuestionType;
-import de.propra.quizevaluation.repo.AttemptReposittoryImpl;
+import de.propra.quizevaluation.persistence.repo.AttemptReposittoryImpl;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;

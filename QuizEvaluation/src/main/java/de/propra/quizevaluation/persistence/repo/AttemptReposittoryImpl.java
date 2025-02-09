@@ -1,7 +1,8 @@
-package de.propra.quizevaluation.repo;
+package de.propra.quizevaluation.persistence.repo;
 
 import de.propra.quizevaluation.domain.Attempt.Attempt;
 import de.propra.quizevaluation.domain.service.AttemptRepo;
+import de.propra.quizevaluation.persistence.dao.AttemptCrud;
 import org.springframework.stereotype.Repository;
 
 @Repository

@@ -1,7 +1,8 @@
-package de.propra.quizevaluation.repo;
+package de.propra.quizevaluation.persistence.repo;
 
 import de.propra.quizevaluation.domain.Korrektor;
 import de.propra.quizevaluation.domain.service.KorrektorRepo;
+import de.propra.quizevaluation.persistence.dao.KorrektorCrudRepo;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

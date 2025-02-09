@@ -1,7 +1,8 @@
-package de.propra.quizevaluation.repo;
+package de.propra.quizevaluation.persistence.repo;
 
 import de.propra.quizevaluation.domain.quiz.QuestionEntity;
 import de.propra.quizevaluation.domain.quiz.Quiz;
+import de.propra.quizevaluation.persistence.dao.QuizCrudRepo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
