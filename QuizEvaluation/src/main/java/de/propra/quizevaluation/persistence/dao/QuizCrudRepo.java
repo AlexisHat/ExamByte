@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -41,4 +42,6 @@ public interface QuizCrudRepo extends CrudRepository<Quiz, Long> {
     @Query("SELECT q FROM Quiz quiz JOIN question q ON q.quiz = quiz.quiz_id WHERE q.question_id = :questionId")
     Optional<QuestionEntity> findQuestionById(@Param("questionId") Long questionId);
 
+
+    List<Quiz> findAll();
 }

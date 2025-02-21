@@ -1,2 +1,2 @@
-alter table postgres.public.answer
+alter table answer
     add column points double precision;

@@ -3,5 +3,5 @@ create table if not exists korrektor(
     github_id varchar(255)
 );
 
-alter table postgres.public.answer
+alter table answer
 add column korrektor integer references korrektor(id);

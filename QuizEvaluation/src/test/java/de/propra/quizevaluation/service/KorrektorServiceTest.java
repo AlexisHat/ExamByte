@@ -3,6 +3,7 @@ package de.propra.quizevaluation.service;
 import de.propra.quizevaluation.domain.Attempt.Answer;
 import de.propra.quizevaluation.domain.Korrektor;
 import de.propra.quizevaluation.domain.service.KorrektorRepo;
+import de.propra.quizevaluation.persistence.repo.AnswerRepoImpl;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -21,9 +22,9 @@ public class KorrektorServiceTest {
     void test_01() {
         KorrektorRepo mockRepo = mock(KorrektorRepo.class);
         Korrektor dummy = Korrektor.createDummy();
-        when(mockRepo.findAll()).thenReturn(new ArrayList<>(List.of(dummy))); // Modifizierbare Liste
+        when(mockRepo.findAll()).thenReturn(new ArrayList<>(List.of(dummy)));
 
-        KorrektorService service = new KorrektorService(mockRepo);
+        KorrektorService service = new KorrektorService(mockRepo,null);
 
         List<Answer> answers = new ArrayList<>();
         answers.add(Answer.createDummyAnswer());

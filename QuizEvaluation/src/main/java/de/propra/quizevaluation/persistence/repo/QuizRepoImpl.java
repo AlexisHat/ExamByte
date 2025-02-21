@@ -6,6 +6,8 @@ import de.propra.quizevaluation.persistence.dao.QuizCrudRepo;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public class QuizRepoImpl {
     private final QuizCrudRepo quizCrudRepository;
@@ -55,6 +57,10 @@ public class QuizRepoImpl {
 
     public QuestionEntity findQuestionById(Long questionId) {
         return quizCrudRepository.findQuestionById(questionId).orElse(null);
+    }
+
+    public List<Quiz> findAll() {
+        return quizCrudRepository.findAll();
     }
 }
 

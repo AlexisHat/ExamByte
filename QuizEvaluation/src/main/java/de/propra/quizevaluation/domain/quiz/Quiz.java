@@ -6,6 +6,7 @@ import org.springframework.data.annotation.PersistenceCreator;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Table("quiz")
@@ -27,6 +28,10 @@ public class Quiz{
         this.endTime = endTime;
         this.resultTime = resultTime;
         this.questions = questions;
+    }
+
+    public static Quiz createDummyWithOneQuestion() {
+        return new Quiz(1L,"Bla",LocalDateTime.now(),LocalDateTime.now(),LocalDateTime.now(),List.of(QuestionEntity.ofMutiple(1L,1.0,"null","null","1,2","1")));
     }
 
     public void setId(Long quizId) {
@@ -60,4 +65,5 @@ public class Quiz{
     public List<QuestionEntity> getQuestions() {
         return questions;
     }
+
 }
