@@ -37,4 +37,8 @@ public class Korrektor {
     public int textAufgabenSize() {
         return textAufgaben.size();
     }
+
+    public Long getId() {
+        return id;
+    }
 }

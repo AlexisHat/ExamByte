@@ -1,6 +1,5 @@
 package de.propra.exam.application.service.events;
 
-import de.propra.exam.domain.model.events.QuizAbgeschlossen;
 import de.propra.exam.domain.model.quizattempt.answer.Answer;
 import de.propra.exam.persistence.entity.quizattempt.AnswerEntity;
 import de.propra.exam.persistence.mapper.QuizAttemptMapper;

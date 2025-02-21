@@ -1,6 +1,6 @@
 package de.propra.exam.application.service;
 
-import de.propra.exam.domain.DTO.QuestionDTO;
+import de.propra.exam.web.DTO.QuestionDTO;
 import de.propra.exam.application.service.events.QuizCreateEventService;
 import de.propra.exam.domain.exceptions.IllegalQuestionIndexException;
 import de.propra.exam.domain.exceptions.QuizNotFoundException;

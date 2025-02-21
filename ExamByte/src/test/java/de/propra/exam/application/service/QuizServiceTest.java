@@ -1,6 +1,6 @@
 package de.propra.exam.application.service;
 
-import de.propra.exam.domain.DTO.QuestionDTO;
+import de.propra.exam.web.DTO.QuestionDTO;
 import de.propra.exam.config.TestcontainersConfiguration;
 import de.propra.exam.domain.exceptions.QuizNotFoundException;
 import de.propra.exam.domain.model.quiz.Quiz;

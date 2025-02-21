@@ -1,12 +1,6 @@
 package de.propra.exam.application.service.events;
 
-import de.propra.exam.domain.model.events.QuizAbgeschlossen;
-import de.propra.exam.domain.model.events.QuizErstellt;
 import de.propra.exam.domain.model.quiz.Quiz;
-import de.propra.exam.domain.model.quizattempt.answer.Answer;
-import de.propra.exam.persistence.entity.quiz.QuizEntity;
-import de.propra.exam.persistence.entity.quizattempt.AnswerEntity;
-import de.propra.exam.persistence.mapper.QuizAttemptMapper;
 import de.propra.exam.persistence.mapper.QuizMapper;
 import org.springframework.stereotype.Service;
 
