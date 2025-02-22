@@ -1,4 +1,4 @@
-package de.propra.exam.web.DTO;
+package de.propra.exam.DTO;
 
 import de.propra.exam.domain.model.quiz.Quiz;
 import de.propra.exam.domain.model.quizattempt.QuizAttempt;

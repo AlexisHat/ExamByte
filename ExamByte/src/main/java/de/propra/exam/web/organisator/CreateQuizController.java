@@ -1,6 +1,6 @@
 package de.propra.exam.web.organisator;
 
-import de.propra.exam.web.DTO.QuestionDTO;
+import de.propra.exam.DTO.QuestionDTO;
 import de.propra.exam.application.service.QuizService;
 import de.propra.exam.application.service.annotations.OrganisatorOnly;
 import de.propra.exam.application.service.events.QuizCreateEventService;

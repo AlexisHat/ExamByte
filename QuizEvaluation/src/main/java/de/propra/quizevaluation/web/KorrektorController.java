@@ -3,6 +3,7 @@ package de.propra.quizevaluation.web;
 import de.propra.quizevaluation.config.annotations.KorrektorOnly;
 import de.propra.quizevaluation.domain.Attempt.Answer;
 import de.propra.quizevaluation.service.KorrektorService;
+import de.propra.quizevaluation.web.DTO.TextAnswerCorrectionDTO;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,8 @@ public class KorrektorController {
     public String index(Model model, @AuthenticationPrincipal OAuth2User principal) {
         Long korrektorId = getKorrektorId(principal);
         List<Answer> answers = korrektorService.getAnswersForKorrektorWithId(korrektorId);
+
+        List<TextAnswerCorrectionDTO> dto = korrektorService.createDtoFromAnswer(answers);
         model.addAttribute("answers", answers);
         return "index";
     }

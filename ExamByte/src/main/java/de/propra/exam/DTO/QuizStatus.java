@@ -1,4 +1,4 @@
-package de.propra.exam.web.DTO;
+package de.propra.exam.DTO;
 
 public enum QuizStatus {
     NOCH_NICHT_BEGONNEN,

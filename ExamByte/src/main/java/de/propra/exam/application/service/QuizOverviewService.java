@@ -1,6 +1,6 @@
 package de.propra.exam.application.service;
 
-import de.propra.exam.web.DTO.QuizOverviewDTO;
+import de.propra.exam.DTO.QuizOverviewDTO;
 import de.propra.exam.domain.model.quiz.Quiz;
 import de.propra.exam.domain.model.quizattempt.QuizAttempt;
 import de.propra.exam.application.service.repository.AttemptRepository;

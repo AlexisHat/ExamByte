@@ -1,7 +1,7 @@
 package de.propra.exam.web;
 
-import de.propra.exam.web.DTO.QuestionDTO;
-import de.propra.exam.web.DTO.QuizOverviewDTO;
+import de.propra.exam.DTO.QuestionDTO;
+import de.propra.exam.DTO.QuizOverviewDTO;
 import de.propra.exam.application.service.*;
 import de.propra.exam.web.config.security.AppUserService;
 import de.propra.exam.web.config.security.MethodSecurityConfig;
