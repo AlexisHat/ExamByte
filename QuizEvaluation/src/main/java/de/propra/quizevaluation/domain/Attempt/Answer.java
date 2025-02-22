@@ -56,6 +56,10 @@ public class Answer {
         return selectedOptions;
     }
 
+    public double getPoints() {
+        return points;
+    }
+
     public String getTextAnswer() {
         return textAnswer;
     }

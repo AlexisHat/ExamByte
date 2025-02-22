@@ -5,6 +5,12 @@
     <title>Korrektor</title>
 </head>
 <body>
-
+<h1>Antworten zur Korrektur</h1>
+<form method="post" th:action="/save-points">
+        <div th:each="answer : ${answers}">
+            <p th:text="${answer.getTextAnswer()}">Antwort Nachricht</p>
+        </div>
+    <button type="submit">Speichern</button>
+</form>
 </body>
 </html>
