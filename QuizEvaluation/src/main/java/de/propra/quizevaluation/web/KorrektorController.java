@@ -29,8 +29,11 @@ public class KorrektorController {
         Long korrektorId = getKorrektorId(principal);
         List<Answer> answers = korrektorService.getAnswersForKorrektorWithId(korrektorId);
 
+        //TODO ändern, dass die methode die nächste frage zurückgibt und beim submitten wird die frage aus der list gelösscht, falls punkte vergeben wurden.
+
+
         List<TextAnswerCorrectionDTO> dto = korrektorService.createDtoFromAnswer(answers);
-        model.addAttribute("answers", answers);
+        model.addAttribute("textanswers", dto);
         return "index";
     }
 

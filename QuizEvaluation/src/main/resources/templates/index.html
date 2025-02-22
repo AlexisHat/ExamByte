@@ -2,14 +2,23 @@
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Korrektor</title>
+    <title>Textantworten</title>
 </head>
 <body>
-<h1>Antworten zur Korrektur</h1>
-<form method="post" th:action="/save-points">
-        <div th:each="answer : ${answers}">
-            <p th:text="${answer.getTextAnswer()}">Antwort Nachricht</p>
-        </div>
+<h1>Fragebewertung</h1>
+<form action="#" method="post">
+    <div>
+        <h2 th:text="${textanswer.frageTitel}"></h2>
+        <p><strong>Aufgabe:</strong> <span th:text="${textanswer.frageTask}"></span></p>
+        <p><strong>Musterlösung:</strong></p>
+        <pre th:text="${textanswer.musterLoesung}"></pre>
+        <p><strong>Antwort:</strong></p>
+        <textarea th:text="${textanswer.antwort}" rows="5" cols="50" readonly></textarea>
+    </div>
+    <div>
+        <label for="points">Maximal mögliche Punkte <span th:text="${textanswer.maxPoints}"></span>):</label>
+        <input type="number" id="points" name="points" th:value="${textanswer.points}" th:max="${textanswer.maxPoints}" step="0.1">
+    </div>
     <button type="submit">Speichern</button>
 </form>
 </body>
