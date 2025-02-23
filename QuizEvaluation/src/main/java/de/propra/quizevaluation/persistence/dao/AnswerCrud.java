@@ -11,6 +11,6 @@ import java.util.List;
 @Repository
 public interface AnswerCrud extends CrudRepository<Answer, Long> {
 
-    @Query("SELECT FROM postgres.public.answer WHERE korrektor = :korrektorId")
+    @Query("SELECT FROM answer WHERE korrektor = :korrektorId AND answer.points is not null ")
     List<Answer> findAllByKorrektor(@Param("korrektorId") Long korrektorId);
 }

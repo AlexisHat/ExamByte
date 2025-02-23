@@ -53,20 +53,13 @@ public class KorrektorService {
         return answerRepoImpl.findAllForKorrektor(korrektorId);
     }
 
-    public List<TextAnswerCorrectionDTO> createDtoFromAnswer(List<Answer> answers) {
-        if (answers == null || answers.isEmpty()) {
-            return Collections.emptyList();
-        }
-
-        return answers.stream().map(a -> {
-            QuestionEntity questionById = quizRepoImpl.findQuestionById(a.getFrageId());
+    public TextAnswerCorrectionDTO createDtoFromAnswer(Answer answers) {
+            QuestionEntity questionById = quizRepoImpl.findQuestionById(answers.getFrageId());
             String musterLoesungForTextQuestion = questionById.getMusterLoesungForTextQuestion();
             String task = questionById.getTask();
             String titel = questionById.getTitel();
             Double maxPoints = questionById.getPoints();
 
-            return new TextAnswerCorrectionDTO(a.getTextAnswer(), titel, task,musterLoesungForTextQuestion ,maxPoints, a.getPoints());
-        }).collect(Collectors.toList());
+            return new TextAnswerCorrectionDTO(answers.getTextAnswer(), titel, task,musterLoesungForTextQuestion ,maxPoints, answers.getPoints());
     }
-
 }
