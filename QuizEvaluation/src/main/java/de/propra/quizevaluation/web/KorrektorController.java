@@ -39,7 +39,9 @@ public class KorrektorController {
 
     @PostMapping("/save")
     public String savePoints(@ModelAttribute TextAnswerCorrectionDTO textAnswerCorrectionDTO, @RequestParam("id") Long id) {
-
+        if (textAnswerCorrectionDTO.points() > textAnswerCorrectionDTO.maxPoints()) {
+           throw new IllegalArgumentException("points is " + textAnswerCorrectionDTO.points() + " but max points is " + textAnswerCorrectionDTO.maxPoints());
+        }
         korrektorService.updatePointsForAnswer(textAnswerCorrectionDTO, id);
         return "redirect:/";
     }
