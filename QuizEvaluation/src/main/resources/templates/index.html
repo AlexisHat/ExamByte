@@ -6,7 +6,8 @@
 </head>
 <body>
 <h1>Fragebewertung</h1>
-<form action="#" method="post">
+<form action="/save" method="post">
+    <input type="hidden" name="answerId" th:value="${id}">
     <div>
         <h2 th:text="${textanswer.frageTitel}"></h2>
         <p><strong>Aufgabe:</strong> <span th:text="${textanswer.frageTask}"></span></p>

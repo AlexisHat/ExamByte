@@ -62,4 +62,10 @@ public class KorrektorService {
 
             return new TextAnswerCorrectionDTO(answers.getTextAnswer(), titel, task,musterLoesungForTextQuestion ,maxPoints, answers.getPoints());
     }
+
+    public void updatePointsForAnswer(TextAnswerCorrectionDTO textAnswerCorrectionDTO, Long id) {
+        Answer byId = answerRepoImpl.findById(id);
+        byId.setPoints(textAnswerCorrectionDTO.points());
+        answerRepoImpl.save(byId);
+    }
 }

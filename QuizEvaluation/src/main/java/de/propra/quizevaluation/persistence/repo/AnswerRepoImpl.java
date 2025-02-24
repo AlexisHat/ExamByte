@@ -22,4 +22,8 @@ public class AnswerRepoImpl {
     public List<Answer> findAllForKorrektor(Long korrektorId) {
         return answerCrud.findAllByKorrektor(korrektorId);
     }
+
+    public Answer findById(Long id) {
+        return answerCrud.findById(id).orElse(null);
+    }
 }

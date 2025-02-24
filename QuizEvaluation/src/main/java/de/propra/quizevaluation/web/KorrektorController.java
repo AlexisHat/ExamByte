@@ -8,8 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -31,11 +30,19 @@ public class KorrektorController {
 
         Answer firstAnswer = answers.getFirst();
 
+        model.addAttribute("id", firstAnswer.getAnswerId());
+
         TextAnswerCorrectionDTO dto = korrektorService.createDtoFromAnswer(firstAnswer);
         model.addAttribute("textanswer", dto);
         return "index";
     }
 
+    @PostMapping("/save")
+    public String savePoints(@ModelAttribute TextAnswerCorrectionDTO textAnswerCorrectionDTO, @RequestParam("id") Long id) {
+
+        korrektorService.updatePointsForAnswer(textAnswerCorrectionDTO, id);
+        return "redirect:/";
+    }
 
     private Long getKorrektorId(OAuth2User principal) {
         Object idO = principal.getAttribute("id");
