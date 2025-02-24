@@ -24,7 +24,7 @@ public class KorrektorServiceTest {
         Korrektor dummy = Korrektor.createDummy();
         when(mockRepo.findAll()).thenReturn(new ArrayList<>(List.of(dummy)));
 
-        KorrektorService service = new KorrektorService(mockRepo,null);
+        KorrektorService service = new KorrektorService(mockRepo,null,null);
 
         List<Answer> answers = new ArrayList<>();
         answers.add(Answer.createDummyAnswer());
