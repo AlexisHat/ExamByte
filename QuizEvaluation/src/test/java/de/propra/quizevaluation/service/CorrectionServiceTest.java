@@ -37,4 +37,21 @@ class CorrectionServiceTest {
         correctionService.autoCorrectMutiple(answers);
         assertThat(a.getPoints()).isEqualTo(0);
     }
+
+    @Test
+    @DisplayName("Wenn alle antworten richtig sind werden die maximalen punkte gesetzt")
+    void test_02(){
+        Double MAXPOINTS = 420.0;
+
+        List<Answer> answers = new ArrayList<>();
+        Answer a = Answer.createDummyMutipleAnswer();
+
+        a.setPoints(10069);
+
+        answers.add(a);
+
+        when(quizRepo.findQuestionById(a.getFrageId())).thenReturn(QuestionEntity.ofMutiple(1L,MAXPOINTS,"null","null","1,2","1"));
+        correctionService.autoCorrectMutiple(answers);
+        assertThat(a.getPoints()).isEqualTo(MAXPOINTS);
+    }
 }

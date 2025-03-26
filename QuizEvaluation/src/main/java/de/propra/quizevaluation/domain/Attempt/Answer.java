@@ -41,7 +41,7 @@ public class Answer {
     }
 
     public static Answer createDummyMutipleAnswer() {
-        return new Answer((long) (Math.random() * 100) + 1, QuestionType.MULTIPLE_CHOICE, List.of("",""), null, null, (long) (Math.random() * 100) + 1, 1.0);
+        return new Answer((long) (Math.random() * 100) + 1, QuestionType.MULTIPLE_CHOICE, List.of("1"), null, null, (long) (Math.random() * 100) + 1, 1.0);
     }
 
     public QuestionType getType() {
