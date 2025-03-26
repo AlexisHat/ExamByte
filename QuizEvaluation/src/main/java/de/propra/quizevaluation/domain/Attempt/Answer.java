@@ -40,6 +40,10 @@ public class Answer {
         return new Answer((long) (Math.random() * 100) + 1, QuestionType.TEXT, null, null, null, (long) (Math.random() * 100) + 1, 1.0);
     }
 
+    public static Answer createDummyMutipleAnswer() {
+        return new Answer((long) (Math.random() * 100) + 1, QuestionType.MULTIPLE_CHOICE, List.of("",""), null, null, (long) (Math.random() * 100) + 1, 1.0);
+    }
+
     public QuestionType getType() {
         return type;
     }
